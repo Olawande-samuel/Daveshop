@@ -1,0 +1,301 @@
+@import "./Components/Styles/_purchase.scss";
+@import "./Components/Styles/_logUp.scss";
+@import "./Components/Styles/_wallet.scss";
+
+@mixin border {
+	border: 1px solid tomato;
+}
+
+$btnColor: #1fc69d;
+$bckgroundBlue: #ebfaff;
+$greyAccent: #e5e5e5;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	font-family: "Nunito", sans-serif !important;
+	position: relative;
+}
+h3 {
+	text-decoration: underline;
+}
+// ****************NAVBAR**************************
+nav {
+	border-bottom: 1px solid $greyAccent;
+	// position: fixed;
+}
+.nav-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.left {
+		display: flex;
+		justify-content: space-between;
+		.logo {
+			margin-left: 15px;
+		}
+	}
+}
+.hamburger-icon {
+	cursor: pointer;
+}
+.signup-wrapper {
+	display: flex;
+	flex-direction: row !important;
+}
+
+//********************SIDEBAR********************************
+
+.sideBar {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	backdrop-filter: contrast(0.5);
+	z-index: 2;
+	background-color: rgba(235, 250, 255, 0.3);
+	transition: all .3s ease-in-out;
+	
+}
+.closeBar {
+	left: -100vw;
+}
+.sidebar-content-wrapper {
+	height: 100vh;
+	width: 60%;
+	background: white;
+
+	.top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px;
+		border-bottom: 1px solid $greyAccent;
+	}
+
+	.mid ul {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		li {
+			padding: 20px 10px;
+			border-bottom: 1px solid $greyAccent;
+		}
+	}
+	.bottom {
+		width: 100%;
+		min-height: 150px;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+	}
+}
+// *********************HERO STYLES********************
+.hero {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap-reverse;
+	align-items: center;
+	padding: 60px 10px;
+}
+
+.left {
+	padding: 10px 0;
+}
+.left .content {
+	width: 70%;
+
+	h1 {
+		font-weight: 600;
+
+		margin-bottom: 15px;
+		font-size: 30px;
+	}
+	p {
+		// width: 70%;
+		margin-bottom: 15px;
+	}
+}
+
+.back-img {
+	max-width: 40%;
+}
+.top-img {
+	width: 100%;
+}
+.right .wrapper {
+	position: relative;
+	height: 100%;
+}
+
+.button {
+	background: $btnColor;
+	font-weight: 600;
+	color: white;
+	border: none;
+	outline: none;
+	padding: 10px 20px;
+}
+.btn-large {
+	width: 100%;
+	border-radius: 4px;
+	font-size: 18px;
+	padding: 5px;
+	margin-top: 15px;
+}
+.nav-btn {
+	width: 70%;
+	border-radius: 3px;
+}
+.login-btn,
+.signup-btn {
+	outline: none;
+	border: none;
+	background: inherit;
+}
+
+.login-btn {
+	margin-left: 5px;
+	color: $btnColor;
+	font-weight: 600;
+}
+// ***************TODO SECTION**************
+.todo-section {
+	background: $bckgroundBlue;
+	padding-top: 20px;
+	.mini-card-wrapper {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 150px);
+		grid-gap: 15px;
+		padding: 10px;
+	}
+	.mini-card {
+		background: #fff;
+		padding: 20px;
+		border-radius: 5px;
+		color: inherit;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		&:hover {
+			text-decoration: none;
+		}
+
+		.mini-card-content {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+	}
+}
+
+// ***************ABOUT**************
+.about {
+	padding-top: 24px;
+}
+.about .img-wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 24px 0;
+
+	img {
+		max-width: 100%;
+		margin: auto;
+	}
+}
+
+// *****************QUALITIES SECTION*************************
+.qualities {
+	background: $bckgroundBlue;
+	padding: 20px 55px;
+}
+.qualities .card {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding: 10px;
+	margin: 20px 0 10px 0;
+	border-radius: 8px;
+
+	h5 {
+		font-size: 18px;
+		font-weight: 700;
+		margin-top: 10px;
+	}
+}
+
+// *********************FOOTER********************************
+
+footer {
+	background: #22252c;
+	color: white;
+	h4 {
+		font-size: 16px;
+		font-weight: 700;
+	}
+	ul {
+		list-style: none;
+
+		li a {
+			color: white;
+			font-size: 14px;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+.footer-wrapper {
+	padding: 20px;
+
+	.lists-wrapper {
+		display: flex;
+		justify-content: space-between;
+	}
+}
+
+@media screen and (max-width: 380px) {
+	.todo-section {
+		padding: 10px;
+		.mini-card {
+			height: 120px;
+			padding: 5px;
+
+			.mini-card-content {
+				// border: 1px solid tomato;
+				min-height: 100%;
+				padding: 10px;
+				// display: flex;
+				// flex-direction: column;
+				// justify-content: space-between;
+			}
+		}
+	}
+	.todo-section .mini-card-wrapper {
+		// display: unset;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		// height: 600px;
+	}
+
+	.qualities {
+		background: $bckgroundBlue;
+		padding: 24px 10px;
+	}
+
+	.about {
+		padding: 24px 10px;
+	}
+}

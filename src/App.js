@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Airtime from "./Components/Airtime";
+import Data from "./Components/Data";
+import Login from "./Components/Login";
+import SignUp from "./Components/SignUp";
+import Wallet from "./Components/Wallet";
+import Homepage from "./Components/Homepage";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Router>
+			<div className="App">
+				
+				<Switch>
+					<Route path="/" exact component={Homepage} />
+					<Route path="/buy-airtime" component={Airtime} />
+					<Route path="/buy-data" component={Data} />
+					<Route path="/login" component={Login} />
+					<Route path="/sign-up" component={SignUp} />
+				</Switch>
+			</div>
+		</Router>
+	);
 }
 
 export default App;

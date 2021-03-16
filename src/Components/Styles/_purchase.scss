@@ -1,0 +1,84 @@
+$btnColor: #1fc69d;
+$bckgroundBlue: #ebfaff;
+$greyAccent: #e5e5e5;
+
+.purchase {
+	padding: 20px 30px 10px 30px;
+	min-height: 100vh;
+
+	h5 {
+		font-weight: 600;
+		margin-bottom: 20px;
+	}
+}
+.subheading {
+	font-size: 18px;
+	font-weight: 600;
+}
+.purchaseNav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+.phone,
+.amount {
+	display: flex;
+	flex-direction: column;
+}
+
+// ***************DATA RADIO STYLES*********************
+.radio-wrapper {
+	border: 1px solid $greyAccent;
+	padding: 10px;
+}
+.radio {
+	border-bottom: 1px solid $greyAccent;
+
+	&:last-child {
+		border-bottom: 0;
+	}
+}
+.radio,
+.radio .wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.wrap .name {
+	margin-right: 15px;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+	padding: 5px 10px;
+	margin: 10px 0;
+	border-radius: 4px;
+	border: 1px solid $greyAccent;
+}
+
+// ****************NETWORK RADIO STYLES******************************
+
+.network [type="radio"] {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+[type="radio"] + img {
+	cursor: pointer;
+}
+
+[type="radio"]:checked + img {
+	outline: 2px solid springgreen;
+}
+
+.network-wrap label {
+	margin-right: 5px;
+
+	&:last-child {
+		margin-right: 0;
+	}
+}
