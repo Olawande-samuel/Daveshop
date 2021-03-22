@@ -25,8 +25,14 @@ h3 {
 // ****************NAVBAR**************************
 nav {
 	border-bottom: 1px solid $greyAccent;
-	// position: fixed;
+	position: fixed;
+	background-color: white;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 2;
 }
+
 .nav-wrapper {
 	display: flex;
 	justify-content: space-between;
@@ -58,9 +64,9 @@ nav {
 	backdrop-filter: contrast(0.5);
 	z-index: 2;
 	background-color: rgba(235, 250, 255, 0.3);
-	transition: all .3s ease-in-out;
-	
+	transition: all 0.3s ease-in-out;
 }
+
 .closeBar {
 	left: -100vw;
 }
@@ -85,6 +91,19 @@ nav {
 		li {
 			padding: 20px 10px;
 			border-bottom: 1px solid $greyAccent;
+
+			a {
+				cursor: pointer;
+				color: black;
+				padding: 5px;
+				transition: all 0.3s ease-in-out;
+				font-weight: 600;
+
+				&:hover {
+					color: $btnColor;
+					text-decoration: none;
+				}
+			}
 		}
 	}
 	.bottom {
@@ -112,7 +131,6 @@ nav {
 
 	h1 {
 		font-weight: 600;
-
 		margin-bottom: 15px;
 		font-size: 30px;
 	}
@@ -131,6 +149,11 @@ nav {
 .right .wrapper {
 	position: relative;
 	height: 100%;
+}
+.right-img {
+	background: url(./Images/Ellipse1.png) no-repeat;
+	background-size: 300px;
+	background-position-x: 70%;
 }
 
 .button {
@@ -168,6 +191,7 @@ nav {
 .todo-section {
 	background: $bckgroundBlue;
 	padding-top: 20px;
+
 	.mini-card-wrapper {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -217,12 +241,13 @@ nav {
 // *****************QUALITIES SECTION*************************
 .qualities {
 	background: $bckgroundBlue;
-	padding: 20px 55px;
+	padding: 10px 55px;
+}
+
+.card-wrapper-container {
+	height: 100%;
 }
 .qualities .card {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
 	padding: 10px;
 	margin: 20px 0 10px 0;
 	border-radius: 8px;
@@ -265,7 +290,19 @@ footer {
 	}
 }
 
+.homepage section {
+	min-height: 100vh;
+	padding-top: 30px;
+}
 @media screen and (max-width: 380px) {
+	.homepage section {
+		min-height: 100vh;
+		padding-top: 50px;
+	}
+	.right-img {
+		background-position-x: 70%;
+		background-size: 150px;
+	}
 	.todo-section {
 		padding: 10px;
 		.mini-card {
@@ -273,21 +310,15 @@ footer {
 			padding: 5px;
 
 			.mini-card-content {
-				// border: 1px solid tomato;
 				min-height: 100%;
 				padding: 10px;
-				// display: flex;
-				// flex-direction: column;
-				// justify-content: space-between;
 			}
 		}
 	}
 	.todo-section .mini-card-wrapper {
-		// display: unset;
 		display: flex;
 		flex-direction: column;
 		flex-wrap: wrap;
-		// height: 600px;
 	}
 
 	.qualities {
@@ -297,5 +328,212 @@ footer {
 
 	.about {
 		padding: 24px 10px;
+	}
+}
+@media screen and (max-width: 500px) {
+	.right-img {
+		background-position-x: 70%;
+		background-size: 200px;
+	}
+}
+@media screen and (max-width: 990px) {
+	.hero .left h1 {
+		font-size: 30px;
+	}
+}
+@media screen and (min-width: 991px) {
+	.hero .left h1 {
+		font-size: 50px;
+	}
+}
+@media screen and (min-width: 800px) {
+	nav .right > a {
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+	.hamburger {
+		display: none;
+	}
+	.lg-btn-screen {
+		background: $btnColor;
+		font-weight: 600;
+		color: white;
+		border: none;
+		outline: none;
+		padding: 8px 20px;
+		border-radius: 4px;
+	}
+	.sideBar {
+		position: unset;
+		height: unset;
+		width: unset;
+		background: inherit;
+	}
+
+	.sidebar-content-wrapper {
+		height: unset;
+		width: unset;
+		background: inherit;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.top {
+			display: none;
+		}
+
+		.mid ul {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			list-style-type: none;
+			margin-bottom: 0;
+
+			li {
+				padding: 0 10px;
+				border-bottom: none;
+
+				a {
+					color: black;
+					padding: 5px;
+					transition: all 0.3s ease-in-out;
+					font-weight: 600;
+					cursor: pointer;
+
+					&:hover {
+						text-decoration: none;
+						color: $btnColor;
+					}
+				}
+			}
+		}
+		.bottom {
+			display: none;
+		}
+	}
+
+	.hero {
+		flex-wrap: nowrap;
+		padding: 60px 0;
+
+		.left {
+			.content {
+				min-height: 300px;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				align-items: flex-start;
+			}
+			* {
+				margin-bottom: 30px;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+			// h1 {
+			// 	font-size: 50px;
+			// }
+		}
+	}
+
+	.todo-section {
+		background: $bckgroundBlue;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		// @include border;
+		// padding-top: 20px;
+		.mini-card-wrapper {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: repeat(1, 200px);
+			grid-gap: 15px;
+			padding: 60px 10px;
+		}
+		.mini-card {
+			box-shadow: rgba(0, 0, 0, 0.3) 5px 0 12px;
+
+			&:hover {
+				text-decoration: none;
+			}
+
+			.mini-card-content {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+		}
+	}
+
+	.about {
+		padding: 24px;
+		.about-content {
+			display: flex;
+			flex-direction: row-reverse;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.img-wrapper {
+			// border: 1px solid tomato;
+
+			.about-img {
+				width: 100%;
+			}
+		}
+		.about-text {
+			text-align: left !important;
+			width: 80%;
+		}
+	}
+
+	.qualities {
+		padding: 40px 55px;
+		.card-wrapper {
+			margin: 20px 0;
+		}
+	}
+
+	.qualities .card {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		padding: 20px 10px;
+		margin: 20px 0 10px 0;
+		border-radius: 8px;
+
+		h5 {
+			font-size: 18px;
+			font-weight: 700;
+			margin-top: 10px;
+		}
+	}
+
+	footer {
+		h4 {
+			text-align: center;
+			font-size: 25px;
+		}
+		.lists ul {
+			display: flex;
+
+			li {
+				margin-right: 5px;
+				padding: 8px 12px;
+				&:last-child {
+					margin-right: 0;
+				}
+
+				a {
+					font-size: 18px;
+				}
+			}
+		}
 	}
 }

@@ -1,20 +1,22 @@
 import React from "react";
-import CloseBtn from "../../Images/Icons/back.svg";
-import Back from "../../Images/Icons/close.svg";
 import { Link } from "react-router-dom";
+import { IoChevronBack, IoCloseSharp } from "react-icons/io5";
+
+
 function SubNav({ title }) {
+	
 	return (
-		<div>
-			<div className="purchaseNav">
+		<div className="interactive-nav-wrapper">
+			<div className="interactive-nav">
 				<div className="back">
 					<Link to="/" exact>
-						<img src={Back} alt="back" />
+						<IoChevronBack style={{ fontSize: "24px", color: "black" }} />
 					</Link>
 				</div>
 				<p>{title}</p>
 				<div className="cancel">
 					<Link to="/" exact>
-						<img src={CloseBtn} alt="close" />
+						<IoCloseSharp style={{ fontSize: "24px", color: "black" }} />
 					</Link>
 				</div>
 			</div>

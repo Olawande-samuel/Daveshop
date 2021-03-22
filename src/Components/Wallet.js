@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import SubNav from "./Reusables/SubNav";
 import Add from "../Images/Icons/Add.svg";
+import Login from "./Login";
+
 
 function Wallet() {
+	const [isAuth, setIsAuth] = useState(false);
+
+	if (isAuth) {
+		return <MyWallet />;
+	} else {
+		return <Login/>
+	}
+}
+
+export const MyWallet = () => {
 	return (
 		<div className="purchase">
 			<SubNav />
@@ -22,5 +34,5 @@ function Wallet() {
 			</div>
 		</div>
 	);
-}
+};
 export default Wallet;

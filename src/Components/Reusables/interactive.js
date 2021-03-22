@@ -1,16 +1,17 @@
 import React from "react";
-import Button from "../Reusables/Button";
+import Button from "./Button";
 import Glo from "../../Images/Icons/Glo.svg";
 import Airtel from "../../Images/Icons/Airtel.svg";
 import Mtn from "../../Images/Icons/Mtn.svg";
 import NineMobile from "../../Images/Icons/Etisalat.svg";
 import SubNav from "./SubNav";
 
-
 function Purchase({ header, rest }) {
 	return (
 		<div>
-			<SubNav />
+			<div>
+				<SubNav />
+			</div>
 			<header>
 				<h5 className="text-center">{header}</h5>
 			</header>

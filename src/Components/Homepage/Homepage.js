@@ -6,12 +6,15 @@ import Qualities from "./Qualities";
 import Footer from "./Footer";
 import Navv from "./NavBar";
 
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 function Homepage() {
-	
 	return (
-		<div>
-			<Navv/>
-			<Hero />
+		<div className="homepage">
+			<div className="container">
+				<Navv />
+				<Hero />
+			</div>
 			<TodoSection />
 			<About />
 			<Qualities />
