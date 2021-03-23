@@ -66,7 +66,12 @@ function SignUp() {
 		fetch(`https://jsonplaceholder.typicode.com/posts`, {
 			method: "post",
 			body: newUser,
-		}).then((res) => console.log(res));
+		}).then((res) => {
+			if (res.ok === true) {
+				alert("successful");
+			}
+			console.log(res.ok);
+		});
 	};
 
 	const signUpSubmit = () => {
@@ -74,11 +79,11 @@ function SignUp() {
 		// const localUser = JSON.stringify(newUser);
 		// localStorage.setItem("user data", localUser);
 		addNewUser();
-		setTimeout(() => {
-			clearInputs();
-			console.log(newUser);
-			localStorage.removeItem("user data");
-		}, 2000);
+		// setTimeout(() => {
+		// 	clearInputs();
+		// 	console.log(newUser);
+		// 	localStorage.removeItem("user data");
+		// }, 2000);
 	};
 
 	return (
