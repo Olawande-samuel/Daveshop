@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import SubNav from "./Reusables/SubNav";
 import Button from "./Reusables/Button";
 import { Link } from "react-router-dom";
+import { postUser } from "./Reusables/Amount";
+import Loading from "./Reusables/Loading";
 
 function SignUp() {
 	const [newUser, setNewUser] = useState({
@@ -11,7 +13,7 @@ function SignUp() {
 		phone: 0,
 		password: "",
 	});
-
+	const [isLoading, setIsLoading] = useState(false)
 	const handleFirstName = (e) => {
 		e.persist();
 		setNewUser((user) => ({
@@ -62,23 +64,25 @@ function SignUp() {
 			password: "",
 		}));
 	};
-	const addNewUser = () => {
-		fetch(`https://jsonplaceholder.typicode.com/posts`, {
-			method: "post",
-			body: newUser,
-		}).then((res) => {
-			if (res.ok === true) {
-				alert("successful");
-			}
-			console.log(res.ok);
-		});
-	};
+	// const addNewUser = () => {
+	// 	// fetch(`https://jsonplaceholder.typicode.com/posts`, {
+	// 	// 	method: "post",
+	// 	// 	body: newUser,
+	// 	// }).then((res) => {
+	// 	// 	if (res.ok === true) {
+	// 	// 		alert("successful");
+	// 	// 	}
+	// 	// 	console.log(res.ok);
+	// 	// });
+	// 	postUser()
+
+	// };
 
 	const signUpSubmit = () => {
 		// console.log(newUser);
 		// const localUser = JSON.stringify(newUser);
 		// localStorage.setItem("user data", localUser);
-		addNewUser();
+		postUser(setIsLoading, newUser);
 		// setTimeout(() => {
 		// 	clearInputs();
 		// 	console.log(newUser);
@@ -86,7 +90,7 @@ function SignUp() {
 		// }, 2000);
 	};
 
-	return (
+	return (isLoading===true ? <Loading /> :
 		<div className="purchase-wrapper">
 			<div className="purchase">
 				<SubNav />

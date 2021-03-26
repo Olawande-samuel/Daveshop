@@ -27,6 +27,10 @@ function App() {
 					<Route path="/sign-up" component={SignUp} />
 					<Route path="/wallet" component={Wallet} />
 					<Route path="/reset-password" component={ResetPassword} />
+					<Route path="*" component={Homepage}>
+						<Redirect to="/" />
+					</Route>
+
 				</Switch>
 			</div>
 		</Router>

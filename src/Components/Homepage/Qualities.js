@@ -40,9 +40,9 @@ function Qualities() {
 							<Card
 								cardLogo={
 									<svg
-										width="18"
-										height="21"
-										viewBox="0 0 18 21"
+									width="43"
+									height="41"
+									viewBox="0 0 43 41"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg"
 									>

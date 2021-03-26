@@ -9,7 +9,7 @@ function TodoSection() {
 		<>
 			<Element id='todoSection' name='todoSection'>
 				<section className="todo-section d-flex justify-content-center align-items-center flex-column">
-					<h4 className="text-center mb-5">What will you like to do today?</h4>
+					<h4 className="text-center mb-3 todo-title">What will you like to do today?</h4>
 					<div className="mini-card-wrapper container">
 						<Link to="/buy-airtime" className="mini-card">
 							<MiniCard

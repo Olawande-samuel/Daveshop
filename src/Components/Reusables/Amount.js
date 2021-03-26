@@ -38,3 +38,29 @@ export const Package = () => {
 		</div>
 	);
 };
+
+  export const getUser =  async (isfetch, setFetch) =>{
+	  setFetch(true)
+	fetch(`./text.txt`)
+	.then(res=>{res.text();
+		if(res.status >= 200 && res.ok === true){
+			setFetch(false)
+		}
+		console.log(res)})
+}
+
+export const postUser = async (setFetch, newUser) => {
+	setFetch(true);
+	fetch(`./text.txt`, {
+		method:"post",
+		body: newUser,
+	}).then(res =>{
+		if(res.status >=200 && res.ok ===true){
+			setFetch(false)
+		}else if(res.staus >=400 || res.ok ===false){
+			alert('An error has occured')
+			setFetch(false)
+		}
+		console.log(res);
+	})
+}

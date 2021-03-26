@@ -12,7 +12,7 @@ function About() {
 						<div className="img-wrapper">
 							<img src={aboutImg} alt="Random" className="about-img" />
 						</div>
-						<div>
+						<div className="text-wrapper">
 							<p className="text-center about-text">
 								Lorem ipsum dolor sit amet consectetur adipisicing elit.
 								Provident, non accusamus? Enim, voluptate velit voluptatem

@@ -8,7 +8,8 @@ function MiniCard({ miniLogo, miniTitle }) {
 					<i>{miniLogo}</i>
 				</div>
 			</div>
-			<h5>{miniTitle}</h5>
+			<p>{miniTitle}</p
+			>
 		</div>
 	);
 }

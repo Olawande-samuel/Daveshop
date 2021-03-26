@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import SubNav from "./Reusables/SubNav";
 import Button from "./Reusables/Button";
 import Eye from "../Images/Icons/Eye.svg";
-import { Link } from "react-router-dom";
+import {getUser} from "./Reusables/Amount"
+import { Link, Route, Redirect } from "react-router-dom";
+import Dashboard from "./Others/Dashboard";
+
 
 function Login() {
 	// state for toggle password
 	const [showPassword, setShowPassword] = useState("password");
+
+	//state for loading screen
+	const [isFetching, setIsFetching] =useState(false)
 
 	// state object for user details
 	const [user, setUser] = useState({
@@ -14,9 +20,11 @@ function Login() {
 		email: "",
 		password: "",
 	});
-	// state for remember me
+	
+	// state for remember me/ storing to local storage or not
 	const [remember, setRemember] = useState(false);
-
+	
+	//for remember me check button 
 	const rememberMe = () => {
 		remember === false ? setRemember(true) : setRemember(false);
 	};
@@ -36,6 +44,7 @@ function Login() {
 		}));
 	};
 
+
 	//create post request and pass it as the other condition
 	const handleSubmit = () => {
 		if (remember === true) {
@@ -43,9 +52,12 @@ function Login() {
 			localStorage.setItem("saved user", user);
 			console.log(savedUser);
 		}
+		getUser(isFetching, setIsFetching)
+		console.log(isFetching);
 	};
 
 	return (
+		isFetching === true? <Dashboard /> : 
 		<div className="purchase-wrapper">
 			<div className="purchase">
 				<div className="header-wrapper my-3">
@@ -125,6 +137,7 @@ function Login() {
 				</form>
 			</div>
 		</div>
+							
 	);
 }
 
