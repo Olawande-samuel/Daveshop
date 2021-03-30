@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Hero from "./Hero";
 import TodoSection from "./TodoSection";
 import About from "./About";
@@ -6,7 +6,6 @@ import Qualities from "./Qualities";
 import Footer from "./Footer";
 import Navv from "./NavBar";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function Homepage() {
 	return (

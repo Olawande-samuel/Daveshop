@@ -3,7 +3,7 @@ import React from "react";
 function Button({ btn, btnClass, handleClick }) {
 	return (
 		<>
-			<button className={btnClass} type="button" onClick={handleClick}>
+			<button className={btnClass} type="submit" onClick={handleClick}>
 				{btn}
 			</button>
 		</>

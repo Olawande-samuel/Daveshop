@@ -1,6 +1,6 @@
 import React from "react";
-import Purchase from "./Reusables/interactive";
-import { Amount } from "./Reusables/Amount";
+import Purchase from "../Reusables/interactive";
+import { Amount } from "../Reusables/Amount";
 
 function Airtime() {
 	return (

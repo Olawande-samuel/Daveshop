@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SubNav from "./Reusables/SubNav";
-import Add from "../Images/Icons/Add.svg";
+import SubNav from "../Reusables/SubNav";
+import Add from "../../Images/Icons/Add.svg";
 import Login from "./Login";
 
 

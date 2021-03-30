@@ -3,7 +3,7 @@ import Button from "../Reusables/Button";
 import { Link } from "react-router-dom";
 import { ReactComponent as Hamburger } from "../../Images/Icons/Hamburger.svg";
 import { ReactComponent as Logo } from "../../Images/Icons/EAI.svg";
-import { Link as ScrollLink, animateScroll as Scroll } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
 import Close from "../../Images/Icons/back.svg";
 
 function Navv({ openSideBar }) {

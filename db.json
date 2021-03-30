@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "LastName": "Akinmosin",
+      "FirstName": "Olawande",
+      "Email": "Olawandesamuel@gmail.com",
+      "password": "olawande",
+      "phone": "08069366034"
+    },
+    {
+      "firstName": "Olusola",
+      "lastName": "Adekuoroye",
+      "email": "olusola@mail.com",
+      "phone": "8989898898",
+      "password": "opemail",
+      "id": 2
+    },
+    {
+      "firstName": "Olutobi",
+      "lastName": "Aroso",
+      "email": "olutobi@mail.com",
+      "phone": "08744098576",
+      "password": "poll",
+      "id": 3
+    },
+    {
+      "firstName": "Olutobi",
+      "lastName": "Aroso",
+      "email": "olutobi@mail.com",
+      "phone": "08744098576",
+      "password": "poll",
+      "id": 4
+    }
+  ]
+}

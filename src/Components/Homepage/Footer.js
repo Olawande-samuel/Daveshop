@@ -26,10 +26,10 @@ function Footer() {
                 <Link to="/buy-data">Buy Data</Link>
               </li>
               <li>
-                <a href="#">Cable TV</a>
+                <Link to="/pay-cable-bill">Cable TV</Link>
               </li>
               <li>
-                <a href="#">Electricity Bills</a>
+                <Link to="/pay-power-bill">Electricity Bills</Link>
               </li>
             </ul>
           </div>

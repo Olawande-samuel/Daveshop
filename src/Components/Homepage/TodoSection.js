@@ -51,7 +51,7 @@ function TodoSection() {
 								}
 							/>
 						</Link>
-						<Link className="mini-card">
+						<Link to="/pay-cable-bill" className="mini-card">
 							<MiniCard
 								miniTitle="Cable Subscription"
 								miniLogo={
@@ -71,7 +71,7 @@ function TodoSection() {
 								}
 							/>
 						</Link>
-						<Link className="mini-card">
+						<Link to="/pay-power-bill" className="mini-card">
 							<MiniCard
 								miniTitle="Electricity"
 								miniLogo={

@@ -7,13 +7,19 @@ import {
 } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import Airtime from "./Components/Airtime";
-import Data from "./Components/Data";
-import Login from "./Components/Login";
-import SignUp from "./Components/SignUp";
+import Airtime from "./Components/Pages/Airtime";
+import Data from "./Components/Pages/Data";
+import Login from "./Components/Pages/Login";
+import SignUp from "./Components/Pages/SignUp";
 import Homepage from "./Components/Homepage/Homepage";
-import Wallet from "./Components/Wallet";
-import ResetPassword from "./Components/Others/ResetPassword";
+import Wallet from "./Components/Pages/Wallet";
+import ResetPassword from "./Components/Pages/ResetPassword";
+import Dashboard from "./Components/Pages/Dashboard";
+import Cable from "./Components/Pages/Cable";
+import Electricity from "./Components/Pages/Electricity";
+import Loading from "./Components/Reusables/Loading";
+import AlertComp from "./Components/Reusables/AlertComp";
+// import {InputGroup} from "./Components/ItemsGroup/InputGroup";
 
 function App() {
 	return (
@@ -27,9 +33,16 @@ function App() {
 					<Route path="/sign-up" component={SignUp} />
 					<Route path="/wallet" component={Wallet} />
 					<Route path="/reset-password" component={ResetPassword} />
+					<Route path="/pay-cable-bill" component={Cable} />
+					<Route path="/pay-power-bill" component={Electricity} />
+					<Route path="/loading" component={Loading} />
+					<Route path="/dashboard" component={Dashboard} />
+					<Route to="/alert" component={AlertComp} />
+					{/* <Route to="/input" component={InputGroup} /> */}
 					<Route path="*" component={Homepage}>
 						<Redirect to="/" />
 					</Route>
+						
 
 				</Switch>
 			</div>
