@@ -301,9 +301,9 @@ footer {
       h3 {
         font-size: 25px;
       }
-	  a:hover {
-		text-decoration: none;
-	  }
+      a:hover {
+        text-decoration: none;
+      }
     }
 
     ul {
@@ -313,7 +313,7 @@ footer {
       align-items: center;
     }
   }
-  
+
   .social a {
     padding: 10px;
     color: white;
@@ -367,6 +367,10 @@ footer {
     background-position-x: 70%;
     background-size: 200px;
   }
+
+  footer .bottom-wrapper {
+    flex-direction: column;
+  }
 }
 @media screen and (max-width: 990px) {
   .hero .left h1 {
@@ -374,9 +378,9 @@ footer {
   }
 }
 @media screen and (min-width: 500px) {
-	.sidebar-content-wrapper {
-		width: 45%;
-	}
+  .sidebar-content-wrapper {
+    width: 45%;
+  }
 }
 @media screen and (min-width: 991px) {
   .hero .left h1 {

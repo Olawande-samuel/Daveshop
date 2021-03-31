@@ -18,7 +18,7 @@ $greyAccent: #e5e5e5;
 .interactive-nav {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
 
   p {
     height: 100%;
@@ -126,22 +126,41 @@ input[type="number"] {
     }
   }
 }
+// ***************ADD METHOD***************************
+.card-type-container {
+  height: 92px;
+  background: #f4f4f4;
+  padding: 14px 16px;
+}
 
+
+#amount {
+  height: 70px;
+}
+
+.amount-label {
+  font-size: 18px;
+}
 @media screen and (min-width: 480px) {
   .purchase-wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
   }
   .purchase {
     width: 80vw;
+  }
+  .purchase-nav {
+    // display: none;
+    width: 100%;
   }
 }
 @media screen and (min-width: 660px) {
   .purchase {
     height: 100%;
     width: 70vw;
-    padding: 10px 40px;
+    padding: 20px 40px;
 
     form {
       margin: auto;
@@ -149,8 +168,8 @@ input[type="number"] {
       padding: 10px;
     }
   }
-  .purchaseNav {
-    width: 100%;
+  .purchase-nav {
+    display: none;
   }
 }
 @media screen and (min-width: 804px) {

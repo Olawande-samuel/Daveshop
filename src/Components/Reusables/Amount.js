@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Radios } from "../Radios";
 import axios from "axios";
+import AlertComp from "./AlertComp";
+
 
 export const Amount = () => {
   return (
@@ -40,36 +42,39 @@ export const Package = () => {
   );
 };
 
-export const getUser = async (newUser, setFetch) => {
+export const getUser = (setIsAuth, setFetch, User, setShowMessage) => {
+
   setFetch(true);
   axios
     .get("http://localhost:3000/users")
     .then((response) => {
       console.log(response);
-      if (response.status >= 200 && response.statusText === "OK") {
+      if (response.status === 200 && response.statusText === "OK") {
         setFetch(false);
+        setShowMessage(true)
+
+        setTimeout(() => {
+          setShowMessage(false)
+        }, 2000);
       }
-    })
-    .then((data) => {
+      const data = response.data;
       console.log(data);
     })
     .catch((err) => console.log(err));
 };
 
-export const postUser = async (setFetch, newUser) => {
+export const postUser =(setFetch, newUser) => {
   setFetch(true);
   axios
     .post(`http://localhost:3000/users`, newUser)
     .then((response) => {
-      console.log(response);
-      if (response.status >= 200 && response.statusText === "Created") {
+      if (response.status === 200 ) {
         setFetch(false);
         alert("success");
-      } else if (response.status >= 200 && response.statusText === "OK") {
+      } else if (response.status === 200) {
         alert("An error has occured");
         setFetch(false);
       }
-      // console.log(res.json);
     })
     .catch((err) => console.log(err));
 };

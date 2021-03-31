@@ -10,10 +10,11 @@ function Electricity() {
   };
   return (
     <div className="purchase-wrapper">
+      <div className="purchase-nav px-3 py-2 border">
+        <SubNav />
+      </div>
       <div className="purchase border">
-        <div className="header-wrapper border-bottom">
-          <SubNav title="TV" />
-        </div>
+        
         <form className="form mt-5">
           <div className="form-group px-3 d-flex justify-content-between align-items-center cable-type-container">
             <label htmlFor="cableType">
