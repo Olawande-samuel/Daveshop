@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import SubNav from "../Reusables/SubNav";
 import Button from "../Reusables/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { postUser } from "../Reusables/Amount";
 import Loading from "../Reusables/Loading";
+import UserContext from "../../Context/User/userContext";
 
 function SignUp() {
+  const userContext = useContext(UserContext);
+  const history = useHistory();
+  console.log(userContext);
   const [newUser, setNewUser] = useState({
     firstName: "",
     lastName: "",
@@ -13,7 +17,7 @@ function SignUp() {
     phone: 0,
     password: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
+
   const handleFirstName = (e) => {
     e.persist();
     setNewUser((user) => ({
@@ -64,32 +68,24 @@ function SignUp() {
       password: "",
     }));
   };
-  const addNewUser = () => {
-  	// fetch(`https://jsonplaceholder.typicode.com/posts`, {
-  	// 	method: "post",
-  	// 	body: newUser,
-  	// }).then((res) => {
-  	// 	if (res.ok === true) {
-  	// 		alert("successful");
-  	// 	}
-  	// 	console.log(res.ok);
-  	// });
-  	postUser()
 
-  };
-
-  const signUpSubmit = () => {
+  const signUpSubmit = (e) => {
+    e.preventDefault();
     console.log(newUser);
     const localUser = JSON.stringify(newUser);
     localStorage.setItem("user data", localUser);
-    postUser(setIsLoading, newUser);
+    userContext.signUp(newUser);
+    if (userContext) {
+      console.log("found");
+      history.push("/login");
+    }
   };
 
-  return isLoading === true ? (
+  return userContext.loading === true ? (
     <Loading />
   ) : (
     <div className="purchase-wrapper">
-      <div className="purchase-nav px-3 py-2 border">
+      <div className="purchase-nav px-3 py-2 border-bottom">
         <SubNav />
       </div>
       <div className="purchase">

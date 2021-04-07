@@ -8,7 +8,7 @@ function Qualities() {
 			<Element id="qualities" name="qualities">
 				<section className="qualities d-flex justify-content-center align-items-center flex-column">
 					<header>
-						<h4 className="text-center">Why IAT</h4>
+						<h4 className="text-center todo-title">Why IAT</h4>
 					</header>
 					<div className="card-wrapper-container  d-flex justify-content-center align-items-center">
 						<div className="card-wrapper row">

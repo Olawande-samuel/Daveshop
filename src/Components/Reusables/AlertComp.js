@@ -1,11 +1,11 @@
 import React from 'react';
 import Alert from "react-bootstrap/Alert"
 
-function AlertComp() {
+function AlertComp({variant, alertText}) {
     return (
         <>
-        <Alert variant="primary" >
-            This is an alert
+        <Alert variant={variant} >
+           Login {alertText}
         </Alert>
         </>
     )

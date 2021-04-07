@@ -15,6 +15,65 @@
       "phone": "0809000000",
       "password": "olukusoye",
       "id": 2
+    },
+
+    {
+      "firstName": "papilo",
+      "lastName": "babilo",
+      "email": "pbilo@mail.com",
+      "phone": "08077897877",
+      "password": "pass",
+      "id": 3
+    }
+  ],
+  "transaction": [
+    {
+      "id": 1,
+      "image": "../Assets/Icons/Top-up-icon.png",
+      "type": "Top up",
+      "response": "Successful",
+      "date": "Jan 2, 10:50",
+      "amount": 1000
+    },
+    {
+      "id": 2,
+      "image": "../Assets/Icons/Top-up-icon.png",
+      "type": "Top up",
+      "response": "Failed",
+      "date": "Mar 2, 12:50",
+      "amount": 2000
+    },
+    {
+      "id": 3,
+      "image": "../Assets/Icons/Airtime-icon.png",
+      "type": "Airtime",
+      "response": "Successful",
+      "date": "Feb 6, 10:50",
+      "amount": 2000
+    },
+    {
+      "id": 4,
+      "image": "../Assets/Icons/Data-icon.png",
+      "type": "Data",
+      "response": "Failed",
+      "date": "Jan 6, 10:55",
+      "amount": 2000
+    },
+    {
+      "id": 5,
+      "image": "../Assets/Icons/Cable-icon.png",
+      "type": "Gotv",
+      "response": "Successful",
+      "date": "Jan 2, 18:50",
+      "amount": 2000
+    },
+    {
+      "id": 6,
+      "image": "../Assets/Icons/Cable-icon.png",
+      "type": "Gotv",
+      "response": "Successful",
+      "date": "Feb 2, 18:50",
+      "amount": 5000
     }
   ]
 }

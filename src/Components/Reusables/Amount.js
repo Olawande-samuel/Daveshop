@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Radios } from "../Radios";
 import axios from "axios";
 import AlertComp from "./AlertComp";
-
+import Arrow from "../../Images/Icons/Arrow.png";
 
 export const Amount = () => {
   return (
@@ -22,53 +22,50 @@ export const Amount = () => {
   );
 };
 
-export const Package = () => {
+export const Package = ({ choice, handleOption }) => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleClick = () => {
+    toggle ? setToggle(false) : setToggle(true);
+  };
+
   return (
-    <div className="mb-2 radio-wrapper">
-      {Radios.map((radio) => (
-        <div className="radio">
-          <label htmlFor={radio.id}>
-            <div className="wrap">
-              <div className="name">{radio.name}</div>
-              <div className="price">
-                <span>#</span> {radio.price}
+    <div className="data-choice-wrapper">
+      <div
+        className="selected border py-2 px-2"
+        style={{ height: "41px", marginTop: "16px", marginBottom: "8px" }}
+        onClick={handleClick}
+      >
+        <span className="mr-2  ">{choice}</span>
+        <i>
+          <img src={Arrow} alt="" />
+        </i>
+      </div>
+      <div className={toggle ? "mb-2 radio-wrapper" : "no-height"} style={{transition:'all 0.3s ease-in-out'}}>
+        {Radios.map((radio) => (
+          <div className="radio" onClick={handleOption}>
+            <label htmlFor={radio.id}>
+              <div className="wrap">
+                <div className="name">{radio.name}</div>
+                <div className="price">
+                  <span>#</span> {radio.price}
+                </div>
               </div>
-            </div>
-          </label>
-          <input type="radio" name="data" id="one" value={radio.price} />
-        </div>
-      ))}
+            </label>
+            <input type="radio" name="data" id={radio.id} value={radio.name} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export const getUser = (setIsAuth, setFetch, User, setShowMessage) => {
-
+export const postUser = (setFetch, newUser) => {
   setFetch(true);
   axios
-    .get("http://localhost:3000/users")
+    .post(`http://localhost:8000/users`, newUser)
     .then((response) => {
-      console.log(response);
-      if (response.status === 200 && response.statusText === "OK") {
-        setFetch(false);
-        setShowMessage(true)
-
-        setTimeout(() => {
-          setShowMessage(false)
-        }, 2000);
-      }
-      const data = response.data;
-      console.log(data);
-    })
-    .catch((err) => console.log(err));
-};
-
-export const postUser =(setFetch, newUser) => {
-  setFetch(true);
-  axios
-    .post(`http://localhost:3000/users`, newUser)
-    .then((response) => {
-      if (response.status === 200 ) {
+      if (response.status === 200) {
         setFetch(false);
         alert("success");
       } else if (response.status === 200) {

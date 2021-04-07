@@ -1,6 +1,7 @@
 @import "./Components/Styles/_purchase.scss";
 @import "./Components/Styles/_logUp.scss";
 @import "./Components/Styles/_wallet.scss";
+@import "./Components/Styles/_dashboard.scss";
 
 @mixin border {
   border: 1px solid tomato;
@@ -112,6 +113,11 @@ nav {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+
+    .button-link:hover {
+      text-decoration: none;
+      // display: none;
+    }
   }
 }
 // *********************HERO STYLES********************
@@ -120,12 +126,12 @@ nav {
   justify-content: space-between;
   flex-wrap: wrap-reverse;
   align-items: center;
-  padding: 60px 10px;
+  // padding: 60px 10px;
 }
-
 .left {
   padding: 10px 0;
 }
+
 .left .content {
   width: 70%;
 
@@ -152,7 +158,7 @@ nav {
 }
 .right-img {
   background: url(./Images/Ellipse1.png) no-repeat;
-  background-size: 300px;
+  // background-size: 200px;
   background-position-x: 70%;
 }
 
@@ -171,6 +177,9 @@ nav {
   padding: 5px;
   margin-top: 15px;
 }
+.btnMid {
+  border-radius: 3px;
+}
 .nav-btn {
   width: 70%;
   border-radius: 3px;
@@ -188,16 +197,24 @@ nav {
   font-weight: 600;
 }
 // ***************TODO SECTION**************
-.todo-section {
+.todo-section,
+.dash-todo-section {
   background: $bckgroundBlue;
-  padding-top: 20px;
+  // padding-top: 20px;
+
+  .todo-title {
+    font-size: clamp(20px, 1vw + 2vw, 30px);
+    font-weight: 600;
+  }
 
   .mini-card-wrapper {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 150px);
-    grid-gap: 15px;
-    padding: 10px;
+    grid-template-columns: repeat(2, 47%);
+    grid-template-rows: repeat(2, 47%);
+    grid-gap: 6%;
+    padding: 10px 0;
+
+    justify-content: center;
   }
   .mini-card {
     background: #fff;
@@ -214,13 +231,15 @@ nav {
 
     .mini-card-content {
       height: 100%;
+      // line-height: 50px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
       p {
-        font-size: 20px;
-        width: 50%;
+        margin-top: 30px;
+        font-size: clamp(0.8rem, 1vw + 2vw, 1.5rem);
+        // width: 50%;
         width: 600;
       }
     }
@@ -323,19 +342,16 @@ footer {
 }
 
 .homepage section {
-  min-height: 100vh;
-  padding-top: 30px;
+  // min-height: 100vh;
+  padding-top: 50px;
 }
 @media screen and (max-width: 380px) {
-  .homepage section {
-    min-height: 100vh;
-    padding-top: 50px;
-  }
   .right-img {
     background-position-x: 70%;
     background-size: 150px;
   }
-  .todo-section {
+  .todo-section,
+  .dash-todo-section {
     padding: 10px;
     .mini-card {
       height: 120px;
@@ -347,11 +363,11 @@ footer {
       }
     }
   }
-  .todo-section .mini-card-wrapper {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
+  // .todo-section .mini-card-wrapper {
+  //   display: flex;
+  //   flex-direction: column;
+  //   flex-wrap: wrap;
+  // }
 
   .qualities {
     background: $bckgroundBlue;
@@ -377,9 +393,24 @@ footer {
     font-size: 30px;
   }
 }
+@media screen and (min-width: 380px) {
+  .dash-todo-section, .mini-card-wrapper,
+  .todo-section .mini-card-wrapper {
+    justify-content: center;
+    grid-template-columns: repeat(2, 40%);
+  }
+}
 @media screen and (min-width: 500px) {
   .sidebar-content-wrapper {
     width: 45%;
+  }
+  .homepage section {
+    min-height: 100vh;
+    padding-top: 50px;
+  }
+  .right-img {
+    background-position-x: 70%;
+    background-size: 250px;
   }
 }
 @media screen and (min-width: 991px) {
@@ -411,13 +442,14 @@ footer {
     position: unset;
     height: unset;
     width: unset;
-    background: inherit;
+    border: none;
+    background-color: inherit;
+    background-color: none;
   }
 
   .sidebar-content-wrapper {
     height: unset;
     width: unset;
-    background: inherit;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -481,18 +513,18 @@ footer {
     }
   }
 
-  .todo-section {
+  .todo-section,
+  .dash-todo-section {
     background: $bckgroundBlue;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    // @include border;
-    // padding-top: 20px;
 
     .todo-title {
       font-weight: 700;
     }
+
     .mini-card-wrapper {
       display: grid;
       grid-template-columns: repeat(4, 1fr);

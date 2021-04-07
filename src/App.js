@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import { useState } from "react";
+import { Component, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Airtime from "./Components/Pages/Airtime";
 import Data from "./Components/Pages/Data";
@@ -22,36 +22,42 @@ import AlertComp from "./Components/Reusables/AlertComp";
 import { UserContext } from "./Components/Reusables/UserContext";
 import AddMoney from "./Components/Pages/AddMoney";
 import AddMethod from "./Components/Pages/AddMethod";
+import CardDetails from "./Components/Pages/CardDetails";
+import Confirm from "./Components/Pages/Confirm";
+import { PrivateRoute, ProvideAuth } from "./Components/Reusables/Authenticate";
+import NotFound from "./Components/Pages/Error";
+import UserState from "./Context/User/userState";
+import User from "./Components/Dashboard/User";
 // import {InputGroup} from "./Components/ItemsGroup/InputGroup";
 
 function App() {
   const [value, setValue] = useState(false);
   return (
-    <Router>
-      <UserContext.Provider value={{value, setValue}}>
-        <div className="App">
-          <Switch>
-            <Route path="/" exact component={Homepage} />
-            <Route path="/buy-airtime" component={Airtime} />
-            <Route path="/buy-data" component={Data} />
-            <Route path="/pay-cable-bill" component={Cable} />
-            <Route path="/pay-power-bill" component={Electricity} />
-            <Route path="/reset-password" component={ResetPassword} />
-            <Route path="/login" component={Login} />
-            <Route path="/sign-up" component={SignUp} />
-            <Route path="/wallet" component={Wallet} />
-            <Route path="/loading" component={Loading} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/user/wallet/payment-method" component={AddMethod}/>
-            <Route path="/alert" component={AlertComp} />
-            <Route path="/user/wallet/amount" component={AddMoney} />
-            <Route path="*" component={Homepage}>
-              <Redirect to="/" />
-            </Route>
-          </Switch>
-        </div>
-      </UserContext.Provider>
-    </Router>
+    <UserState>
+      <Router>
+        <ProvideAuth>
+          <div className="App">
+            <Switch>
+              <Route path="/" exact component={Homepage} />
+              <Route path="/buy-airtime" component={Airtime} />
+              <Route path="/buy-data" component={Data} />
+              <Route path="/pay-cable-bill" component={Cable} />
+              <Route path="/pay-power-bill" component={Electricity} />
+              <Route path="/reset-password" component={ResetPassword} />
+              <Route path="/login" component={Login} />
+              <Route path="/sign-up" component={SignUp} />
+              <Route path="/loading" component={Loading} />
+              <PrivateRoute exact path="/user" component={User}/>
+              <PrivateRoute path="/user/:id" component={User}/>
+              <PrivateRoute path="/alert" component={AlertComp} />
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+          </div>
+        </ProvideAuth>
+      </Router>
+    </UserState>
   );
 }
 

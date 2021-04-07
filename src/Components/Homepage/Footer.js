@@ -68,17 +68,21 @@ function Footer() {
         </div>
         <div className="bottom-wrapper d-flex justify-content-between align-items-center">
           <div className="privacy d-flex justify-content-between align-items-center ">
-            <Link className="text-light">Terms and Conditions</Link>
-            <Link className="mx-3 text-light">Privacy</Link>
+            <Link className="text-light" to="/">
+              Terms and Conditions
+            </Link>
+            <Link className="mx-3 text-light" to="/">
+              Privacy
+            </Link>
           </div>
           <div className="social">
-            <Link>
+            <Link to="/">
               <ImFacebook />
             </Link>
-            <Link>
+            <Link to="/">
               <ImTwitter />
             </Link>
-            <Link>
+            <Link to="/">
               <FaInstagram />
             </Link>
           </div>

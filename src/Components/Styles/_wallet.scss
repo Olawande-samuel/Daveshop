@@ -1,12 +1,37 @@
 .wallet-wrapper {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	color: white;
-	padding: 10px;
-	border-radius: 10px;
-	background: #47494f;
-	.left p:last-child {
-		font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  background: #47494f;
+  height: 138px;
+  margin-bottom: 51px;
+  .wallet-left,
+  .wallet-right {
+    height: 77px;
+  }
+  .wallet-left .balance {
+    font-size: 25px;
+  }
+
+  .right i {
+    img {
+      width: 18px;
+    }
+  }
+
+}
+
+.transaction-history {
+	.top {
+		margin-bottom: 24px;
 	}
+}
+.transaction-header {
+  p {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+  }
 }

@@ -1,30 +1,34 @@
 import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SubNav from "../Reusables/SubNav";
 import Button from "../Reusables/Button";
 import Eye from "../../Images/Icons/Eye.svg";
-import { getUser } from "../Reusables/Amount";
-import { Link, Redirect } from "react-router-dom";
+import axios from "axios";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Loading from "../Reusables/Loading";
-import Dashboard from "./Dashboard";
-import { UserContext } from "../Reusables/UserContext";
+import User from "./Dashboard";
+// import { UserContext } from "../Reusables/UserContext";
 import AlertComp from "../Reusables/AlertComp";
+import { AuthContext } from "../Reusables/Authenticate";
+
+import UserContext from "../../Context/User/userContext";
 
 function Login() {
-  const { value, setValue } = useContext(UserContext);
+  const history = useHistory();
+  const userContext = useContext(UserContext);
 
   // state for toggle password and toggle remember me
   const [multiState, setMultiState] = useState({
     showPassword: "password",
     rememberMe: false,
   });
+  //deconstructing the multistate object above
   const { rememberMe, showPassword } = multiState;
 
   //state for loading screen
-  const [isFetching, setIsFetching] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   // state object for user details
-  const [user, setUser] = useState({
+  const [payload, setUser] = useState({
     email: "",
     password: "",
   });
@@ -34,9 +38,13 @@ function Login() {
     saved: false,
     userEmail: "",
   });
-
-  const [showMessage, setShowMessage] = useState(false);
-
+  // state for displaying alert
+  const [loginSuccessful, setLoginSuccessful] = useState(false);
+  //holds alert values
+  const [alertValue, setAlertValue] = useState({
+    value: "",
+    type: "",
+  });
   //for remember me check button
   const rememberMeButton = () => {
     rememberMe === false
@@ -48,16 +56,13 @@ function Login() {
   const [isAuth, setIsAuth] = useState(false);
 
   //set userContext value
-  useEffect(() => {
-    setValue(isAuth);
-  }, [isAuth]);
 
   const checkStorage = () => {
     const use = localStorage.getItem("user");
     if (use !== null) {
       let data = JSON.parse(use);
       setIsSaved({ ...isSaved, userEmail: data, saved: true });
-      setUser({ ...user, email: data });
+      setUser({ ...payload, email: data });
     }
   };
 
@@ -69,18 +74,24 @@ function Login() {
     e.persist();
     const name = e.target.name;
     const value = e.target.value;
-    setUser({ ...user, [name]: value });
+    setUser({ ...payload, [name]: value });
   };
+  //******************Fetching user data*******************
 
   //handling submit, import fetch function and save to local storage
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const { email, password } = user;
+    const { email, password } = payload;
 
     if (email && password) {
-      getUser(setIsAuth, setIsFetching, user, setShowMessage);
-      const savedUser = JSON.stringify(user.email);
+      userContext.getUser(payload);
+      console.log(userContext);
+      if (userContext) {
+        console.log("found");
+        history.push("/user");
+      }
+
+      const savedUser = JSON.stringify(payload.email);
       if (rememberMe) {
         localStorage.setItem("user", savedUser);
       }
@@ -89,23 +100,25 @@ function Login() {
     }
   };
 
-  if (isAuth) {
-    return (
-      <Redirect to="/dashboard">
-        <Dashboard Authenticated={true} />
-      </Redirect>
-    );
-  }
-  return isFetching === true ? (
+  return userContext.loading === true ? (
     <Loading />
   ) : (
     <div className="purchase-wrapper">
-      <div className="purchase-nav px-3 py-2 border">
+      <div className="purchase-nav px-3 py-2 border-bottom">
         <SubNav />
       </div>
       <div className="purchase">
+        <header>
+          <h5 className="text-center text-decoration-none mt-3 font-weight-bolder">
+            Sign In
+          </h5>
+        </header>
         <form>
-          {showMessage === true ? <AlertComp /> : ""}
+          {loginSuccessful ? (
+            <AlertComp variant={alertValue.type} alertText={alertValue.value} />
+          ) : (
+            ""
+          )}
           {isSaved.saved === true ? (
             <div>
               <h5 className="text-center mt-3 mb-3">Hello! Welcome back</h5>
@@ -116,7 +129,7 @@ function Login() {
               <input
                 type="email"
                 placeholder="Email"
-                value={user.email}
+                value={payload.email}
                 onChange={handleChange}
                 name="email"
                 required
@@ -129,7 +142,7 @@ function Login() {
               type={showPassword}
               onChange={handleChange}
               placeholder="Enter your password"
-              value={user.password}
+              value={payload.password}
               name="password"
             />
             <i>
@@ -176,12 +189,6 @@ function Login() {
           </p>
         </form>
       </div>
-
-      <Router>
-        <Switch>
-          <Route path="/dashboard" />
-        </Switch>
-      </Router>
     </div>
   );
 }

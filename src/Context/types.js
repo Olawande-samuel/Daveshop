@@ -1,0 +1,9 @@
+export const REQUEST_LOGIN = 'REQUEST_LOGIN';
+export const GET_USER = 'GET_USER';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const ADD_USER = 'ADD_USER';
+export const SET_LOADING = 'SET_LOADING';
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';

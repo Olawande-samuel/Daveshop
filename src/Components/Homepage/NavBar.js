@@ -39,7 +39,7 @@ function Navv({ openSideBar }) {
 				/>
 
 				<div className="right">
-					<Link to="/sign-up">
+					<Link to="/sign-up" className="mr-2">
 						<Button btn="Sign up" btnClass="signup-btn" />
 					</Link>
 					<Link to="/login">
@@ -91,12 +91,14 @@ export const Sidebar = ({ sideBarClass, closeSideBar }) => {
 							</ScrollLink>
 						</li>
 						<li>
-							<Link to="/wallet">My Wallet</Link>
+							<Link to="/login">My Wallet</Link>
 						</li>
 					</ul>
 				</div>
 				<div className="bottom">
-					<Button btn="Sign up" btnClass="button nav-btn" />
+					<Link to="/sign-up" className="d-flex justify-content-center button-link" style={{width:'100%'}}>
+						<Button btn="Sign up" btnClass="button nav-btn" />
+					</Link>
 				</div>
 			</div>
 		</div>

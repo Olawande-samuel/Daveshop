@@ -1,7 +1,9 @@
 $btnColor: #1fc69d;
 $bckgroundBlue: #ebfaff;
 $greyAccent: #e5e5e5;
-
+// .purchase-wrapper {
+//   min-height: 100vh;
+// }
 .purchase {
   padding: 20px 30px;
   min-height: 100vh;
@@ -34,6 +36,7 @@ $greyAccent: #e5e5e5;
 .radio-wrapper {
   border: 1px solid $greyAccent;
   padding: 10px;
+  transition: all 0.5s ease-in-out;
 }
 .radio {
   border-bottom: 1px solid $greyAccent;
@@ -133,13 +136,30 @@ input[type="number"] {
   padding: 14px 16px;
 }
 
-
 #amount {
   height: 70px;
 }
 
 .amount-label {
   font-size: 18px;
+}
+#Code {
+  width: 40% !important;
+}
+
+.details-wrapper {
+  flex: 90% !important;
+
+  .top-details,
+  .bottom-details {
+    margin-bottom: 0px;
+    padding: 5px;
+  }
+}
+
+.icon-wrapper {
+  align-self: center;
+  margin-right: 20px;
 }
 @media screen and (min-width: 480px) {
   .purchase-wrapper {
@@ -168,9 +188,9 @@ input[type="number"] {
       padding: 10px;
     }
   }
-  .purchase-nav {
-    display: none;
-  }
+  // .purchase-nav {
+  //   display: none;
+  // }
 }
 @media screen and (min-width: 804px) {
   .purchase {
@@ -183,4 +203,10 @@ input[type="number"] {
     width: 40%;
     padding: 10px 50px;
   }
+}
+
+.no-height {
+  height: 0;
+  display: none;
+  transition: all 0.5s ease-in-out;
 }

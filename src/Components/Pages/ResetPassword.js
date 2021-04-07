@@ -37,7 +37,7 @@ function ResetPassword() {
 			<div className="purchase" >
 				<div
 					className="header-wrapper my-3"
-					style={{ width: "80%"}}
+					style={{ width: "100%"}}
 				>
 					<SubNav  />
 				</div>

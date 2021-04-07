@@ -7,7 +7,7 @@ function About() {
 		<>
 			<Element id="about" name="about">
 				<section className="about d-flex justify-content-center align-items-center flex-column">
-					<h4 className="text-center">About us</h4>
+					<h4 className="text-center todo-title">About us</h4>
 					<div className="about-content container">
 						<div className="img-wrapper">
 							<img src={aboutImg} alt="Random" className="about-img" />
