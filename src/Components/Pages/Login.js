@@ -8,13 +8,16 @@ import Loading from "../Reusables/Loading";
 import User from "./Dashboard";
 // import { UserContext } from "../Reusables/UserContext";
 import AlertComp from "../Reusables/AlertComp";
-import { AuthContext } from "../Reusables/Authenticate";
+// import { AuthContext } from "../Reusables/Authenticate";
 
 import UserContext from "../../Context/User/userContext";
 
 function Login() {
   const history = useHistory();
-  const userContext = useContext(UserContext);
+  const [user, FetchedUser] = useContext(UserContext);
+    // apptoken: process.env.APP_TOKEN,
+    // apptoken: ,
+  // console.log( process.env.REACT_APP_APP_TOKEN )
 
   // state for toggle password and toggle remember me
   const [multiState, setMultiState] = useState({
@@ -24,13 +27,15 @@ function Login() {
   //deconstructing the multistate object above
   const { rememberMe, showPassword } = multiState;
 
-  //state for loading screen
-  // const [isLoading, setIsLoading] = useState(false);
+  // state for loading screen
+  const [isLoading, setLoading] = useState(false);
 
   // state object for user details
   const [payload, setUser] = useState({
     email: "",
-    password: "",
+    pword: "",
+    action: "04",
+    apptoken: "KJB3J4BK3",
   });
 
   //state for checking localstorage for saved info on load
@@ -58,7 +63,7 @@ function Login() {
   //set userContext value
 
   const checkStorage = () => {
-    const use = localStorage.getItem("user");
+    const use = localStorage.getItem("Saveduser");
     if (use !== null) {
       let data = JSON.parse(use);
       setIsSaved({ ...isSaved, userEmail: data, saved: true });
@@ -78,29 +83,48 @@ function Login() {
   };
   //******************Fetching user data*******************
 
+  const getUser = () => {
+    axios
+      .get("http://backend.datashopng.com", { params: payload })
+      .then((res) => {
+        // console.log(res);
+        if(res.data.response === payload.action){
+          setLoading(false);
+          alert('successful')
+          const userData = JSON.stringify(res.data)
+          localStorage.setItem("user", userData)
+          FetchedUser(res.data);
+          // console.log(user)
+          history.push("/");
+        } else {
+          setLoading(false);
+          alert(res.data.message)
+          
+        }
+      });
+      
+      // console.log(payload);
+    };
+
+    
   //handling submit, import fetch function and save to local storage
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = payload;
-
-    if (email && password) {
-      userContext.getUser(payload);
-      console.log(userContext);
-      if (userContext) {
-        console.log("found");
-        history.push("/user");
-      }
-
-      const savedUser = JSON.stringify(payload.email);
+    const { email, pword } = payload;
+    setLoading(true);
+    if (email !== '' && pword!=='') {
+      getUser();
       if (rememberMe) {
-        localStorage.setItem("user", savedUser);
+        const savedUser = JSON.stringify(payload.email);
+        localStorage.setItem("SavedUser", savedUser);
       }
     } else {
+      setLoading(false);
       alert("cannot submit");
     }
   };
 
-  return userContext.loading === true ? (
+  return isLoading ? (
     <Loading />
   ) : (
     <div className="purchase-wrapper">
@@ -122,7 +146,7 @@ function Login() {
           {isSaved.saved === true ? (
             <div>
               <h5 className="text-center mt-3 mb-3">Hello! Welcome back</h5>
-              <p className="text-center mb-3">{isSaved.userEmail}</p>
+              {/* <p className="text-center mb-3">{isSaved.userEmail}</p> */}
             </div>
           ) : (
             <div className="email">
@@ -142,8 +166,8 @@ function Login() {
               type={showPassword}
               onChange={handleChange}
               placeholder="Enter your password"
-              value={payload.password}
-              name="password"
+              value={payload.pword}
+              name="pword"
             />
             <i>
               <img

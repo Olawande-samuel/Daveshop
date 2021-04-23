@@ -28,10 +28,12 @@ import { PrivateRoute, ProvideAuth } from "./Components/Reusables/Authenticate";
 import NotFound from "./Components/Pages/Error";
 import UserState from "./Context/User/userState";
 import User from "./Components/Dashboard/User";
+import dotenv from 'dotenv'
 // import {InputGroup} from "./Components/ItemsGroup/InputGroup";
 
 function App() {
   const [value, setValue] = useState(false);
+  
   return (
     <UserState>
       <Router>
@@ -39,17 +41,19 @@ function App() {
           <div className="App">
             <Switch>
               <Route path="/" exact component={Homepage} />
-              <Route path="/buy-airtime" component={Airtime} />
-              <Route path="/buy-data" component={Data} />
-              <Route path="/pay-cable-bill" component={Cable} />
-              <Route path="/pay-power-bill" component={Electricity} />
               <Route path="/reset-password" component={ResetPassword} />
               <Route path="/login" component={Login} />
               <Route path="/sign-up" component={SignUp} />
               <Route path="/loading" component={Loading} />
-              <PrivateRoute exact path="/user" component={User}/>
-              <PrivateRoute path="/user/:id" component={User}/>
-              <PrivateRoute path="/alert" component={AlertComp} />
+              {/* <Route path="/user" component={User} /> */}
+              <PrivateRoute exact path="/wallet" component={Wallet} />
+              <PrivateRoute path="/buy-airtime" component={Airtime} />
+              <PrivateRoute path="/buy-data" component={Data} />
+              <PrivateRoute path="/pay-cable-bill" component={Cable} />
+              <PrivateRoute path="/pay-power-bill" component={Electricity} />
+
+              {/* <PrivateRoute path="/user/:id" component={User} />
+              <PrivateRoute path="/alert" component={AlertComp} /> */}
               <Route path="*">
                 <NotFound />
               </Route>

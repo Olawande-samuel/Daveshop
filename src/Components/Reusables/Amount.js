@@ -4,7 +4,7 @@ import axios from "axios";
 import AlertComp from "./AlertComp";
 import Arrow from "../../Images/Icons/Arrow.png";
 
-export const Amount = () => {
+export const Amount = ({ amountValue, handleAmountChange }) => {
   return (
     <div>
       <div className="amount">
@@ -15,7 +15,9 @@ export const Amount = () => {
           type="text"
           name="amount"
           id="amount"
-          placeholder="Enter Amount"
+          placeholder="Enter Amount... min(50)"
+          value={amountValue}
+          onChange={handleAmountChange}
         />
       </div>
     </div>
@@ -41,7 +43,10 @@ export const Package = ({ choice, handleOption }) => {
           <img src={Arrow} alt="" />
         </i>
       </div>
-      <div className={toggle ? "mb-2 radio-wrapper" : "no-height"} style={{transition:'all 0.3s ease-in-out'}}>
+      <div
+        className={toggle ? "mb-2 radio-wrapper" : "no-height"}
+        style={{ transition: "all 0.3s ease-in-out" }}
+      >
         {Radios.map((radio) => (
           <div className="radio" onClick={handleOption}>
             <label htmlFor={radio.id}>

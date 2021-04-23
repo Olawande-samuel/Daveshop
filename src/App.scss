@@ -16,6 +16,9 @@ $greyAccent: #e5e5e5;
   padding: 0;
   box-sizing: border-box;
 }
+p {
+  margin-bottom: 0 !important;
+}
 body {
   font-family: "Nunito", sans-serif !important;
   position: relative;
@@ -62,7 +65,7 @@ nav {
   height: 100vh;
   top: 0;
   left: 0;
-  backdrop-filter: contrast(0.5);
+  // backdrop-filter: contrast(0.5);
   z-index: 2;
   background-color: rgba(235, 250, 255, 0.3);
   transition: all 0.3s ease-in-out;
@@ -130,6 +133,27 @@ nav {
 }
 .left {
   padding: 10px 0;
+  
+}
+
+.hero .left {
+  animation: slide 0.5s forwards;
+  animation-delay: 1.3s;
+  transform: translateX(-110%);
+}
+
+// @-webkit-keyframes slide {
+//   100% {
+//     left: 0;
+//   }
+// }
+.hide {
+  display: none;
+}
+@keyframes slide {
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .left .content {
@@ -138,7 +162,7 @@ nav {
   h1 {
     font-weight: 600;
     margin-bottom: 15px;
-    font-size: 30px;
+    font-size: clamp(28px, 1vw + 2vw, 60px);
   }
   p {
     // width: 70%;
@@ -151,6 +175,17 @@ nav {
 }
 .top-img {
   width: 100%;
+}
+.hero .right {
+  animation: slideRight 0.5s forwards;
+  animation-delay: 1s;
+  transform: translateX(110%);
+}
+
+@keyframes slideRight {
+  100% {
+    transform: translateX(0);
+  }
 }
 .right .wrapper {
   position: relative;
@@ -389,12 +424,13 @@ footer {
   }
 }
 @media screen and (max-width: 990px) {
-  .hero .left h1 {
-    font-size: 30px;
-  }
+  // .hero .left h1 {
+  //   font-size: 30px;
+  // }
 }
 @media screen and (min-width: 380px) {
-  .dash-todo-section, .mini-card-wrapper,
+  .dash-todo-section,
+  .mini-card-wrapper,
   .todo-section .mini-card-wrapper {
     justify-content: center;
     grid-template-columns: repeat(2, 40%);
@@ -414,9 +450,9 @@ footer {
   }
 }
 @media screen and (min-width: 991px) {
-  .hero .left h1 {
-    font-size: 50px;
-  }
+  // .hero .left h1 {
+  //   font-size: 50px;
+  // }
 }
 @media screen and (min-width: 800px) {
   nav .right > a {
@@ -507,9 +543,6 @@ footer {
           margin-bottom: 0;
         }
       }
-      // h1 {
-      // 	font-size: 50px;
-      // }
     }
   }
 
@@ -533,8 +566,9 @@ footer {
       align-items: center;
       padding: 60px 10px;
     }
+
     .mini-card {
-      box-shadow: rgba(0, 0, 0, 0.3) 5px 0 12px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
       // width: 150px;
       padding-bottom: 40px;
       height: 210px;

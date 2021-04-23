@@ -1,37 +1,55 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import SubNav from "../Reusables/SubNav";
 import Button from "../Reusables/Button";
 import { Link, useHistory } from "react-router-dom";
 import { postUser } from "../Reusables/Amount";
 import Loading from "../Reusables/Loading";
+import axios from "axios";
 import UserContext from "../../Context/User/userContext";
 
 function SignUp() {
   const userContext = useContext(UserContext);
   const history = useHistory();
-  console.log(userContext);
-  const [newUser, setNewUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: 0,
-    password: "",
-  });
+  // console.log(userContext);
 
+  const[fullName, setFullName]=useState({
+    firstName: '',
+    lastName: ''
+  })
+
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [newUser, setNewUser] = useState({
+    name: "",
+    pword: "",
+    cpword: "",
+    phone: "",
+    email: "",
+    action: "01",
+    apptoken: "KJB3J4BK3",
+  });
+  // console.log(fullName)
+  // console.log(newUser)
+  
+  // console.log(newUser)
   const handleFirstName = (e) => {
     e.persist();
-    setNewUser((user) => ({
-      ...newUser,
+    setFullName((user) => ({
+      ...fullName,
       firstName: e.target.value,
     }));
+    
   };
+
   const handleLastName = (e) => {
     e.persist();
-    setNewUser((user) => ({
-      ...newUser,
+    setFullName((user) => ({
+      ...fullName,
       lastName: e.target.value,
     }));
   };
+
+  // console.log(fullName)
   const handleEmail = (e) => {
     e.persist();
     setNewUser((user) => ({
@@ -54,7 +72,14 @@ function SignUp() {
     e.persist();
     setNewUser((user) => ({
       ...newUser,
-      password: e.target.value,
+      pword: e.target.value,
+    }));
+  };
+  const handleCPassword = (e) => {
+    e.persist();
+    setNewUser((user) => ({
+      ...newUser,
+      cpword: e.target.value,
     }));
   };
 
@@ -70,18 +95,28 @@ function SignUp() {
   };
 
   const signUpSubmit = (e) => {
+
+    setNewUser({...newUser, name:`${fullName.firstName } ${fullName.lastName}`});
+    console.log(newUser)
+    setIsLoading(true);
+    axios
+      .get("http://backend.datashopng.com", { params: newUser })
+      .then((res) => {
+        console.log(res);
+        setIsLoading(false);
+      });
     e.preventDefault();
-    console.log(newUser);
+    // console.log(newUser);
     const localUser = JSON.stringify(newUser);
     localStorage.setItem("user data", localUser);
-    userContext.signUp(newUser);
-    if (userContext) {
-      console.log("found");
-      history.push("/login");
-    }
+    // userContext.signUp(newUser);
+    // if (userContext) {
+    //   console.log("found");
+    //   // history.push("/login");
+    // }
   };
 
-  return userContext.loading === true ? (
+  return isLoading === true ? (
     <Loading />
   ) : (
     <div className="purchase-wrapper">
@@ -102,7 +137,7 @@ function SignUp() {
               type="text"
               placeholder="First Name"
               name="firstName"
-              value={newUser.firstName}
+              value={fullName.firstName}
               onChange={handleFirstName}
               required
             />
@@ -112,7 +147,7 @@ function SignUp() {
               type="text"
               placeholder="Last Name"
               name="lastName"
-              value={newUser.lastName}
+              value={fullName.lastName}
               onChange={handleLastName}
               required
             />
@@ -142,8 +177,17 @@ function SignUp() {
             <input
               type="password"
               placeholder="Enter your password"
-              value={newUser.password}
+              value={newUser.pword}
               onChange={handlePassword}
+              required
+            />
+          </div>
+          <div className="Cpassword">
+            <input
+              type="password"
+              placeholder="Confirm password"
+              value={newUser.cpword}
+              onChange={handleCPassword}
               required
             />
           </div>

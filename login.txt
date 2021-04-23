@@ -1,0 +1,91 @@
+::login::
+	action - 04
+
+	data
+		mail
+		pword
+
+	response
+		fail - 
+		'response' => "00",
+		'message' => "Incorrect Password for $mail."
+
+		success
+		'response' => "04",
+		'message' => "Login successful.",
+		'fullname' =>"".$_SESSION['fullname']."",
+		'email' => "".$_SESSION['mail']."",
+		'usertoken' => "".$_SESSION['usertoken'].""
+
+		fail - 
+		'response' => "00",
+		'message' => "Your account has not been activated. Check your welcome email for details"
+
+		fail - 
+		'response' => "00",
+		'message' => "$mail does not exist."
+
+
+	#login module
+	if ($action=="04") {
+		# code...
+			/*$mail=input_check($_REQUEST['email']);
+			$pword=input_check(md5($_REQUEST['pword']));*/
+
+			//new password
+			$mail=input_check($_REQUEST['email']);
+			$pword=input_check($_REQUEST['pword']);
+			$pword = password_hash($pword, PASSWORD_DEFAULT);
+			//new password ends
+
+	if (CheckMailExist($mysqli, $mail)==true) {
+		# code...
+		if (CheckActivated($mysqli, $mail)==true) {
+			# code...
+		if (SignUserIn($mysqli, $mail, $pword)==true) {
+			
+			$array = [
+				'response' => "04",
+				'message' => "Login successful.",
+				'fullname' =>"".$_SESSION['fullname']."",
+				'email' => "".$_SESSION['mail']."",
+				'usertoken' => "".$_SESSION['usertoken'].""
+			];
+			$return = json_encode($array);
+			echo "$return";
+
+			// unset($_SESSION['fullname']);
+			// unset($_SESSION['mail']);
+			// unset($_SESSION['usertoken']);
+	exit();
+		}else{
+			# code...
+			$array = [
+				'response' => "00",
+				'message' => "Incorrect Password for $mail."
+			];
+			$return = json_encode($array);
+			echo "$return";
+			exit();
+		}
+	}else{
+		$array = [
+				'response' => "00",
+				'message' => "Your account has not been activated. Check your welcome email for details"
+			];
+			$return = json_encode($array);
+			echo "$return";
+			exit();
+	}
+	}else{
+		# code...
+		$array = [
+				'response' => "00",
+				'message' => "$mail does not exist."
+			];
+			$return = json_encode($array);
+			echo "$return";
+			exit();
+	}
+	}
+	#end of login module

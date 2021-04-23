@@ -1,0 +1,112 @@
+::register::
+	action - 01
+
+	data
+		name
+		pword
+		cpword
+		mail
+		phone
+
+	response
+		fail - 
+		response - 00
+		message - "Incomplete data..missing fields"
+
+		success
+		'response' => "01",
+		'message' => "Registration Successful",
+		'name' => "".$_SESSION['name']."",
+		'email' => "".$_SESSION['mail']."",
+		'usertoken' => "".$_SESSION['usertoken']."",
+		'fullname' => "$name"
+
+		fail - 
+		'response' => "00",
+		'message' => "Something went wrong!"
+
+		fail - 
+		'response' => "00",
+		'message' => "Email Exists already"
+
+		fail - 
+		'response' => "00",
+		'message' => "Password does not match"
+
+	# User Register
+	if ($action=='01') {
+		# code...
+		/*$name=input_check($_REQUEST['name']);
+		$pword=input_check(md5($_REQUEST['pword']));
+		$cpword=input_check(md5($_REQUEST['cpword']));
+		$mail=input_check($_REQUEST['email']);
+		$phone=input_check($_REQUEST['phone']);*/
+
+		$name=input_check($_REQUEST['name']);
+		$pword=input_check($_REQUEST['pword']);
+		$cpword=input_check($_REQUEST['cpword']);
+		$mail=input_check($_REQUEST['email']);
+		$phone=input_check($_REQUEST['phone']);
+
+
+		if (($name=='') or ($pword=='') or ($mail=='') or ($phone=='')) {
+					$array = [
+			 'response' => "00",
+			 'message' => "Incomplete data..missing fields"
+			 ];
+			$return= json_encode($array);
+			echo "$return";
+			exit();
+		}else{
+			# code...
+			if ($pword==$cpword) {
+
+				//new password code
+				$pword = password_hash($pword, PASSWORD_DEFAULT);
+				//new password code ends
+
+				if (CheckMailExist($mysqli,$mail)==false) {
+					# code...
+						if (InsertUserData($mysqli, $name, $mail, $pword, $phone, $timestamp)==true) {
+							# code...
+				$array = [
+				 'response' => "01",
+				 'message' => "Registration Successful",
+				 'name' => "".$_SESSION['name']."",
+				 'email' => "".$_SESSION['mail']."",
+				 'usertoken' => "".$_SESSION['usertoken']."",
+				 'fullname' => "$name"
+				 ];
+				$return= json_encode($array);
+				echo "$return";
+				exit();
+						}else{
+							$array = [
+				 'response' => "00",
+				 'message' => "Something went wrong!"
+				 ];
+				$return= json_encode($array);
+				echo "$return";
+				exit();
+						}
+					}else{
+									$array = [
+						 'response' => "00",
+						'message' => "Email Exists already"
+						 ];
+						$return= json_encode($array);
+						echo "$return";
+						exit();
+							}
+			}else{
+					$array = [
+			 'response' => "00",
+			 'message' => "Password does not match"
+			 ];
+			$return= json_encode($array);
+			echo "$return";
+			exit();
+				}
+		}
+	}
+	# end of user register

@@ -8,13 +8,17 @@ function Cable() {
     console.log(e);
     console.log("done", e.target.value);
   };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.log("clicked");
+  };
   return (
     <div className="purchase-wrapper">
       <div className="purchase-nav px-3 py-2 border-bottom">
         <SubNav />
       </div>
       <div className="purchase border">
-        
         <form className="form mt-5">
           <div className="form-group px-3 d-flex justify-content-between align-items-center cable-type-container">
             <label htmlFor="cableType">
@@ -34,10 +38,19 @@ function Cable() {
 
           <div className="form-group">
             <label htmlFor="cardNumber">Smart card number</label>
-            <input type="text" name="cardNumber" className="form-control" placeholder="Enter smartcard number"/>
+            <input
+              type="text"
+              name="cardNumber"
+              className="form-control"
+              placeholder="Enter smartcard number"
+            />
           </div>
 
-          <Button btn="Next" btnClass="button btn-large" />
+          <Button
+            btn="Next"
+            btnClass="button btn-large"
+            handleClick={handleClick}
+          />
         </form>
       </div>
     </div>

@@ -19,8 +19,8 @@ import Wallet from "./Wallet";
 import UserContext from "../../Context/User/userContext";
 
 function Dashboard({ Authenticated }) {
-  const {path}=useRouteMatch();
-  const tryContext = useContext(UserContext);
+  // const {path}=useRouteMatch();
+  // const tryContext = useContext(UserContext);
   // const { path, url } = useRouteMatch();
   // const { id } = useParams();
   // console.log(tryContext);
@@ -35,7 +35,7 @@ function Dashboard({ Authenticated }) {
       <div className="px-1" style={{ height: "100%" }}>
         <div style={{ height: "50%" }}>
           <h1 className="text-center text-light pt-3">
-            Welcome {tryContext.user.firstName}
+            Welcome 
           </h1>
         </div>
         <section className="dash-todo-section">

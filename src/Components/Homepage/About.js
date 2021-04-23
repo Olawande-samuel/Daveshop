@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import aboutImg from "../../Images/about.png";
 import { Element } from "react-scroll";
+import UserContext from "../../Context/User/userContext";
 
 function About() {
+	const [user, FetchedUser]=useContext(UserContext)
 	return (
 		<>
 			<Element id="about" name="about">
-				<section className="about d-flex justify-content-center align-items-center flex-column">
+				<section className={ user.message === 'Login successful.' ? "hide" : "about d-flex justify-content-center align-items-center flex-column"}>
 					<h4 className="text-center todo-title">About us</h4>
 					<div className="about-content container">
 						<div className="img-wrapper">
