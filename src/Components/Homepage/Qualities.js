@@ -4,7 +4,7 @@ import { Element } from "react-scroll";
 import UserContext from "../../Context/User/userContext";
 
 function Qualities() {
-	const [user, FetchedUser]=useContext(UserContext)
+	const [user]=useContext(UserContext)
 	return (
 		<>
 			<Element id="qualities" name="qualities">

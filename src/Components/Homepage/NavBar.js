@@ -2,16 +2,15 @@ import React, { useState, useContext } from "react";
 import Button from "../Reusables/Button";
 import { Link, useHistory } from "react-router-dom";
 import { ReactComponent as Hamburger } from "../../Images/Icons/Hamburger.svg";
-import { ReactComponent as Logo } from "../../Images/Icons/EAI.svg";
 import { Link as ScrollLink } from "react-scroll";
 import Close from "../../Images/Icons/back.svg";
 import UserContext from "../../Context/User/userContext";
-import User from "../Dashboard/User";
+
 
 function Navv({ openSideBar }) {
   const history = useHistory();
   const [toggleSideBar, setToggleSideBar] = useState(false);
-  const [user, fetchedUser] = useContext(UserContext);
+  const [user] = useContext(UserContext);
   console.log(user);
 
   const toggleMenu = () => {
@@ -58,7 +57,7 @@ function Navv({ openSideBar }) {
 }
 
 export const Sidebar = ({ sideBarClass, closeSideBar }) => {
-  const [user, FetchedUser] = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const handleClick = () => {
     console.log("done");
     localStorage.removeItem("user");

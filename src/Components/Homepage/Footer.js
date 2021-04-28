@@ -58,10 +58,10 @@ function Footer() {
                 <h5>Contact us</h5>
               </li>
               <li>
-                <a href="#">0900000000</a>
+                <a href="html">0900000000</a>
               </li>
               <li>
-                <a href="#">Hello@IAT.com</a>
+                <a href="index.html">Hello@Datashopng.com</a>
               </li>
             </ul>
           </div>

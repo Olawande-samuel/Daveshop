@@ -4,7 +4,7 @@ import Glo from "../../Images/Icons/Glo.svg";
 import Airtel from "../../Images/Icons/Airtel.svg";
 import Mtn from "../../Images/Icons/Mtn.svg";
 import NineMobile from "../../Images/Icons/Etisalat.svg";
-import SubNav from "./SubNav";
+
 
 function Purchase({
   header,

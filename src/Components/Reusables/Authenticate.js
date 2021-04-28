@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from "react";
+import React, {  useContext, createContext } from "react";
 import { Redirect, Route } from "react-router";
 import UserContext from "../../Context/User/userContext";
 export const AuthContext = createContext();
@@ -8,12 +8,12 @@ export const ProvideAuth = ({ children }) => {
 };
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const test = true;
+  // const test = true;
   const item = localStorage.getItem("user");
   const unString = JSON.parse(item);
 
   const userContext = useContext(UserContext);
-  const [user] = userContext;
+  // const [user] = userContext;
   // console.log(user.message);
   return (
     <Route

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 
 function Hero() {
-  const [user, FetchedUser]=useContext(UserContext)
+  const [user]=useContext(UserContext)
   return (
     <>
       <Element id="hero" name="hero">

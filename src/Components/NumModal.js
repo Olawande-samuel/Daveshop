@@ -7,14 +7,14 @@ import { usePaystackPayment } from "react-paystack";
 import { ButtonGroup } from "react-bootstrap";
 
 export default function NumModal({ show, handleClose }) {
-  const [updateAmount, setAmount] = useState(true);
+  const [updateAmount, setAmount] = useState("");
 
   const item = localStorage.getItem("user");
   const unStringed = JSON.parse(item);
   const userToken = unStringed.usertoken;
 
   const [user, FetchedUser] = useContext(UserContext);
-
+console.log(user)
   const handleChange = (e) => {
     setAmount(e.target.value);
   };
@@ -26,12 +26,13 @@ export default function NumModal({ show, handleClose }) {
     amount: updateAmount,
     publicKey: process.env.REACT_APP_PUBLIC_KEY,
   };
-
+  // const actualAmount = updateAmount * 1000000;
+  // console.log(actualAmount)
   // update backend with loaded amount
   const payload = {
     type: "credit",
     apptoken: "KJB3J4BK3",
-    amount: config.amount,
+    amount: updateAmount,
     usertoken: userToken,
     action: "07",
     log: `Wallet funded with ${config.amount} by ${unStringed.name}`,
@@ -48,6 +49,7 @@ export default function NumModal({ show, handleClose }) {
   const onSuccess = (reference) => {
     addMoneyToBackend();
     console.log(reference);
+    console.log(config);
   };
 
   const onClose = () => {

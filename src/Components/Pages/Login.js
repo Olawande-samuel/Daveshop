@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import SubNav from "../Reusables/SubNav";
 import Button from "../Reusables/Button";
 import Eye from "../../Images/Icons/Eye.svg";
 import axios from "axios";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Loading from "../Reusables/Loading";
-import User from "./Dashboard";
+
 // import { UserContext } from "../Reusables/UserContext";
 import AlertComp from "../Reusables/AlertComp";
 // import { AuthContext } from "../Reusables/Authenticate";
@@ -15,6 +15,7 @@ import UserContext from "../../Context/User/userContext";
 function Login() {
   const history = useHistory();
   const [user, FetchedUser] = useContext(UserContext);
+  
   // apptoken: process.env.APP_TOKEN,
   // apptoken: ,
   // console.log( process.env.REACT_APP_APP_TOKEN )
@@ -39,7 +40,7 @@ function Login() {
   });
 
   //state for checking localstorage for saved info on load
-  const [isSaved, setIsSaved] = useState({
+  const [isSaved /*, setIsSaved*/] = useState({
     saved: false,
     userEmail: "",
   });
@@ -57,23 +58,21 @@ function Login() {
       : setMultiState({ ...multiState, rememberMe: false });
   };
 
-  //check auth
-  const [isAuth, setIsAuth] = useState(false);
+ 
 
-  //set userContext value
+ 
+  // const checkStorage = () => {
+  //   const use = localStorage.getItem("Saveduser");
+  //   if (use !== null) {
+  //     let data = JSON.parse(use);
+  //     setIsSaved({ ...isSaved, userEmail: data, saved: true });
+  //     setUser({ ...payload, email: data });
+  //   }
+  // };
 
-  const checkStorage = () => {
-    const use = localStorage.getItem("Saveduser");
-    if (use !== null) {
-      let data = JSON.parse(use);
-      setIsSaved({ ...isSaved, userEmail: data, saved: true });
-      setUser({ ...payload, email: data });
-    }
-  };
-
-  useEffect(() => {
-    checkStorage();
-  }, []);
+  // useEffect(() => {
+  //   checkStorage();
+  // }, []);
 
   const handleChange = (e) => {
     e.persist();
@@ -87,6 +86,7 @@ function Login() {
     axios
       .get("http://backend.datashopng.com", { params: payload })
       .then((res) => {
+        console.log(res)
         if (res.data.response === payload.action) {
           setLoading(false);
           setLoginSuccessful(true);
@@ -106,12 +106,15 @@ function Login() {
           });
           setTimeout(() => {
             setLoginSuccessful(false)
-          }, 3000);
+            console.log(payload, user);
+          }, 5000);
           // alert(res.data.message)
         }
+      }).catch(err=>{
+        setLoading(false);
+        console.log(err)
       });
 
-    // console.log(payload);
   };
 
   //handling submit, import fetch function and save to local storage

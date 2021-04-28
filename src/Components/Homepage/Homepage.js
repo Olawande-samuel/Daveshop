@@ -5,12 +5,12 @@ import About from "./About";
 import Qualities from "./Qualities";
 import Footer from "./Footer";
 import Navv from "./NavBar";
-import UserContext from "../../Context/User/userContext"
+// import UserContext from "../../Context/User/userContext"
 
 
 function Homepage() {
-	const [user, FetchedUser]= useContext(UserContext);
-	console.log(user)
+	
+	// console.log(user)
 	return (
 		<div className="homepage">
 			<div className="container">

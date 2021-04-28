@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Radios } from "../Radios";
 import axios from "axios";
-import AlertComp from "./AlertComp";
 import Arrow from "../../Images/Icons/Arrow.png";
 
 export const Amount = ({ amountValue, handleAmountChange }) => {

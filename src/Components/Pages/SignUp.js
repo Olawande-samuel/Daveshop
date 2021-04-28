@@ -1,22 +1,18 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import SubNav from "../Reusables/SubNav";
 import Button from "../Reusables/Button";
 import { Link, useHistory } from "react-router-dom";
-import { postUser } from "../Reusables/Amount";
 import Loading from "../Reusables/Loading";
 import axios from "axios";
-import UserContext from "../../Context/User/userContext";
 import AlertComp from "../Reusables/AlertComp";
 
 function SignUp() {
-  const userContext = useContext(UserContext);
   const history = useHistory();
-  // console.log(userContext);
   const [alertValue, setAlertValue] = useState({
     value: "",
     type: "",
   });
-  const [signupSuccessful, setLoginSuccessful] = useState(false);
+  const [signupSuccessful, setSignupSuccessful] = useState(false);
   const [fullName, setFullName] = useState({
     firstName: "",
     lastName: "",
@@ -85,16 +81,16 @@ function SignUp() {
     }));
   };
 
-  const clearInputs = () => {
-    setNewUser((user) => ({
-      ...newUser,
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-    }));
-  };
+  // const clearInputs = () => {
+  //   setNewUser((user) => ({
+  //     ...newUser,
+  //     firstName: "",
+  //     lastName: "",
+  //     email: "",
+  //     phone: "",
+  //     password: "",
+  //   }));
+  // };
 
   const signUpSubmit = (e) => {
     e.preventDefault();
@@ -114,12 +110,16 @@ function SignUp() {
           .then((res) => {
             console.log(res);
             setIsLoading(false);
+            setSignupSuccessful(true);
             if (res.data.response === newUser.action) {
               setAlertValue({
                 ...alertValue,
                 value: res.data.message,
                 type: "success",
               });
+              setTimeout(() => {
+                history.push("/login");
+              }, 2500);
             } else {
               setAlertValue({
                 ...alertValue,
