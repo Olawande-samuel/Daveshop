@@ -5,7 +5,7 @@ function AlertComp({variant, alertText}) {
     return (
         <>
         <Alert variant={variant} >
-           Login {alertText}
+           {alertText}
         </Alert>
         </>
     )

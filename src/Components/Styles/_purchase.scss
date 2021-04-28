@@ -63,6 +63,7 @@ $greyAccent: #e5e5e5;
 input[type="text"],
 input[type="password"],
 input[type="email"],
+input[type="tel"],
 input[type="number"] {
   padding: 5px 10px;
   margin: 10px 0;
@@ -194,13 +195,13 @@ input[type="number"] {
 }
 @media screen and (min-width: 804px) {
   .purchase {
-    width: 60%;
+    width: 40%;
     padding: 10px 40px;
   }
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1200px) {
   .purchase {
-    width: 40%;
+    width: 30%;
     padding: 10px 50px;
   }
 }

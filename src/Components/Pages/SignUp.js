@@ -6,31 +6,35 @@ import { postUser } from "../Reusables/Amount";
 import Loading from "../Reusables/Loading";
 import axios from "axios";
 import UserContext from "../../Context/User/userContext";
+import AlertComp from "../Reusables/AlertComp";
 
 function SignUp() {
   const userContext = useContext(UserContext);
   const history = useHistory();
   // console.log(userContext);
+  const [alertValue, setAlertValue] = useState({
+    value: "",
+    type: "",
+  });
+  const [signupSuccessful, setLoginSuccessful] = useState(false);
+  const [fullName, setFullName] = useState({
+    firstName: "",
+    lastName: "",
+  });
 
-  const[fullName, setFullName]=useState({
-    firstName: '',
-    lastName: ''
-  })
-
-  
   const [isLoading, setIsLoading] = useState(false);
   const [newUser, setNewUser] = useState({
     name: "",
     pword: "",
     cpword: "",
-    phone: "",
+    phone: undefined,
     email: "",
     action: "01",
     apptoken: "KJB3J4BK3",
   });
   // console.log(fullName)
   // console.log(newUser)
-  
+
   // console.log(newUser)
   const handleFirstName = (e) => {
     e.persist();
@@ -38,7 +42,6 @@ function SignUp() {
       ...fullName,
       firstName: e.target.value,
     }));
-    
   };
 
   const handleLastName = (e) => {
@@ -64,8 +67,6 @@ function SignUp() {
         ...newUser,
         phone: e.target.value,
       }));
-    } else {
-      alert("numbers only");
     }
   };
   const handlePassword = (e) => {
@@ -80,6 +81,7 @@ function SignUp() {
     setNewUser((user) => ({
       ...newUser,
       cpword: e.target.value,
+      name: `${fullName.firstName} ${fullName.lastName}`,
     }));
   };
 
@@ -95,25 +97,41 @@ function SignUp() {
   };
 
   const signUpSubmit = (e) => {
-
-    setNewUser({...newUser, name:`${fullName.firstName } ${fullName.lastName}`});
-    console.log(newUser)
-    setIsLoading(true);
-    axios
-      .get("http://backend.datashopng.com", { params: newUser })
-      .then((res) => {
-        console.log(res);
-        setIsLoading(false);
-      });
     e.preventDefault();
-    // console.log(newUser);
-    const localUser = JSON.stringify(newUser);
-    localStorage.setItem("user data", localUser);
-    // userContext.signUp(newUser);
-    // if (userContext) {
-    //   console.log("found");
-    //   // history.push("/login");
-    // }
+    console.log(newUser);
+    if (newUser.pword !== newUser.cpword) {
+      alert("passwords do not match");
+    } else {
+      if (
+        newUser.name !== "" &&
+        newUser.pword !== "" &&
+        newUser.phone !== "" &&
+        newUser.email !== ""
+      ) {
+        setIsLoading(true);
+        axios
+          .get("http://backend.datashopng.com", { params: newUser })
+          .then((res) => {
+            console.log(res);
+            setIsLoading(false);
+            if (res.data.response === newUser.action) {
+              setAlertValue({
+                ...alertValue,
+                value: res.data.message,
+                type: "success",
+              });
+            } else {
+              setAlertValue({
+                ...alertValue,
+                value: res.data.message,
+                type: "danger",
+              });
+            }
+          });
+      } else {
+        alert("fields cannot be empty");
+      }
+    }
   };
 
   return isLoading === true ? (
@@ -125,13 +143,16 @@ function SignUp() {
       </div>
       <div className="purchase">
         <h5 className="text-center mt-3 mb-3">
-          Welcome to <strong>EAI</strong>{" "}
+          Welcome to <strong>Datashopng</strong>{" "}
         </h5>
         <p className="text-center mb-3">
           Sign up and recharge your line with ease
         </p>
 
         <form className="form">
+          {signupSuccessful === true && (
+            <AlertComp variant={alertValue.type} alertText={alertValue.value} />
+          )}
           <div className="firstName">
             <input
               type="text"
@@ -163,12 +184,12 @@ function SignUp() {
           </div>
           <div className="number">
             <input
-              type="text"
+              type="tel"
               min="11"
               max="11"
               placeholder="Mobile Number"
               pattern="[0-9]*"
-              value={newUser.number}
+              value={newUser.phone}
               onChange={handlePhoneNo}
               required
             />

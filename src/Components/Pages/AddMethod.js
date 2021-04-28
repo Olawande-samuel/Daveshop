@@ -6,9 +6,9 @@ import Card from "../../Images/Icons/Wallet.svg"
 function AddMethod() {
   return (
     <div className="purchase-wrapper">
-      <div className="purchase-nav px-3 py-2 border-bottom">
+      {/* <div className="purchase-nav px-3 py-2 border-bottom">
         <SubNav title="Add money" />
-      </div>
+      </div> */}
       <div className="purchase">
         <Link to="/user/wallet/amount" className="card-type-container d-flex justify-content-between align-items-center">
           <div className="card-left">

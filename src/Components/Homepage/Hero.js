@@ -8,6 +8,7 @@ import {
   Link as ScrollLink,
   // animateScroll as Scroll,
 } from "react-scroll";
+import { Link } from "react-router-dom";
 
 
 function Hero() {
@@ -24,14 +25,11 @@ function Hero() {
                 deleniti laborum qui quibusdam est. Ipsum?
               </p>
 
-              <ScrollLink
-                to="todoSection"
-                spy={true}
-                smooth={true}
-                duration={500}
+              <Link
+                to="/login"
               >
                 <Button btn="Get Started" btnClass="button btnMid" />
-              </ScrollLink>
+              </Link>
 
               
             </div>

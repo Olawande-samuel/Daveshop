@@ -15,8 +15,8 @@ import UserContext from "../../Context/User/userContext";
 function Login() {
   const history = useHistory();
   const [user, FetchedUser] = useContext(UserContext);
-    // apptoken: process.env.APP_TOKEN,
-    // apptoken: ,
+  // apptoken: process.env.APP_TOKEN,
+  // apptoken: ,
   // console.log( process.env.REACT_APP_APP_TOKEN )
 
   // state for toggle password and toggle remember me
@@ -87,37 +87,44 @@ function Login() {
     axios
       .get("http://backend.datashopng.com", { params: payload })
       .then((res) => {
-        // console.log(res);
-        if(res.data.response === payload.action){
+        if (res.data.response === payload.action) {
           setLoading(false);
-          alert('successful')
-          const userData = JSON.stringify(res.data)
-          localStorage.setItem("user", userData)
+          setLoginSuccessful(true);
+          
+          const userData = JSON.stringify(res.data);
+          localStorage.setItem("user", userData);
           FetchedUser(res.data);
-          // console.log(user)
+      
           history.push("/");
         } else {
           setLoading(false);
-          alert(res.data.message)
-          
+          setLoginSuccessful(true);
+          setAlertValue({
+            ...alertValue,
+            value: res.data.message,
+            type: "danger",
+          });
+          setTimeout(() => {
+            setLoginSuccessful(false)
+          }, 3000);
+          // alert(res.data.message)
         }
       });
-      
-      // console.log(payload);
-    };
 
-    
+    // console.log(payload);
+  };
+
   //handling submit, import fetch function and save to local storage
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, pword } = payload;
-    setLoading(true);
-    if (email !== '' && pword!=='') {
+    if (email !== "" && pword !== "") {
+      setLoading(true);
       getUser();
-      if (rememberMe) {
-        const savedUser = JSON.stringify(payload.email);
-        localStorage.setItem("SavedUser", savedUser);
-      }
+      // if (rememberMe) {
+      //   const savedUser = JSON.stringify(payload.email);
+      //   localStorage.setItem("SavedUser", savedUser);
+      // }
     } else {
       setLoading(false);
       alert("cannot submit");
@@ -138,15 +145,13 @@ function Login() {
           </h5>
         </header>
         <form>
-          {loginSuccessful ? (
+          {loginSuccessful === true && (
             <AlertComp variant={alertValue.type} alertText={alertValue.value} />
-          ) : (
-            ""
           )}
           {isSaved.saved === true ? (
             <div>
               <h5 className="text-center mt-3 mb-3">Hello! Welcome back</h5>
-              {/* <p className="text-center mb-3">{isSaved.userEmail}</p> */}
+              <p className="text-center mb-3">{isSaved.userEmail}</p>
             </div>
           ) : (
             <div className="email">
@@ -206,7 +211,7 @@ function Login() {
           </div>
 
           <p className="text-center mt-4">
-            New to <strong>EAI</strong>?{" "}
+            New to <strong>Datashopng</strong>?{" "}
             <span className="ml-2">
               <Link to="/sign-up">Sign up now</Link>
             </span>

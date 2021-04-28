@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { ReactComponent as Hamburger } from "../../Images/Icons/Hamburger.svg";
-import { ReactComponent as Logo } from "../../Images/Icons/EAI.svg";
 import Close from "../../Images/Icons/back.svg";
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
