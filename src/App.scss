@@ -56,7 +56,9 @@ nav {
   display: flex;
   flex-direction: row !important;
 }
-
+.user-icon {
+  cursor: pointer;
+}
 //********************SIDEBAR********************************
 
 .sideBar {
@@ -133,7 +135,6 @@ nav {
 }
 .left {
   padding: 10px 0;
-  
 }
 
 .hero .left {
@@ -360,6 +361,10 @@ footer {
       }
     }
 
+    ul li a:hover {
+      color: #aae4f7;
+    }
+
     ul {
       display: flex;
       flex-direction: column;
@@ -373,6 +378,10 @@ footer {
     color: white;
     margin-right: 10px;
     font-size: 20px;
+
+    &:hover {
+      color: #aae4f7;
+    }
   }
 }
 

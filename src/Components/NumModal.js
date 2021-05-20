@@ -14,7 +14,6 @@ export default function NumModal({ show, handleClose }) {
   const userToken = unStringed.usertoken;
 
   const [user, FetchedUser] = useContext(UserContext);
-console.log(user)
   const handleChange = (e) => {
     setAmount(e.target.value);
   };
@@ -22,8 +21,8 @@ console.log(user)
   //paystack payload
   const config = {
     reference: new Date().getTime(),
-    email: user.email,
-    amount: updateAmount,
+    email: unStringed.email,
+    amount: updateAmount * 100,
     publicKey: process.env.REACT_APP_PUBLIC_KEY,
   };
   // const actualAmount = updateAmount * 1000000;
@@ -40,7 +39,7 @@ console.log(user)
 
   const addMoneyToBackend = () => {
     axios
-      .get("http://backend.datashopng.com", {
+      .get(process.env.REACT_APP_END_POINT, {
         params: payload,
       })
       .then((res) => console.log(res));
@@ -88,6 +87,7 @@ console.log(user)
                   btn="Confirm"
                   btnClass="button btn-large"
                   handleClick={() => {
+                    console.log(user.email)
                     initializePayment(onSuccess, onClose);
                   }}
                 />

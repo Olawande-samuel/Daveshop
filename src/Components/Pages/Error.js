@@ -8,7 +8,7 @@ function NotFound() {
     >
       <div className="content">
         <h1 className="text-center mt-6 text-secondary">Error</h1>
-        <h2 className="text-center mt-6 text-secondary">Not Found</h2>
+        <h2 className="text-center mt-6 text-secondary">Page does not exist</h2>
       </div>
     </div>
   );

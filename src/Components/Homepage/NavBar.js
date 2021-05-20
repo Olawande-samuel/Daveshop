@@ -5,7 +5,7 @@ import { ReactComponent as Hamburger } from "../../Images/Icons/Hamburger.svg";
 import { Link as ScrollLink } from "react-scroll";
 import Close from "../../Images/Icons/back.svg";
 import UserContext from "../../Context/User/userContext";
-
+import { FaRegUserCircle } from "react-icons/fa";
 
 function Navv({ openSideBar }) {
   const history = useHistory();
@@ -18,6 +18,12 @@ function Navv({ openSideBar }) {
   };
   const closeSideBar = () => {
     setToggleSideBar(false);
+  };
+  const handleClick = () => {
+    console.log("done");
+    localStorage.removeItem("user");
+    alert("logout successful");
+    history.push("/login");
   };
   return (
     <nav>
@@ -39,7 +45,22 @@ function Navv({ openSideBar }) {
 
         {user.fullname ? (
           <div className="right d-flex justify-content-center align-items-center">
-            <p className="font-weight-bold mr-2">{user.fullname}</p>
+            <div className="user  d-flex justify-content-center align-items-center">
+              <i
+                className="user-icon"
+                style={{ color: "#1fc69d", fontSize: "24px" }}
+              >
+                <FaRegUserCircle />
+              </i>
+              <p className="font-weight-bold ml-2">{user.fullname}</p>
+            </div>
+            <div className="logout">
+              <Button
+                btn="Logout"
+                btnClass="login-btn lg-btn-screen"
+                handleClick={handleClick}
+              />
+            </div>
           </div>
         ) : (
           <div className="right">

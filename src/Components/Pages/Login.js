@@ -16,10 +16,7 @@ function Login() {
   const history = useHistory();
   const [user, FetchedUser] = useContext(UserContext);
   
-  // apptoken: process.env.APP_TOKEN,
-  // apptoken: ,
-  // console.log( process.env.REACT_APP_APP_TOKEN )
-
+  
   // state for toggle password and toggle remember me
   const [multiState, setMultiState] = useState({
     showPassword: "password",
@@ -84,7 +81,7 @@ function Login() {
 
   const getUser = () => {
     axios
-      .get("http://backend.datashopng.com", { params: payload })
+      .get(process.env.REACT_APP_END_POINT, { params: payload })
       .then((res) => {
         console.log(res)
         if (res.data.response === payload.action) {

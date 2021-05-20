@@ -5,9 +5,7 @@ import Search from "../../Images/Icons/Search.png";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
-import  { MiniLoading } from "../Reusables/Loading";
-
-// import { usePaystackPayment } from "react-paystack";
+import Loading, { MiniLoading } from "../Reusables/Loading";
 import UserContext from "../../Context/User/userContext";
 import NumModal from "../NumModal";
 
@@ -17,8 +15,7 @@ function Wallet() {
 
 export const MyWallet = () => {
   const [show, setShow] = useState(false);
-  // const [isLoading, setLoading] = useState(false);
-  const [miniLoading, setMiniLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [balLoading, setBalLoading] = useState(false);
   //state for data gotten from server
   const [data, setData] = useState([]);
@@ -31,9 +28,12 @@ export const MyWallet = () => {
   const userToken = unStringed.usertoken;
 
   const [user, FetchedUser] = useContext(UserContext);
-  console.log(user);
   const [balance, setBalance] = useState(0);
 
+  const [searchValue, setSearchValue] = useState("");
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
+  };
   const balanceLoad = {
     action: "08",
     usertoken: userToken,
@@ -45,47 +45,42 @@ export const MyWallet = () => {
     apptoken: "KJB3J4BK3",
   };
   //fetch balance and previous transaction from server;
-  const checkBalance = () => {
-    // setLoading(true);
-    setBalLoading(true);
+  useEffect(() => {
+    let mounted = true;
+
     axios
-      .get("http://backend.datashopng.com", { params: balanceLoad })
+      .get(process.env.REACT_APP_END_POINT, { params: balanceLoad })
       .then((res) => {
         console.log(res);
-        setBalLoading(false);
-        if (res.data.response === balanceLoad.action) {
-          setBalance(res.data.walletbalance_th);
-          // setLoading(false);
+        if (mounted) {
+          setBalLoading(false);
+          if (res.data.response === balanceLoad.action) {
+            setBalance(res.data.walletbalance_th);
+            setLoading(false);
+          }
         }
-      });
-  };
+      })
+      .catch((err) => console.log(err));
 
-  const getRecentTransaction = () => {
-    setMiniLoading(true);
     axios
-      .get("http://backend.datashopng.com", {
+      .get(process.env.REACT_APP_END_POINT, {
         params: historyLoad,
       })
       .then((response) => {
-        setData(response.data);
-        setMiniLoading(false);
+        if (mounted) {
+          setLoading(false);
+          setData(response.data);
+        }
         console.log(response);
-      });
-    };
-    console.log(data);
+      })
+      .catch((err) => console.log(err));
 
-  useEffect(() => {
-    // getRecentTransaction();
-    checkBalance();
-    getRecentTransaction();
-    // let mounted = true;
-    // if (mounted) {
-    // }
-    // return function cleanup() {
-    //   mounted = false;
-    // };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
+  console.log(data.length);
   const changeImage = (image) => {
     switch (image) {
       case "credit":
@@ -104,7 +99,9 @@ export const MyWallet = () => {
         break;
     }
   };
-  return (
+  return isLoading === true ? (
+    <Loading />
+  ) : (
     <div className="purchase-wrapper ">
       <div className="purchase-nav px-3 py-2 border-bottom">
         <SubNav title={unStringed.fullname} />
@@ -146,22 +143,36 @@ export const MyWallet = () => {
 
         <div className="transaction-history">
           <div className="top d-flex justify-content-between align-items-center">
-            <div className=" transaction-header d-flex justify-content-between align-items-center">
+            <div className=" transaction-header">
               <p>Recent Transaction</p>
             </div>
             <img src={Search} alt="search" />
           </div>
-          {miniLoading === true ? (
-            <MiniLoading />
+          <div className="form-group">
+            <input
+              type="text"
+              name="search"
+              className="form-control"
+              id="search"
+              value={searchValue}
+              onChange={handleSearchChange}
+            />
+          </div>
+          {data.length < 1  ? (
+            <div className="bottom text-center">No recent transactions</div>
           ) : (
-            <div className="bottom">
-              {data.map((datum) => (
+          <div className="bottom">
+            {data
+              .filter((item) =>
+                item.type.toLowerCase().includes(searchValue.toLowerCase())
+              )
+              .map((datum) => (
                 <div
                   className="d-flex justify-content-around align-items-center mb-3"
                   key={datum.id}
                 >
                   <div className="icon-wrapper">
-                    <img src={changeImage(datum.type)} alt="" />
+                    <img src={changeImage(datum.type)} alt="logo" />
                   </div>
                   <div className="details-wrapper d-flex flex-column">
                     <div className="top-details d-flex justify-content-between align-items-center">
@@ -173,14 +184,19 @@ export const MyWallet = () => {
                             : "text-info"
                         }
                       >
-                        {/* {datum.response} */} Successful
+                        Successful
                       </div>
                     </div>
                     <div className="bottom-details  d-flex justify-content-between align-items-center">
-                      <div style={{fontSize: '12px'}}> 
-                        <small>{new Date(datum.date * 1000).toDateString()}</small> {" "}
-                      <small>{new Date(datum.date * 1000).toLocaleTimeString()}</small></div>
-                      <div style={{fontSize: '14px'}}>
+                      <div style={{ fontSize: "12px" }}>
+                        <small>
+                          {new Date(datum.date * 1000).toDateString()}
+                        </small>{" "}
+                        <small>
+                          {new Date(datum.date * 1000).toLocaleTimeString()}
+                        </small>
+                      </div>
+                      <div style={{ fontSize: "14px" }}>
                         <span>#</span>
                         {datum.walletbalance_th}
                       </div>
@@ -188,7 +204,7 @@ export const MyWallet = () => {
                   </div>
                 </div>
               ))}
-            </div>
+          </div>
           )}
         </div>
       </div>

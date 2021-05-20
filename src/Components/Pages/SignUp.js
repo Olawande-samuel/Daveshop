@@ -106,7 +106,7 @@ function SignUp() {
       ) {
         setIsLoading(true);
         axios
-          .get("http://backend.datashopng.com", { params: newUser })
+          .get(process.env.REACT_APP_END_POINT, { params: newUser })
           .then((res) => {
             console.log(res);
             setIsLoading(false);
