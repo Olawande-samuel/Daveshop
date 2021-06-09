@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import UserContext from "../../Context/User/userContext";
 import AlertComp from "../Reusables/AlertComp";
 import Button from "../Reusables/Button";
@@ -8,7 +7,7 @@ import Loading from "../Reusables/Loading";
 import SubNav from "../Reusables/SubNav";
 
 function ChangePassword() {
-  const [user, FetchedUser] = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const [userDetails, setUserDetails] = useState({
     confirm: "",
     old: "",
@@ -18,9 +17,9 @@ function ChangePassword() {
     usertoken: user.usertoken,
   });
 
-  const [passChange, setPassChange] = useState(false);
+  const [passChange] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [alertValue, setAlertValue] = useState({
+  const [alertValue] = useState({
     value: "",
     type: "",
   });

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Radios } from "../Radios";
-import axios from "axios";
+// import { Radios } from "../Radios";
 import Arrow from "../../Images/Icons/Arrow.png";
+import Cable from "../../Images/cable.svg";
+import Data from "../../Images/Data.svg";
+import Electricity from "../../Images/Electricity.svg";
+import Airtime from "../../Images/Airtime.svg";
 
 export const Amount = ({ amountValue, handleAmountChange }) => {
   return (
@@ -14,7 +17,7 @@ export const Amount = ({ amountValue, handleAmountChange }) => {
           type="text"
           name="amount"
           id="amount"
-          placeholder="Enter Amount... min(50)"
+          placeholder="Enter Amount... min(#90)"
           value={amountValue}
           onChange={handleAmountChange}
         />
@@ -23,7 +26,7 @@ export const Amount = ({ amountValue, handleAmountChange }) => {
   );
 };
 
-export const Package = ({ choice, handleOption }) => {
+export const Package = ({ choice, handleOption, dataOptions, Radios }) => {
   const [toggle, setToggle] = useState(false);
 
   const handleClick = () => {
@@ -47,16 +50,22 @@ export const Package = ({ choice, handleOption }) => {
         style={{ transition: "all 0.3s ease-in-out" }}
       >
         {Radios.map((radio) => (
-          <div className="radio" onClick={handleOption}>
-            <label htmlFor={radio.id}>
+          <div className="radio" id={radio.pid}>
+            <label htmlFor={radio.id} id={radio.pid}>
               <div className="wrap">
                 <div className="name">{radio.name}</div>
                 <div className="price">
-                  <span>#</span> {radio.price}
+                  <span>#</span> {radio.reseller_price}
                 </div>
               </div>
             </label>
-            <input type="radio" name="data" id={radio.id} value={radio.name} />
+            <input
+              type="radio"
+              name="data"
+              id={radio.pid}
+              value={radio.reseller_price}
+              onClick={handleOption}
+            />
           </div>
         ))}
       </div>
@@ -64,18 +73,29 @@ export const Package = ({ choice, handleOption }) => {
   );
 };
 
-export const postUser = (setFetch, newUser) => {
-  setFetch(true);
-  axios
-    .post(`http://localhost:8000/users`, newUser)
-    .then((response) => {
-      if (response.status === 200) {
-        setFetch(false);
-        alert("success");
-      } else if (response.status === 200) {
-        alert("An error has occured");
-        setFetch(false);
-      }
-    })
-    .catch((err) => console.log(err));
-};
+export const servicesList = [
+  {
+    id: 1,
+    logo: Airtime,
+    title: "Buy Airtime",
+    route: "/buy-airtime",
+  },
+  {
+    id: 2,
+    logo: Data,
+    title: "Buy Data",
+    route: "/buy-data",
+  },
+  {
+    id: 3,
+    logo: Cable,
+    title: "Cable Subscription",
+    route: "/pay-cable-bill",
+  },
+  {
+    id: 4,
+    logo: Electricity,
+    title: "Electricity",
+    route: "/pay-power-bill",
+  },
+];

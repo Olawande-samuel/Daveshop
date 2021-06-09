@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import SubNav from "../Reusables/SubNav";
 import Add from "../../Images/Icons/Add.svg";
 import Search from "../../Images/Icons/Search.png";
 import axios from "axios";
-
+import { changeImage } from "../../Controller/controller";
 import { Link } from "react-router-dom";
-import Loading, { MiniLoading } from "../Reusables/Loading";
-import UserContext from "../../Context/User/userContext";
+import Loading from "../Reusables/Loading";
 import NumModal from "../NumModal";
 
 function Wallet() {
@@ -16,7 +15,7 @@ function Wallet() {
 export const MyWallet = () => {
   const [show, setShow] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const [balLoading, setBalLoading] = useState(false);
+
   //state for data gotten from server
   const [data, setData] = useState([]);
   const handleClose = () => {
@@ -27,10 +26,10 @@ export const MyWallet = () => {
   const unStringed = JSON.parse(item);
   const userToken = unStringed.usertoken;
 
-  const [user, FetchedUser] = useContext(UserContext);
   const [balance, setBalance] = useState(0);
-
+  const [display, setDisplay] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
   };
@@ -47,13 +46,20 @@ export const MyWallet = () => {
   //fetch balance and previous transaction from server;
   useEffect(() => {
     let mounted = true;
-
+    const formData = new FormData();
+    formData.append("usertoken", balanceLoad.usertoken);
+    formData.append("action", balanceLoad.action);
+    formData.append("apptoken", balanceLoad.apptoken);
+    console.log(formData);
     axios
-      .get(process.env.REACT_APP_END_POINT, { params: balanceLoad })
+      .post(process.env.REACT_APP_END_POINT, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         console.log(res);
         if (mounted) {
-          setBalLoading(false);
           if (res.data.response === balanceLoad.action) {
             setBalance(res.data.walletbalance_th);
             setLoading(false);
@@ -62,43 +68,32 @@ export const MyWallet = () => {
       })
       .catch((err) => console.log(err));
 
+    //Get previous transactions
+    const HistoryFormData = new FormData();
+    HistoryFormData.append("usertoken", historyLoad.usertoken);
+    HistoryFormData.append("action", historyLoad.action);
+    HistoryFormData.append("apptoken", historyLoad.apptoken);
     axios
-      .get(process.env.REACT_APP_END_POINT, {
-        params: historyLoad,
+      .post(process.env.REACT_APP_END_POINT, HistoryFormData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
       })
       .then((response) => {
         if (mounted) {
           setLoading(false);
           setData(response.data);
         }
-        console.log(response);
+       
       })
       .catch((err) => console.log(err));
 
     return () => {
       mounted = false;
     };
-  }, []);
+  });
 
-  console.log(data.length);
-  const changeImage = (image) => {
-    switch (image) {
-      case "credit":
-        return "../Assets/Icons/Top-up-icon.png";
-        break;
-      case "data":
-        return "../Assets/Icons/Data-icon.png";
-        break;
-      case "airtime":
-        return "../Assets/Icons/Airtime-icon.png";
-        break;
-      case "cable":
-        return "../Assets/Icons/Airtime-icon.png";
-        break;
-      default:
-        break;
-    }
-  };
+
   return isLoading === true ? (
     <Loading />
   ) : (
@@ -114,13 +109,9 @@ export const MyWallet = () => {
               <p>Current balance</p>
             </div>
             <div>
-              {balLoading === true ? (
-                <MiniLoading />
-              ) : (
-                <p className="balance">
-                  #<span>{balance}</span>
-                </p>
-              )}
+              <p className="balance">
+                #<span>{balance}</span>
+              </p>
             </div>
           </div>
           <div className="wallet-right">
@@ -146,65 +137,77 @@ export const MyWallet = () => {
             <div className=" transaction-header">
               <p>Recent Transaction</p>
             </div>
-            <img src={Search} alt="search" />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              name="search"
-              className="form-control"
-              id="search"
-              value={searchValue}
-              onChange={handleSearchChange}
+            <img
+              src={Search}
+              alt="search"
+              onClick={() => {
+                if (display === true) {
+                  setDisplay(false);
+                } else {
+                  setDisplay(true);
+                }
+              }}
             />
           </div>
-          {data.length < 1  ? (
+          {display && (
+            <div className="form-group">
+              <input
+                type="text"
+                name="search"
+                className="form-control"
+                id="search"
+                value={searchValue}
+                onChange={handleSearchChange}
+              />
+            </div>
+          )}
+          {data.length === 0 ? (
             <div className="bottom text-center">No recent transactions</div>
           ) : (
-          <div className="bottom">
-            {data
-              .filter((item) =>
-                item.type.toLowerCase().includes(searchValue.toLowerCase())
-              )
-              .map((datum) => (
-                <div
-                  className="d-flex justify-content-around align-items-center mb-3"
-                  key={datum.id}
-                >
-                  <div className="icon-wrapper">
-                    <img src={changeImage(datum.type)} alt="logo" />
-                  </div>
-                  <div className="details-wrapper d-flex flex-column">
-                    <div className="top-details d-flex justify-content-between align-items-center">
-                      <div>{datum.type}</div>
-                      <div
-                        className={
-                          datum.response === "Failed"
-                            ? "text-danger"
-                            : "text-info"
-                        }
-                      >
-                        Successful
+            <div className="bottom">
+              {data
+                .filter((item) =>
+                  item.type.toLowerCase().includes(searchValue.toLowerCase())
+                )
+                .map((datum) => (
+                  <div
+                    className="d-flex justify-content-around align-items-center mb-3"
+                    key={datum.id}
+                  >
+                    <div className="icon-wrapper">
+                      <img src={changeImage(datum.type)} alt="logo" />
+                    </div>
+                    <div className="details-wrapper d-flex flex-column">
+                      <div className="top-details d-flex justify-content-between align-items-center">
+                        <div>{datum.type}</div>
+                        <div
+                          className={
+                            datum.response === "Failed"
+                              ? "text-danger"
+                              : "text-info"
+                          }
+                        >
+                          Successful
+                        </div>
+                      </div>
+                      <div className="bottom-details  d-flex justify-content-between align-items-center">
+                        <div style={{ fontSize: "12px" }}>
+                          <small>
+                            {new Date(datum.date * 1000).toDateString()}
+                          </small>{" "}
+                          <small>
+                            {new Date(datum.date * 1000).toLocaleTimeString()}
+                          </small>
+                        </div>
+                        <div style={{ fontSize: "14px" }}>
+                          <span>#</span>
+                          {datum.walletbalance_th}
+                        </div>
                       </div>
                     </div>
-                    <div className="bottom-details  d-flex justify-content-between align-items-center">
-                      <div style={{ fontSize: "12px" }}>
-                        <small>
-                          {new Date(datum.date * 1000).toDateString()}
-                        </small>{" "}
-                        <small>
-                          {new Date(datum.date * 1000).toLocaleTimeString()}
-                        </small>
-                      </div>
-                      <div style={{ fontSize: "14px" }}>
-                        <span>#</span>
-                        {datum.walletbalance_th}
-                      </div>
-                    </div>
                   </div>
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
           )}
         </div>
       </div>

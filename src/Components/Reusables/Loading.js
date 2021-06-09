@@ -16,7 +16,7 @@ export function MiniLoading() {
   return (
     <div>
       <div className="d-flex justify-content-center align-items-center">
-      <Spinner animation="border" variant="info" role="status">
+      <Spinner animation="grow" variant="info" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>
 

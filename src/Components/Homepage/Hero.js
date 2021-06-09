@@ -1,22 +1,23 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import Button from "../Reusables/Button";
 import HeroImage from "../../Images/handsome-young-african-man-lg.png";
-import UserContext from "../../Context/User/userContext"
+import UserContext from "../../Context/User/userContext";
 
 import {
-  Element,
-  Link as ScrollLink,
-  // animateScroll as Scroll,
+  Element
 } from "react-scroll";
 import { Link } from "react-router-dom";
 
-
 function Hero() {
-  const [user]=useContext(UserContext)
+  const [user] = useContext(UserContext);
+ 
+  console.log(user);
   return (
     <>
       <Element id="hero" name="hero">
-        <section className={user.message === 'Login successful.' ? "hide" : "hero"}>
+        <section
+          className={user.message === "Login successful." ? "hide" : "hero"}
+        >
           <div className="left">
             <div className="content">
               <h1>Recharge Easy with DATASHOPNG</h1>
@@ -25,13 +26,9 @@ function Hero() {
                 deleniti laborum qui quibusdam est. Ipsum?
               </p>
 
-              <Link
-                to="/login"
-              >
+              <Link to="/login">
                 <Button btn="Get Started" btnClass="button btnMid" />
               </Link>
-
-              
             </div>
           </div>
           <div className="right">

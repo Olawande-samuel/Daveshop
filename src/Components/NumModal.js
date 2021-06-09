@@ -5,19 +5,20 @@ import UserContext from "../Context/User/userContext";
 import Button from "./Reusables/Button";
 import { usePaystackPayment } from "react-paystack";
 import { ButtonGroup } from "react-bootstrap";
+import { useHistory } from "react-router";
 
 export default function NumModal({ show, handleClose }) {
   const [updateAmount, setAmount] = useState("");
-
+  const history = useHistory();
   const item = localStorage.getItem("user");
   const unStringed = JSON.parse(item);
   const userToken = unStringed.usertoken;
 
-  const [user, FetchedUser] = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const handleChange = (e) => {
     setAmount(e.target.value);
   };
-  
+
   //paystack payload
   const config = {
     reference: new Date().getTime(),
@@ -52,6 +53,7 @@ export default function NumModal({ show, handleClose }) {
   };
 
   const onClose = () => {
+    history.push("/wallet");
     // implementation for  whatever you want to do when the Paystack dialog closed.
     console.log("closed");
   };
@@ -87,7 +89,7 @@ export default function NumModal({ show, handleClose }) {
                   btn="Confirm"
                   btnClass="button btn-large"
                   handleClick={() => {
-                    console.log(user.email)
+                    console.log(user.email);
                     initializePayment(onSuccess, onClose);
                   }}
                 />
@@ -96,10 +98,10 @@ export default function NumModal({ show, handleClose }) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-					<ButtonGroup variant="secondary" onClick={handleClose}>
-						Close
-					</ButtonGroup>
-				</Modal.Footer>
+          <ButtonGroup variant="secondary" onClick={handleClose}>
+            Close
+          </ButtonGroup>
+        </Modal.Footer>
       </Modal>
     </>
   );

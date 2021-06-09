@@ -26,34 +26,29 @@ function App() {
   return (
     <UserState>
       <Router>
-        <ProvideAuth>
-          <div className="App">
-            <Switch>
-              <Route path="/" exact component={Homepage} />
-              <Route path="/reset-password" component={ResetPassword} />
-              <Route path="/login" component={Login} />
-              <Route path="/sign-up" component={SignUp} />
-              <Route path="/loading" component={Loading} />
-              <Route path="/card" component={CardDetails} />
+        <div className="App">
+          <Switch>
+            <Route path="/" exact component={Homepage} />
+            <Route path="/reset-password" component={ResetPassword} />
+            <Route path="/login" component={Login} />
+            <Route path="/sign-up" component={SignUp} />
+            <Route path="/loading" component={Loading} />
+            <Route path="/card" component={CardDetails} />
 
-              <PrivateRoute exact path="/wallet" component={Wallet} />
-              <PrivateRoute path="/wallet/:id" component={Wallet} />
-              <PrivateRoute path="/buy-airtime" component={Airtime} />
-              <PrivateRoute path="/buy-data" component={Data} />
-              <PrivateRoute path="/pay-cable-bill" component={Cable} />
-              <PrivateRoute path="/pay-power-bill" component={Electricity} />
-              <PrivateRoute
-                path="/change-password"
-                component={ChangePassword}
-              />
-              <PrivateRoute path="/password-reset" component={ResetPassword} />
+            <PrivateRoute exact path="/wallet" component={Wallet} />
+            <PrivateRoute path="/wallet/:id" component={Wallet} />
+            <PrivateRoute path="/buy-airtime" component={Airtime} />
+            <PrivateRoute path="/buy-data" component={Data} />
+            <PrivateRoute path="/pay-cable-bill" component={Cable} />
+            <PrivateRoute path="/pay-power-bill" component={Electricity} />
+            <PrivateRoute path="/change-password" component={ChangePassword} />
+            <PrivateRoute path="/password-reset" component={ResetPassword} />
 
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch>
-          </div>
-        </ProvideAuth>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+        </div>
       </Router>
     </UserState>
   );

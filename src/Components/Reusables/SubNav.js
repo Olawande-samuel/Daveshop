@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { IoChevronBack, IoCloseSharp } from "react-icons/io5";
 
 function SubNav({ title }) {
@@ -9,6 +9,7 @@ function SubNav({ title }) {
       <div className="interactive-nav ">
         <div className="back">
           <IoChevronBack
+            className="icon"
             style={{ fontSize: "24px", color: "black" }}
             onClick={() => {
               history.goBack();
@@ -19,9 +20,13 @@ function SubNav({ title }) {
         <p>{title}</p>
 
         <div className="cancel">
-          <Link to="/">
-            <IoCloseSharp style={{ fontSize: "24px", color: "black" }} />
-          </Link>
+          <IoCloseSharp
+            className="icon"
+            style={{ fontSize: "24px", color: "black" }}
+            onClick={() => {
+              history.push("/");
+            }}
+          />
         </div>
       </div>
     </div>

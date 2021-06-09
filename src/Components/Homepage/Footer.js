@@ -10,7 +10,7 @@ function Footer() {
         <div className="top-wrapper">
           <div className="lists">
             <h3 className="mb-5 text-decoration-none">Ready to get started</h3>
-            <Link className="button bg-light text-secondary rounded">
+            <Link className="button bg-light text-secondary rounded" to="/">
               Get started
             </Link>
           </div>

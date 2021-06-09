@@ -1,32 +1,46 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Button from "../Reusables/Button";
 import SubNav from "../Reusables/SubNav";
-
-const lists = [
-  {
-    id: "one",
-    name: "100mb | 1 day",
-    price: 100,
-  },
-  {
-    id: "two",
-    name: "200mb | 2 days",
-    price: 200,
-  },
-  {
-    id: "three",
-    name: "350mb | 7 days",
-    price: 300,
-  },
-  {
-    id: "four",
-    name: "1GB | 1 day",
-    price: 300,
-  },
-];
+import cable from "../../Images/cable.svg";
+import { servicesList } from "../Reusables/Amount";
 function CardDetails() {
+  const data = {
+    action: "11",
+    id: "2",
+    service_id: "5",
+    apptoken: process.env.REACT_APP_APP_TOKEN,
+    //
+  };
+  // airtime selection 11/1,
+  // data selection 11/2,
+  // cable selection 11/3
+  // electricity selection 11/4
+
+  useEffect(() => {
+    let mounted = true;
+    const formData = new FormData();
+    formData.append("action", data.action);
+    formData.append("apptoken", data.apptoken);
+    formData.append("id", data.id);
+
+    axios
+      .post(process.env.REACT_APP_END_POINT, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
   const [inptValue, setInptValue] = useState("");
+
   const [List, setList] = useState([
     {
       id: "two",
@@ -53,19 +67,16 @@ function CardDetails() {
     return false;
   };
   console.log(List);
-  console.log("List");
 
-  const filtered = List.filter((item) => {
-    return item.name.includes(inptValue);
-  }).map((list) => console.log(list));
   let real = "real";
-  console.group(real.includes("r"));
+  console.log(real.includes("r"));
   return (
     <>
       <div className="purchase-wrapper">
         <div className="purchase-nav px-3 py-2 border-bottom">
           <SubNav title="Add your card details" />
         </div>
+        <img src={cable} alt="cable" />
         <form className="purchase">
           <div className="form-group">
             <label htmlFor="cardNumber" className="amount-label">
@@ -81,43 +92,7 @@ function CardDetails() {
               onChange={handleChange}
             />
           </div>
-
-          {/* <div className="bottom-form-wrapper d-flex justify-content-between align-items-center">
-            <div className="form-group">
-              <label htmlFor="Expiry" className="amount-label">
-                Expiry date
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="Cvv" className="amount-label">
-                CVV
-              </label>
-              <input
-                type="text"
-                name="Cvv"
-                pattern="[0-9]"
-                minLength="3"
-                maxLength="3"
-                className="form-control"
-                id="Cvv"
-                placeholder="Enter your CVV"
-              />
-            </div>
-          </div> */}
-          {lists
-            .filter((item) => {
-              return item.name.toLowerCase().includes(inptValue.toLowerCase());
-            })
-            .map((list) => (
-              <div key={list.id}>
-                <div>{list.name}</div>
-                <div>{list.price}</div>
-                <div>Hey there</div>
-              </div>
-            ))}
-          <Link to="/user/wallet/confirm">
-            <Button btn="Confirm" btnClass="button btn-large" />
-          </Link>
+          <Button btn="Confirm" btnClass="button btn-large" />
         </form>
       </div>
     </>

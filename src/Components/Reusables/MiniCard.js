@@ -5,7 +5,7 @@ function MiniCard({ miniLogo, miniTitle }) {
     <div className="mini-card-content">
       <div className="mini-card-logo">
         <div className="mini-logo-wrapper">
-          <i>{miniLogo}</i>
+          <img src={miniLogo} alt="random-icon" />
         </div>
       </div>
       <p>{miniTitle}</p>

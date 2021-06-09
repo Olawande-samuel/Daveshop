@@ -143,11 +143,7 @@ nav {
   transform: translateX(-110%);
 }
 
-// @-webkit-keyframes slide {
-//   100% {
-//     left: 0;
-//   }
-// }
+
 .hide {
   display: none;
 }
@@ -167,7 +163,7 @@ nav {
   }
   p {
     // width: 70%;
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
   }
 }
 
@@ -388,6 +384,10 @@ footer {
 .homepage section {
   // min-height: 100vh;
   padding-top: 50px;
+}
+
+.wrap {
+  pointer-events: none;
 }
 @media screen and (max-width: 380px) {
   .right-img {

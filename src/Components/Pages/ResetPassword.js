@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AlertComp from "../Reusables/AlertComp";
 import Button from "../Reusables/Button";
 import SubNav from "../Reusables/SubNav";

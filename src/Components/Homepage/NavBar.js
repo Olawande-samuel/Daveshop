@@ -10,9 +10,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 function Navv({ openSideBar }) {
   const history = useHistory();
   const [toggleSideBar, setToggleSideBar] = useState(false);
-  const [user] = useContext(UserContext);
-  console.log(user);
-
+  const userData = localStorage.getItem("user");
+  const user = JSON.parse(userData);
   const toggleMenu = () => {
     setToggleSideBar(true);
   };
@@ -43,7 +42,7 @@ function Navv({ openSideBar }) {
           closeSideBar={closeSideBar}
         />
 
-        {user.fullname ? (
+        {user !== null ? (
           <div className="right d-flex justify-content-center align-items-center">
             <div className="user  d-flex justify-content-center align-items-center">
               <i
@@ -127,10 +126,17 @@ export const Sidebar = ({ sideBarClass, closeSideBar }) => {
             <li>
               <Link to="/wallet">My Wallet</Link>
             </li>
+            {user === null ? (
+              <li>
+                <Link to="/change-password">Change Password</Link>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
         <div className="bottom">
-          {user.fullname ? (
+          {user !== null ? (
             <Button
               btn="Logout"
               btnClass="button nav-btn"

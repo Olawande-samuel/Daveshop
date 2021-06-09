@@ -25,6 +25,11 @@ $greyAccent: #e5e5e5;
   p {
     height: 100%;
   }
+
+  .back,
+  .cancel {
+    cursor: pointer;
+  }
 }
 .phone,
 .amount {
@@ -76,8 +81,13 @@ input[type="number"] {
 .network [type="radio"] {
   position: absolute;
   opacity: 0;
-  width: 0;
-  height: 0;
+  width: 45px;
+  height: 45px;
+ 
+}
+
+.network label {
+  margin-right:5px !important;
 }
 
 [type="radio"] + img {

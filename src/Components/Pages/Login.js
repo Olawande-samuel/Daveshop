@@ -5,25 +5,19 @@ import Eye from "../../Images/Icons/Eye.svg";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import Loading from "../Reusables/Loading";
-
-// import { UserContext } from "../Reusables/UserContext";
 import AlertComp from "../Reusables/AlertComp";
-// import { AuthContext } from "../Reusables/Authenticate";
-
 import UserContext from "../../Context/User/userContext";
 
 function Login() {
   const history = useHistory();
   const [user, FetchedUser] = useContext(UserContext);
-  
-  
+
   // state for toggle password and toggle remember me
   const [multiState, setMultiState] = useState({
     showPassword: "password",
-    rememberMe: false,
   });
   //deconstructing the multistate object above
-  const { rememberMe, showPassword } = multiState;
+  const { showPassword } = multiState;
 
   // state for loading screen
   const [isLoading, setLoading] = useState(false);
@@ -48,31 +42,8 @@ function Login() {
     value: "",
     type: "",
   });
-  //for remember me check button
-  const rememberMeButton = () => {
-    rememberMe === false
-      ? setMultiState({ ...multiState, rememberMe: true })
-      : setMultiState({ ...multiState, rememberMe: false });
-  };
-
  
-
- 
-  // const checkStorage = () => {
-  //   const use = localStorage.getItem("Saveduser");
-  //   if (use !== null) {
-  //     let data = JSON.parse(use);
-  //     setIsSaved({ ...isSaved, userEmail: data, saved: true });
-  //     setUser({ ...payload, email: data });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   checkStorage();
-  // }, []);
-
   const handleChange = (e) => {
-    e.persist();
     const name = e.target.name;
     const value = e.target.value;
     setUser({ ...payload, [name]: value });
@@ -80,18 +51,28 @@ function Login() {
   //******************Fetching user data*******************
 
   const getUser = () => {
+    const formData = new FormData();
+    formData.append("email", payload.email);
+    formData.append("pword", payload.pword);
+    formData.append("action", payload.action);
+    formData.append("apptoken", payload.apptoken);
+
     axios
-      .get(process.env.REACT_APP_END_POINT, { params: payload })
+      .post(process.env.REACT_APP_END_POINT, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.data.response === payload.action) {
           setLoading(false);
           setLoginSuccessful(true);
-          
+
           const userData = JSON.stringify(res.data);
           localStorage.setItem("user", userData);
           FetchedUser(res.data);
-      
+
           history.push("/");
         } else {
           setLoading(false);
@@ -102,16 +83,16 @@ function Login() {
             type: "danger",
           });
           setTimeout(() => {
-            setLoginSuccessful(false)
+            setLoginSuccessful(false);
             console.log(payload, user);
           }, 5000);
           // alert(res.data.message)
         }
-      }).catch(err=>{
+      })
+      .catch((err) => {
         setLoading(false);
-        console.log(err)
+        console.log(err);
       });
-
   };
 
   //handling submit, import fetch function and save to local storage
@@ -121,10 +102,6 @@ function Login() {
     if (email !== "" && pword !== "") {
       setLoading(true);
       getUser();
-      // if (rememberMe) {
-      //   const savedUser = JSON.stringify(payload.email);
-      //   localStorage.setItem("SavedUser", savedUser);
-      // }
     } else {
       setLoading(false);
       alert("cannot submit");
@@ -188,16 +165,6 @@ function Login() {
                 }}
               />
             </i>
-          </div>
-          <div className="remember">
-            <input
-              type="checkbox"
-              name="rememberMe"
-              id="rememberMe"
-              className="mb-3"
-              onChange={rememberMeButton}
-            />
-            <label htmlFor="rememberMe">Remember me</label>
           </div>
           <Button
             btn="Login"

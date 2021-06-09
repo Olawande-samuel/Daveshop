@@ -1,9 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Reusables/Button";
 import SubNav from "../Reusables/SubNav";
 import Startimes from "../../Images/Startimes.png";
+import axios from "axios"
 function Cable() {
   // const [value, setValue] = useState("select");
+
+
+  const [data, setData] = useState({
+    network: "",
+    phoneNumber: "",
+    amount: "",
+    // id: { id },
+    id: "2",
+    action: "11",
+    apptoken: process.env.REACT_APP_APP_TOKEN,
+  });
+
+  const [fetchedResult, setFetchedResult] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+    const formData = new FormData();
+    formData.append("action", data.action);
+    formData.append("apptoken", data.apptoken);
+    formData.append("id", data.id);
+
+    axios
+      .post(process.env.REACT_APP_END_POINT, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        if (mounted) {
+          setFetchedResult(res.data.data.sub_services);
+        }
+      })
+      .catch((err) => console.log(err));
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
   const handleChange = (e) => {
     console.log(e);
     console.log("done", e.target.value);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SubNav from "../Reusables/SubNav";
 import Button from "../Reusables/Button";
 import { Link, useHistory } from "react-router-dom";
+import Eye from "../../Images/Icons/Eye.svg";
 import Loading from "../Reusables/Loading";
 import axios from "axios";
 import AlertComp from "../Reusables/AlertComp";
@@ -17,7 +18,9 @@ function SignUp() {
     firstName: "",
     lastName: "",
   });
-
+  const [multiState, setMultiState] = useState({
+    showPassword: "password",
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [newUser, setNewUser] = useState({
     name: "",
@@ -26,75 +29,40 @@ function SignUp() {
     phone: undefined,
     email: "",
     action: "01",
-    apptoken: "KJB3J4BK3",
+    apptoken: process.env.REACT_APP_APP_TOKEN,
   });
-  // console.log(fullName)
-  // console.log(newUser)
-
-  // console.log(newUser)
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setNewUser({ ...newUser, [name]: value });
+  };
   const handleFirstName = (e) => {
-    e.persist();
-    setFullName((user) => ({
-      ...fullName,
-      firstName: e.target.value,
-    }));
+    setFullName({ ...fullName, firstName: e.target.value });
   };
 
   const handleLastName = (e) => {
-    e.persist();
-    setFullName((user) => ({
-      ...fullName,
-      lastName: e.target.value,
-    }));
-  };
-
-  // console.log(fullName)
-  const handleEmail = (e) => {
-    e.persist();
-    setNewUser((user) => ({
-      ...newUser,
-      email: e.target.value.toLowerCase(),
-    }));
-  };
-  const handlePhoneNo = (e) => {
-    e.persist();
-    if (e.target.validity.valid) {
-      setNewUser((user) => ({
-        ...newUser,
-        phone: e.target.value,
-      }));
-    }
-  };
-  const handlePassword = (e) => {
-    e.persist();
-    setNewUser((user) => ({
-      ...newUser,
-      pword: e.target.value,
-    }));
+    setFullName({ ...fullName, lastName: e.target.value });
   };
   const handleCPassword = (e) => {
-    e.persist();
-    setNewUser((user) => ({
+    setNewUser({
       ...newUser,
       cpword: e.target.value,
       name: `${fullName.firstName} ${fullName.lastName}`,
-    }));
+    });
   };
-
-  // const clearInputs = () => {
-  //   setNewUser((user) => ({
-  //     ...newUser,
-  //     firstName: "",
-  //     lastName: "",
-  //     email: "",
-  //     phone: "",
-  //     password: "",
-  //   }));
-  // };
 
   const signUpSubmit = (e) => {
     e.preventDefault();
-    console.log(newUser);
+    
+    const formData = new FormData();
+    formData.append("name", newUser.name);
+    formData.append("pword", newUser.pword);
+    formData.append("cpword", newUser.cpword);
+    formData.append("phone", newUser.phone);
+    formData.append("email", newUser.email);
+    formData.append("action", newUser.action);
+    formData.append("apptoken", newUser.apptoken);   
+
     if (newUser.pword !== newUser.cpword) {
       alert("passwords do not match");
     } else {
@@ -106,9 +74,12 @@ function SignUp() {
       ) {
         setIsLoading(true);
         axios
-          .get(process.env.REACT_APP_END_POINT, { params: newUser })
+          .post(process.env.REACT_APP_END_POINT, formData, {
+            headers: {
+              "content-type": "multipart/form-data",
+            },
+          })
           .then((res) => {
-            console.log(res);
             setIsLoading(false);
             setSignupSuccessful(true);
             if (res.data.response === newUser.action) {
@@ -127,6 +98,15 @@ function SignUp() {
                 type: "danger",
               });
             }
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            setAlertValue({
+              ...alertValue,
+              value: "Network Error",
+              type: "danger",
+            })
+            // console.log(err);
           });
       } else {
         alert("fields cannot be empty");
@@ -178,8 +158,9 @@ function SignUp() {
               type="email"
               placeholder="Email"
               value={newUser.email}
-              onChange={handleEmail}
+              onChange={handleChange}
               required
+              name="email"
             />
           </div>
           <div className="number">
@@ -190,27 +171,58 @@ function SignUp() {
               placeholder="Mobile Number"
               pattern="[0-9]*"
               value={newUser.phone}
-              onChange={handlePhoneNo}
+              onChange={handleChange}
               required
+              name="phone"
             />
           </div>
           <div className="password">
             <input
-              type="password"
+              type={multiState.showPassword}
               placeholder="Enter your password"
               value={newUser.pword}
-              onChange={handlePassword}
+              onChange={handleChange}
               required
+              name="pword"
             />
+            <i>
+              <img
+                src={Eye}
+                className="unmask"
+                alt="show password"
+                onClick={() => {
+                  if (multiState.showPassword === "password") {
+                    setMultiState({ ...multiState, showPassword: "text" });
+                  } else {
+                    setMultiState({ ...multiState, showPassword: "password" });
+                  }
+                }}
+              />
+            </i>
           </div>
-          <div className="Cpassword">
+          <div className="password">
             <input
-              type="password"
+              type={multiState.showPassword}
               placeholder="Confirm password"
               value={newUser.cpword}
+              name="cpword"
               onChange={handleCPassword}
               required
             />
+            <i>
+              <img
+                src={Eye}
+                className="unmask"
+                alt="show password"
+                onClick={() => {
+                  if (multiState.showPassword === "password") {
+                    setMultiState({ ...multiState, showPassword: "text" });
+                  } else {
+                    setMultiState({ ...multiState, showPassword: "password" });
+                  }
+                }}
+              />
+            </i>
           </div>
 
           <Button
