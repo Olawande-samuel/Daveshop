@@ -5,6 +5,7 @@ import Airtel from "../../Images/Icons/Airtel.svg";
 import Mtn from "../../Images/Icons/Mtn.svg";
 import NineMobile from "../../Images/Icons/Etisalat.svg";
 import axios from "axios";
+import Loading from "./Loading";
 
 // TODO
 /*
@@ -29,10 +30,12 @@ function Purchase({
     action: "11",
     apptoken: process.env.REACT_APP_APP_TOKEN,
   });
+  const [loading, setLoading] = useState(false);
   const [fetchedResult, setFetchedResult] = useState([]);
   const [unLock, setUnlock] = useState(false);
   useEffect(() => {
     let mounted = true;
+    setLoading(true)
     const formData = new FormData();
     formData.append("action", data.action);
     formData.append("apptoken", data.apptoken);
@@ -49,9 +52,11 @@ function Purchase({
         if (mounted) {
           setFetchedResult(res.data.data.sub_services);
           setUnlock(true);
+          setLoading(false)
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {console.log(err)
+      setLoading(false)});
 
     return () => {
       mounted = false;
@@ -71,7 +76,9 @@ function Purchase({
         break;
     }
   };
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div>
       <>
         <header>
@@ -118,7 +125,7 @@ function Purchase({
           {rest}
           <Button
             btnClass="button btn-large"
-            btn="Proceed"
+            btn="Buy Airtime"
             handleClick={handleClick}
           />
         </form>

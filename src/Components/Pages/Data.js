@@ -8,63 +8,84 @@ import Airtel from "../../Images/Icons/Airtel.svg";
 import Mtn from "../../Images/Icons/Mtn.svg";
 import NineMobile from "../../Images/Icons/Etisalat.svg";
 import Button from "../Reusables/Button";
+import { buyData } from "../../Controller/controller";
+import Loading from "../Reusables/Loading";
+import AlertComp from "../Reusables/AlertComp";
 
 function Data({ choice, id }) {
+  const item = localStorage.getItem("user");
+  const unString = JSON.parse(item);
   const [fetchedResult, setFetchedResult] = useState([]);
+  const [miniLoading, setMiniLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alertValue, setAlertValue] = useState({
+    value: "",
+    type: "",
+  });
+  const [showAlert, setShowAlert] = useState(false);
   const [option, setChoice] = useState("Select Data Package");
   const [selected, setSelected] = useState({
-    network: "",
     id: "",
-    phoneNumber: "",
     apptoken: process.env.REACT_APP_APP_TOKEN,
     action: "12",
   });
+
   const [data, setData] = useState({
     action: "11",
     apptoken: process.env.REACT_APP_APP_TOKEN,
     id: "2",
   });
+
   const [buyAirtimeData, setBuyAirtimeData] = useState({
     phoneNumber: "",
+    id: "",
     amount: "",
-    id: ""
-  })
-  const [Radios, setRadio] = useState([])
+    action: "15",
+    apptoken: process.env.REACT_APP_APP_TOKEN,
+    usertoken: unString.usertoken,
+  });
+  const [Radios, setRadio] = useState([]);
   const handleOption = (e) => {
-    setBuyAirtimeData({...buyAirtimeData, id: e.target.id, amount: e.target.value})
-
+    setBuyAirtimeData({
+      ...buyAirtimeData,
+      id: e.target.id,
+      amount: e.target.value,
+    });
   };
-  console.log(buyAirtimeData)
+  console.log(buyAirtimeData);
   const handleRadioClick = (e) => {
     console.log(e.target.id);
     setSelected({ ...selected, network: e.target.value, id: e.target.id });
   };
-  console.log(selected);
+
   const handleChange = (e) => {
     setBuyAirtimeData({ ...buyAirtimeData, phoneNumber: e.target.value });
   };
+
   useEffect(() => {
     let loaded = true;
+    setLoading(true);
     const formData = new FormData();
     formData.append("action", data.action);
     formData.append("apptoken", data.apptoken);
     formData.append("id", data.id);
-    console.log(selected);
 
-    axios
-      .post(process.env.REACT_APP_END_POINT, formData, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+    buyData(formData)
       .then((res) => {
-        console.log(res);
         if (loaded) {
-          console.log(loaded);
+          setLoading(false);
           setFetchedResult(res.data.data.sub_services);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        setAlertValue({
+          ...alertValue,
+          value: err.message,
+          type: "danger",
+        });
+      });
 
     return () => {
       loaded = false;
@@ -72,31 +93,37 @@ function Data({ choice, id }) {
   }, []);
   useEffect(() => {
     let loaded = true;
+    setMiniLoading(true);
     const formData = new FormData();
     formData.append("action", selected.action);
     formData.append("apptoken", selected.apptoken);
     formData.append("id", selected.id);
     console.log(selected);
 
-    axios
-      .post(process.env.REACT_APP_END_POINT, formData, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
+    buyData(formData)
       .then((res) => {
-        console.log(res);
         if (loaded) {
-          setRadio(res.data.data.packages)
+          console.log(res);
+          setMiniLoading(false);
+          setRadio(res.data.data.packages);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setAlertValue({
+          ...alertValue,
+          value: err.message,
+          type: "danger",
+        });
+        setMiniLoading(false);
+      });
 
     return () => {
       loaded = false;
     };
   }, [selected]);
 
+  const getDataServices = () => {};
   const changeImage = (image) => {
     switch (image) {
       case "Glo Data":
@@ -111,13 +138,51 @@ function Data({ choice, id }) {
         return Mtn;
     }
   };
+  const handleSubmit = (e) => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("action", buyAirtimeData.action);
+    formData.append("apptoken", buyAirtimeData.apptoken);
+    formData.append("id", buyAirtimeData.id);
+    formData.append("usertoken", buyAirtimeData.usertoken);
+    formData.append("amount", buyAirtimeData.amount);
+    formData.append("phone_number", buyAirtimeData.phoneNumber);
 
-  const handleClick = (e) => {
     e.preventDefault();
-    console.log("clicked");
+    buyData(formData)
+      .then((res) => {
+        console.log(res);
+        if (res.data.response === "00") {
+          setShowAlert(true);
+          setLoading(false);
+          setAlertValue({
+            ...alertValue,
+            value: res.data.message,
+            type: "danger",
+          });
+        } else {
+          setLoading(false);
+          setShowAlert(true);
+          setAlertValue({
+            ...alertValue,
+            value: res.data.message,
+            type: "success",
+          });
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        setShowAlert(true);
+        setAlertValue({
+          ...alertValue,
+          value: err.message,
+          type: "danger",
+        });
+      });
   };
-
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="purchase-wrapper">
       <div className="purchase-nav px-3 py-2 border-bottom">
         <SubNav />
@@ -127,6 +192,9 @@ function Data({ choice, id }) {
           <h5 className="text-center">Buy Data</h5>
         </header>
         <form>
+          {showAlert === true && (
+            <AlertComp variant={alertValue.type} alertText={alertValue.value} />
+          )}
           <div className="phone">
             <label className="subheading" htmlFor="phone">
               Phone No
@@ -137,13 +205,12 @@ function Data({ choice, id }) {
               id="phone"
               placeholder="Enter phone number"
               onChange={handleChange}
+              onClick={getDataServices}
               value={buyAirtimeData.phoneNumber}
             />
           </div>
           <div className="network">
-            <p className="subheading" >
-              Select network provider
-            </p>
+            <p className="subheading">Select network provider</p>
             {fetchedResult.map((item) => (
               <>
                 <label htmlFor={item.name} key={item.sid}>
@@ -162,11 +229,16 @@ function Data({ choice, id }) {
               </>
             ))}
           </div>
-          <Package choice={option} handleOption={handleOption} Radios={Radios} />
+          <Package
+            choice={option}
+            handleOption={handleOption}
+            Radios={Radios}
+            isLoading={miniLoading}
+          />
           <Button
             btnClass="button btn-large"
             btn="Proceed"
-            handleClick={handleClick}
+            handleClick={handleSubmit}
           />
         </form>
       </div>

@@ -26,17 +26,16 @@ export const fetchService = () => {
   formData.append("apptoken", data.apptoken);
   formData.append("id", data.id);
 
-  return axios
-    .post(process.env.REACT_APP_END_POINT, formData, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    })
-}
-export const BuyAirtime =(formData)=> {
-  axios.post(process.env.REACT_APP_END_POINT, formData, {
+  return axios.post(process.env.REACT_APP_END_POINT, formData, {
     headers: {
       "content-type": "multipart/form-data",
     },
-  })
-}
+  });
+};
+export const buyData = (formData) => {
+  return axios.post(process.env.REACT_APP_END_POINT, formData, {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  });
+};

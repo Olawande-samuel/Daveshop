@@ -5,8 +5,9 @@ import Cable from "../../Images/cable.svg";
 import Data from "../../Images/Data.svg";
 import Electricity from "../../Images/Electricity.svg";
 import Airtime from "../../Images/Airtime.svg";
+import Loading, { MiniLoading } from "../Reusables/Loading"
 
-export const Amount = ({ amountValue, handleAmountChange }) => {
+export const Amount = ({ amountValue, handleAmountChange, minimumAmount }) => {
   return (
     <div>
       <div className="amount">
@@ -17,7 +18,7 @@ export const Amount = ({ amountValue, handleAmountChange }) => {
           type="text"
           name="amount"
           id="amount"
-          placeholder="Enter Amount... min(#90)"
+          placeholder={minimumAmount}
           value={amountValue}
           onChange={handleAmountChange}
         />
@@ -26,14 +27,16 @@ export const Amount = ({ amountValue, handleAmountChange }) => {
   );
 };
 
-export const Package = ({ choice, handleOption, dataOptions, Radios }) => {
+export const Package = ({ choice, handleOption, dataOptions, Radios, isLoading }) => {
   const [toggle, setToggle] = useState(false);
 
   const handleClick = () => {
     toggle ? setToggle(false) : setToggle(true);
   };
 
-  return (
+  return  isLoading ? (
+    <MiniLoading />
+  ) :(
     <div className="data-choice-wrapper">
       <div
         className="selected border py-2 px-2"
@@ -51,21 +54,21 @@ export const Package = ({ choice, handleOption, dataOptions, Radios }) => {
       >
         {Radios.map((radio) => (
           <div className="radio" id={radio.pid}>
-            <label htmlFor={radio.id} id={radio.pid}>
+            <label htmlFor={radio.id} id={radio.pid} value={radio.reseller_price} name={radio.name}  onClick={handleOption} >
               <div className="wrap">
                 <div className="name">{radio.name}</div>
                 <div className="price">
                   <span>#</span> {radio.reseller_price}
                 </div>
               </div>
-            </label>
             <input
               type="radio"
               name="data"
               id={radio.pid}
               value={radio.reseller_price}
-              onClick={handleOption}
+             
             />
+            </label>
           </div>
         ))}
       </div>

@@ -6,9 +6,11 @@ import cable from "../../Images/cable.svg";
 import { servicesList } from "../Reusables/Amount";
 function CardDetails() {
   const data = {
-    action: "11",
-    id: "2",
+    action: "13",
+    id: "44",
+    phone: "08069366034",
     service_id: "5",
+
     apptoken: process.env.REACT_APP_APP_TOKEN,
     //
   };
@@ -23,6 +25,11 @@ function CardDetails() {
     formData.append("action", data.action);
     formData.append("apptoken", data.apptoken);
     formData.append("id", data.id);
+    formData.append("name", "DSTV"); // important for action 13
+    // formData.append("phone", data.phone);
+    // formData.append("smart_card", "7034032251");
+    // formData.append("amount", "7650");
+    // formData.append("phone_number", data.phone);
 
     axios
       .post(process.env.REACT_APP_END_POINT, formData, {
