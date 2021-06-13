@@ -59,11 +59,15 @@ $greyAccent: #e5e5e5;
   align-items: center;
 }
 .radio label {
-  flex: 70%;
-  margin-right: 20px;
+  display: flex;
+  width: 100%;
 }
-.wrap .name {
-  margin-right: 15px;
+.radio .wrap {
+  width: 100%;
+  padding: 5px 10px;
+}
+label .labelInput {
+  width: 5% !important;
 }
 input[type="text"],
 input[type="password"],
@@ -83,11 +87,10 @@ input[type="number"] {
   opacity: 0;
   width: 45px;
   height: 45px;
- 
 }
 
 .network label {
-  margin-right:5px !important;
+  margin-right: 5px !important;
 }
 
 [type="radio"] + img {

@@ -66,7 +66,7 @@ export const Package = ({ choice, handleOption, dataOptions, Radios, isLoading }
               name="data"
               id={radio.pid}
               value={radio.reseller_price}
-             
+             className="labelInput"
             />
             </label>
           </div>
