@@ -61,7 +61,7 @@ function Footer() {
                 <a href="html">0900000000</a>
               </li>
               <li>
-                <a href="index.html">Hello@Datashopng.com</a>
+                <a href="mailto:olawande@gmail.com">Hello@Datashopng.com</a>
               </li>
             </ul>
           </div>

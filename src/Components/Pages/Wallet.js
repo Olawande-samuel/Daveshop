@@ -36,12 +36,12 @@ export const MyWallet = () => {
   const balanceLoad = {
     action: "08",
     usertoken: userToken,
-    apptoken: "KJB3J4BK3",
+    apptoken: process.env.REACT_APP_APP_TOKEN,
   };
   const historyLoad = {
     action: "09",
     usertoken: userToken,
-    apptoken: "KJB3J4BK3",
+    apptoken: process.env.REACT_APP_APP_TOKEN,
   };
   //fetch balance and previous transaction from server;
   useEffect(() => {
@@ -66,7 +66,7 @@ export const MyWallet = () => {
           }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err.message));
 
     //Get previous transactions
     const HistoryFormData = new FormData();
@@ -86,7 +86,7 @@ export const MyWallet = () => {
         }
        
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err.message));
 
     return () => {
       mounted = false;

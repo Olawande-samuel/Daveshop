@@ -19,8 +19,7 @@ function Purchase({
   handleRadioClick,
   handleChange,
   value,
-  fetchedDetails,
-  access,
+  
 }) {
   const [data, setData] = useState({
     network: "",
@@ -32,7 +31,6 @@ function Purchase({
   });
   const [loading, setLoading] = useState(false);
   const [fetchedResult, setFetchedResult] = useState([]);
-  const [unLock, setUnlock] = useState(false);
   useEffect(() => {
     let mounted = true;
     setLoading(true)
@@ -51,7 +49,6 @@ function Purchase({
         console.log(res.data.data);
         if (mounted) {
           setFetchedResult(res.data.data.sub_services);
-          setUnlock(true);
           setLoading(false)
         }
       })
