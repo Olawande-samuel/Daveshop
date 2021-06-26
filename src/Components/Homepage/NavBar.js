@@ -26,7 +26,7 @@ function Navv({ openSideBar }) {
   };
   return (
     <nav>
-      <div className="nav-wrapper container">
+      <div className="nav-wrapper container bg-transparent">
         <div className="left">
           <div className="hamburger">
             <i>
@@ -90,7 +90,7 @@ export const Sidebar = ({ sideBarClass, closeSideBar }) => {
       <div className="sidebar-content-wrapper">
         <div className="top">
           <div className="logo d-flex justisy-content-center align-items-center">
-            <div className="font-weight-bold">DataShopNg</div>
+            <div className="font-weight-bold title">DAVEPAY</div>
           </div>
           <div className="close-nav">
             <img

@@ -15,31 +15,18 @@ function Hero() {
   return (
     <>
       <Element id="hero" name="hero">
-        <section
-          className={user.message === "Login successful." ? "hide" : "hero"}
-        >
-          <div className="left">
+        <section className="hero" >
+          <div className="hero-text">
             <div className="content">
-              <h1>Recharge Easy with DATASHOPNG</h1>
+              <h1>Never run out of Airtime / Data</h1>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
                 deleniti laborum qui quibusdam est. Ipsum?
               </p>
 
               <Link to="/login">
-                <Button btn="Get Started" btnClass="button btnMid" />
+                <Button btn="Get Started" btnClass="button btnMid hero-btn" />
               </Link>
-            </div>
-          </div>
-          <div className="right">
-            <div className="wrapper">
-              <div className="right-img">
-                <img
-                  src={HeroImage}
-                  alt="Handsome Young African Man Staring at His Phone "
-                  className="top-img"
-                />
-              </div>
             </div>
           </div>
         </section>

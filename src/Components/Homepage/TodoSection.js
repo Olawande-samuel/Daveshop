@@ -24,7 +24,7 @@ function TodoSection() {
       <Element id="todoSection" name="todoSection">
         <section className="todo-section d-flex justify-content-center align-items-center flex-column">
           <h4 className="text-center mb-5 todo-title">
-            What will you like to do today?
+            Services
           </h4>
           <div className="mini-card-wrapper container">
             {servicesList.map((service)=> (

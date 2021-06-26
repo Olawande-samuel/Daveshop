@@ -7,7 +7,7 @@
   border: 1px solid tomato;
 }
 
-$btnColor: #1fc69d;
+$btnColor: rgba(14, 73, 152, 1);
 $bckgroundBlue: #ebfaff;
 $greyAccent: #e5e5e5;
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
@@ -41,6 +41,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 0;
   .left {
     display: flex;
     justify-content: space-between;
@@ -52,9 +53,15 @@ nav {
 .hamburger-icon {
   cursor: pointer;
 }
+.nav-title {
+  color: $btnColor;
+}
 .signup-wrapper {
   display: flex;
   flex-direction: row !important;
+}
+.signup-btn {
+  color: $btnColor;
 }
 .user-icon {
   cursor: pointer;
@@ -126,23 +133,25 @@ nav {
   }
 }
 // *********************HERO STYLES********************
-.hero {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap-reverse;
-  align-items: center;
-  // padding: 60px 10px;
-}
-.left {
-  padding: 10px 0;
-}
+#hero {
 
+  background: url(./Images/hero-image.png) no-repeat;
+}
+.hero {
+  background-position: center;
+  background-size: contain;
+}
+.hero-text {
+  padding: 120px 20px 20px 20px;
+}
+.hero-btn {
+  margin-bottom: 80px;
+}
 .hero .left {
   animation: slide 0.5s forwards;
   animation-delay: 1.3s;
   transform: translateX(-110%);
 }
-
 
 .hide {
   display: none;
@@ -153,13 +162,14 @@ nav {
   }
 }
 
-.left .content {
-  width: 70%;
-
+.hero-text .content {
+  // width: 70%;
+  
   h1 {
-    font-weight: 600;
+    color: $btnColor;
+    font-weight: 700;
     margin-bottom: 15px;
-    font-size: clamp(28px, 1vw + 2vw, 60px);
+    font-size: clamp(32px, 1vw + 2vw, 60px);
   }
   p {
     // width: 70%;
@@ -211,6 +221,7 @@ nav {
 }
 .btnMid {
   border-radius: 3px;
+  padding: 8px 24px;
 }
 .nav-btn {
   width: 70%;
@@ -229,15 +240,17 @@ nav {
   font-weight: 600;
 }
 // ***************TODO SECTION**************
+.todo-title {
+  font-size: clamp(20px, 1vw + 2vw, 30px);
+  font-weight: 600;
+  color: $btnColor;
+}
 .todo-section,
 .dash-todo-section {
   background: $bckgroundBlue;
   // padding-top: 20px;
 
-  .todo-title {
-    font-size: clamp(20px, 1vw + 2vw, 30px);
-    font-weight: 600;
-  }
+  
 
   .mini-card-wrapper {
     display: grid;

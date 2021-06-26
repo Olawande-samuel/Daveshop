@@ -20,8 +20,8 @@ function Homepage() {
     <div className="homepage">
       <div className="container">
         <Navv />
-        <Hero />
       </div>
+        <Hero />
       <TodoSection />
       <About />
       <Qualities />
