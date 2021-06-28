@@ -7,13 +7,14 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
   const item = localStorage.getItem("user");
   const unString = JSON.parse(item);
   // const userContext = useContext(UserContext);
-
+  const auth = true
   return (
     <Route
       {...rest}
       render={
         (props) =>
-        unString !== null? <Component {...props} /> : <Redirect to="/login" />
+        // unString !== null? <Component {...props} /> : <Redirect to="/login" />
+        auth === true? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );

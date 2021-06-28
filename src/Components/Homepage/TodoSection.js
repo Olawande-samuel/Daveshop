@@ -33,6 +33,7 @@ function TodoSection() {
               <MiniCard
                 miniTitle={service.title}
                 miniLogo={service.logo}
+                minibg={service.bg}
               />
             </Link>
             ))}

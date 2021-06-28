@@ -103,7 +103,7 @@ export const MyWallet = () => {
       </div>
 
       <div className="purchase">
-        <div className="wallet-wrapper bg-dark">
+        <div className="wallet-wrapper " style={{background: "rgba(14, 73, 152, 1)"}}>
           <div className="wallet-left">
             <div>
               <p>Current balance</p>

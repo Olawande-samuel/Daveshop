@@ -79,11 +79,11 @@ function Purchase({
     <div>
       <>
         <header>
-          <h5 className="text-center">{header}</h5>
+          <h5 className="text-center" style={{color: "rgba(14, 73, 152, 1)"}}>{header}</h5>
         </header>
         <form>
           <div className="phone">
-            <label className="subheading" htmlFor="phone">
+            <label className="subheading" htmlFor="phone" style={{color: "rgba(14, 73, 152, 1)"}}>
               Phone No
             </label>
             <input
@@ -96,7 +96,7 @@ function Purchase({
             />
           </div>
           <div className="network">
-            <p className="subheading" htmlFor="network">
+            <p className="subheading" htmlFor="network" style={{color: "rgba(14, 73, 152, 1)"}}>
               Select network provider
             </p>
             <div className="network-wrap">

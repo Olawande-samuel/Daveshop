@@ -118,7 +118,7 @@ function Login() {
       </div>
       <div className="purchase">
         <header>
-          <h5 className="text-center text-decoration-none mt-3 font-weight-bolder">
+          <h5 className="text-center text-decoration-none mt-3 font-weight-bolder" style={{color: "rgba(14, 73, 152, 1)"}}>
             Sign In
           </h5>
         </header>
@@ -128,8 +128,8 @@ function Login() {
           )}
           {isSaved.saved === true ? (
             <div>
-              <h5 className="text-center mt-3 mb-3">Hello! Welcome back</h5>
-              <p className="text-center mb-3">{isSaved.userEmail}</p>
+              <h5 className="text-center mt-3 mb-3" style={{color: "rgba(14, 73, 152, 1)"}}>Hello! Welcome back</h5>
+              <p className="text-center mb-3" style={{color: "rgba(14, 73, 152, 1)"}}>{isSaved.userEmail}</p>
             </div>
           ) : (
             <div className="email">
@@ -172,18 +172,21 @@ function Login() {
             btnClass="button btn-large mb-2"
             handleClick={handleSubmit}
           />
+          <div className="bottom d-flex justify-content-between align-items-center">
+          <p className="text-left mt-4" style={{fontSize: "14px"}}>
+            New to Davepay?{" "}
+            <div className="ml-2">
+              <Link to="/sign-up">Sign up now</Link>
+            </div>
+          </p>
+
           <div className="forgot-password text-right">
-            <Link to="/reset-password" className="text-right">
+            <Link to="/reset-password"style={{fontSize: "14px", fontWeight: "600"}}>
               Forgot password?
             </Link>
           </div>
 
-          <p className="text-center mt-4">
-            New to <strong>Datashopng</strong>?{" "}
-            <span className="ml-2">
-              <Link to="/sign-up">Sign up now</Link>
-            </span>
-          </p>
+          </div>
         </form>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import { Radios } from "../Radios";
 import Arrow from "../../Images/Icons/Arrow.png";
-import Cable from "../../Images/cable.svg";
+import Cable from "../../Images/Cable.svg";
 import Data from "../../Images/Data.svg";
 import Electricity from "../../Images/Electricity.svg";
 import Airtime from "../../Images/Airtime.svg";
@@ -11,7 +11,7 @@ export const Amount = ({ amountValue, handleAmountChange, minimumAmount }) => {
   return (
     <div>
       <div className="amount">
-        <label htmlFor="amount" className="subheading">
+        <label htmlFor="amount" className="subheading" style={{color: "rgba(14, 73, 152, 1)"}}>
           Amount
         </label>
         <input
@@ -80,12 +80,14 @@ export const servicesList = [
   {
     id: 1,
     logo: Airtime,
+    bg:" rgba(243, 252, 255, 1)",
     title: "Buy Airtime",
     route: "/buy-airtime",
   },
   {
     id: 2,
     logo: Data,
+    bg: "rgba(255, 241, 255, 1)",
     title: "Buy Data",
     route: "/buy-data",
   },
@@ -94,11 +96,15 @@ export const servicesList = [
     logo: Cable,
     title: "Cable Subscription",
     route: "/pay-cable-bill",
+    bg: "rgba(255, 253, 235, 1)"
+
   },
   {
     id: 4,
     logo: Electricity,
     title: "Electricity",
     route: "/pay-power-bill",
+    bg:" rgba(243, 255, 234, 1)"
+
   },
 ];

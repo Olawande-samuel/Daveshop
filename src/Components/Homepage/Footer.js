@@ -7,17 +7,17 @@ function Footer() {
   return (
     <footer>
       <div className="container footer-wrapper">
-        <div className="top-wrapper">
-          <div className="lists">
+        <div className="top-wrapper d-flex flex-row justify-content-between">
+          {/* <div className="lists">
             <h3 className="mb-5 text-decoration-none">Ready to get started</h3>
             <Link className="button bg-light text-secondary rounded" to="/">
               Get started
             </Link>
-          </div>
+          </div> */}
           <div className="lists">
             <ul>
               <li>
-                <h5>Services</h5>
+                <p>Services</p>
               </li>
               <li>
                 <Link to="/buy-airtime">Buy Airtime</Link>
@@ -33,29 +33,11 @@ function Footer() {
               </li>
             </ul>
           </div>
+        
           <div className="lists">
             <ul>
               <li>
-                <h5>About</h5>
-              </li>
-              <li>
-                <Link to="/">Our Story</Link>
-              </li>
-              <li>
-                <Link to="/">Benefit</Link>
-              </li>
-              <li>
-                <Link to="/">Team</Link>
-              </li>
-              <li>
-                <Link to="/">Careers</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="lists">
-            <ul>
-              <li>
-                <h5>Contact us</h5>
+                <p>Contact us</p>
               </li>
               <li>
                 <a href="html">0900000000</a>
@@ -66,7 +48,7 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="bottom-wrapper d-flex justify-content-between align-items-center">
+        {/* <div className="bottom-wrapper d-flex justify-content-between align-items-center">
           <div className="privacy d-flex justify-content-between align-items-center ">
             <Link className="text-light" to="/">
               Terms and Conditions
@@ -86,7 +68,7 @@ function Footer() {
               <FaInstagram />
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   );

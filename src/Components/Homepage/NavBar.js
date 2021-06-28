@@ -27,11 +27,16 @@ function Navv({ openSideBar }) {
   return (
     <nav>
       <div className="nav-wrapper container bg-transparent">
-        <div className="left">
-          <div className="hamburger">
+        <div className="left d-flex">
+          <div className="hamburger" >
             <i>
               <Hamburger onClick={toggleMenu} className="hamburger-icon" />
             </i>
+          </div>
+          <div className="nav-title" style={{marginLeft: "16px", padding: "0",}}>
+            <Link to="/">
+            <span style={{ margin: "0", padding: "0", fontSize:"18px"}} className="font-weight-bold">DAVEPAY</span>
+            </Link>
           </div>
         </div>
 
@@ -77,20 +82,22 @@ function Navv({ openSideBar }) {
 }
 
 export const Sidebar = ({ sideBarClass, closeSideBar }) => {
-  const [user] = useContext(UserContext);
+  const userData = localStorage.getItem("user");
+  const user = JSON.parse(userData);
   const handleClick = () => {
     console.log("done");
     localStorage.removeItem("user");
     alert("logout successful");
     history.push("/login");
   };
+console.log(user ===  undefined)
   const history = useHistory();
   return (
     <div className={sideBarClass}>
       <div className="sidebar-content-wrapper">
         <div className="top">
           <div className="logo d-flex justisy-content-center align-items-center">
-            <div className="font-weight-bold title">DAVEPAY</div>
+            <div className="font-weight-bold title nav-title">DAVEPAY</div>
           </div>
           <div className="close-nav">
             <img
@@ -136,20 +143,21 @@ export const Sidebar = ({ sideBarClass, closeSideBar }) => {
           </ul>
         </div>
         <div className="bottom">
-          {user !== null ? (
+          {user === null ? (
+            <Link
+            to="/sign-up"
+            className="d-flex justify-content-center button-link"
+            style={{ width: "100%" }}
+          >
+            <Button btn="Sign up" btnClass="button nav-btn" />
+          </Link>
+          ) : (
             <Button
               btn="Logout"
               btnClass="button nav-btn"
               handleClick={handleClick}
             />
-          ) : (
-            <Link
-              to="/sign-up"
-              className="d-flex justify-content-center button-link"
-              style={{ width: "100%" }}
-            >
-              <Button btn="Sign up" btnClass="button nav-btn" />
-            </Link>
+            
           )}
         </div>
       </div>

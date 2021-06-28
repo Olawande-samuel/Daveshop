@@ -122,10 +122,10 @@ function SignUp() {
         <SubNav />
       </div>
       <div className="purchase">
-        <h5 className="text-center mt-3 mb-3">
+        <h5 className="text-center mt-3 mb-3" style={{color: "rgba(14, 73, 152, 1)"}} >
           Welcome to <strong>Datashopng</strong>{" "}
         </h5>
-        <p className="text-center mb-3">
+        <p className="text-center mb-3" style={{color: "rgba(14, 73, 152, 1)"}}>
           Sign up and recharge your line with ease
         </p>
 
@@ -235,7 +235,7 @@ function SignUp() {
             <strong>
               Already have an account?
               <span className="ml-2">
-                <Link to="/login">Sign in now</Link>
+                <Link to="/login">Login</Link>
               </span>
             </strong>
           </p>

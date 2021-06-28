@@ -189,14 +189,14 @@ function Data({ choice, id }) {
       </div>
       <div className="purchase">
         <header>
-          <h5 className="text-center">Buy Data</h5>
+          <h5 className="text-center"style={{color: "rgba(14, 73, 152, 1)"}}>Buy Data</h5>
         </header>
         <form>
           {showAlert === true && (
             <AlertComp variant={alertValue.type} alertText={alertValue.value} />
           )}
           <div className="phone">
-            <label className="subheading" htmlFor="phone">
+            <label className="subheading" htmlFor="phone" style={{color: "rgba(14, 73, 152, 1)"}}>
               Phone No
             </label>
             <input
@@ -210,7 +210,7 @@ function Data({ choice, id }) {
             />
           </div>
           <div className="network">
-            <p className="subheading">Select network provider</p>
+            <p className="subheading" style={{color: "rgba(14, 73, 152, 1)"}}>Select network provider</p>
             {fetchedResult.map((item) => (
               <>
                 <label htmlFor={item.name} key={item.sid}>

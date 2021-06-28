@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "../Reusables/Button";
 import SubNav from "../Reusables/SubNav";
-import cable from "../../Images/cable.svg";
+import cable from "../../Images/Cable.svg";
+
 import { servicesList } from "../Reusables/Amount";
 function CardDetails() {
   const data = {

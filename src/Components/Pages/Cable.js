@@ -220,7 +220,7 @@ function Cable() {
             isLoading={miniLoading}
           />
           <div className="form-group">
-            <label htmlFor="cardNumber">Smart card number</label>
+            <label htmlFor="cardNumber" style={{color: "rgba(14, 73, 152, 1)"}}>Smart card number</label>
             <input
               type="text"
               name="cardNumber"

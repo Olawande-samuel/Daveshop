@@ -10,7 +10,7 @@ function SubNav({ title }) {
         <div className="back">
           <IoChevronBack
             className="icon"
-            style={{ fontSize: "24px", color: "black" }}
+            style={{ fontSize: "24px", color: "rgba(14, 73, 152, 1)"}}
             onClick={() => {
               history.goBack();
             }}
@@ -22,7 +22,7 @@ function SubNav({ title }) {
         <div className="cancel">
           <IoCloseSharp
             className="icon"
-            style={{ fontSize: "24px", color: "black" }}
+            style={{ fontSize: "24px", color: "rgba(14, 73, 152, 1)"}}
             onClick={() => {
               history.push("/");
             }}
