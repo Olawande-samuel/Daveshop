@@ -123,7 +123,7 @@ export const MyWallet = () => {
                   )}
         <div className="wallet-wrapper " style={{background: "rgba(14, 73, 152, 1)"}}>
             <div className="row text-center">
-              <div className="col-4">
+              <div className="col-sm-4 mb-4 mb-md-0">
               <div>
               <p>Current balance</p>
             </div>
@@ -133,7 +133,7 @@ export const MyWallet = () => {
               </p>
             </div>
               </div>
-              <div className="col-4">
+              <div className="col-sm-4 mb-4 mb-md-0">
               <div>
               <p>Add money</p>
             </div>
@@ -149,12 +149,12 @@ export const MyWallet = () => {
               </Link>
             </i>
               </div>
-              <div className="col-4">
+              <div className="col-sm-4">
               <div className="withdraw">
               <p>Withdraw</p>
             </div>
             <div className="withdraw-icon mb-5">
-              <i style={{fontSize: "20px", cursor: 'pointer'}} onClick={()=>setReveal(true)}>
+              <i style={{fontSize: "24px",  cursor: 'pointer', }} onClick={()=>setReveal(true)}>
                 <FaMinus />
               </i>
             </div>
