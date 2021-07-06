@@ -26,7 +26,7 @@ function ResetPassword() {
         })
         .then((res) => {
           setLoading(false);
-          console.log(res.data.response === userDetails.action);
+        
 
           if (res.data.response === userDetails.action) {
             setPassSent(true);
@@ -46,7 +46,7 @@ function ResetPassword() {
         })
         .catch((err) => {
           setLoading(false);
-          console.log(err)
+          alert('Network error')
         });
     } else {
       setPassSent(true);

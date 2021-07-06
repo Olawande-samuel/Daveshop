@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 
 function Hero() {
   const [user] = useContext(UserContext);
-
-  console.log(user);
   return (
     <>
       <Element id="hero" name="hero">

@@ -7,13 +7,18 @@ import { changeImage } from "../../Controller/controller";
 import { Link } from "react-router-dom";
 import Loading from "../Reusables/Loading";
 import NumModal from "../NumModal";
+import WithdrawModal from "../WithdrawModal";
+import {FaMinus} from 'react-icons/fa';
+import AlertComp from "../Reusables/AlertComp";
 
 function Wallet() {
   return <MyWallet />;
 }
 
 export const MyWallet = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false); 
+  const [showAlert, setShowAlert] = useState(false); 
+  const [reveal, setReveal] = useState(false)
   const [isLoading, setLoading] = useState(false);
 
   //state for data gotten from server
@@ -21,8 +26,11 @@ export const MyWallet = () => {
   const handleClose = () => {
     setShow(false);
   };
+  const Close = () => {
+    setReveal(false)
+  }
   //Get userToken from localstorage
-  const item = localStorage.getItem("user");
+  const item = localStorage.getItem("log");
   const unStringed = JSON.parse(item);
   const userToken = unStringed.usertoken;
 
@@ -30,6 +38,10 @@ export const MyWallet = () => {
   const [display, setDisplay] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
+  const [alertValue, setAlertValue] = useState({
+    value: "",
+    type: "",
+  });
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
   };
@@ -59,38 +71,35 @@ export const MyWallet = () => {
         },
       })
       .then((res) => {
-        console.log(res)
-        
         if (mounted) {
-          // setLoading(true)
+          setLoading(true)
           if (res.data.response === balanceLoad.action) {
             setBalance(res.data.balance_th);
             setLoading(false);
+          }else {
+            setLoading(false)
+            setShowAlert(true)
+            setAlertValue({
+              ...alertValue,
+              value: res.data.message,
+              type: "danger",
+            });
           }
         }
       })
-      .catch((err) => alert(err.message));
+      .catch((err) => {
+        if(mounted){
+          setLoading(false)
+          setShowAlert(true)
+          setAlertValue({
+            ...alertValue,
+            value: err.message,
+            type: "danger",
+          });
+        }
+      });
 
-  //   //Get previous transactions
-  //   const HistoryFormData = new FormData();
-  //   HistoryFormData.append("usertoken", historyLoad.usertoken);
-  //   HistoryFormData.append("action", historyLoad.action);
-  //   HistoryFormData.append("apptoken", historyLoad.apptoken);
-  //   axios
-  //     .post(process.env.REACT_APP_END_POINT, HistoryFormData, {
-  //       headers: {
-  //         "content-type": "multipart/form-data",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       if (mounted) {
-  //         setLoading(false);
-  //         setData(response.data);
-  //       }
-       
-  //     })
-  //     .catch((err) => alert(err.message));
-
+  
     return () => {
       mounted = false;
     };
@@ -106,9 +115,16 @@ export const MyWallet = () => {
       </div>
 
       <div className="purchase">
+        {showAlert === true && (
+                    <AlertComp
+                      variant={alertValue.type}
+                      alertText={alertValue.value}
+                    />
+                  )}
         <div className="wallet-wrapper " style={{background: "rgba(14, 73, 152, 1)"}}>
-          <div className="wallet-left">
-            <div>
+            <div className="row text-center">
+              <div className="col-4">
+              <div>
               <p>Current balance</p>
             </div>
             <div>
@@ -116,9 +132,9 @@ export const MyWallet = () => {
                 #<span>{balance}</span>
               </p>
             </div>
-          </div>
-          <div className="wallet-right">
-            <div>
+              </div>
+              <div className="col-4">
+              <div>
               <p>Add money</p>
             </div>
             <i>
@@ -132,7 +148,20 @@ export const MyWallet = () => {
                 />
               </Link>
             </i>
-          </div>
+              </div>
+              <div className="col-4">
+              <div className="withdraw">
+              <p>Withdraw</p>
+            </div>
+            <div className="withdraw-icon mb-5">
+              <i style={{fontSize: "20px", cursor: 'pointer'}} onClick={()=>setReveal(true)}>
+                <FaMinus />
+              </i>
+            </div>
+              </div>
+            </div>
+
+          
         </div>
 
         <div className="transaction-history">
@@ -215,6 +244,7 @@ export const MyWallet = () => {
         </div>
       </div>
       <NumModal show={show} handleClose={handleClose} />
+      <WithdrawModal reveal={reveal} Close={Close} />
     </div>
   );
 };

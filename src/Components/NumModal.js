@@ -11,7 +11,7 @@ import AlertComp from "./Reusables/AlertComp"
 export default function NumModal({ show, handleClose }) {
   const [updateAmount, setAmount] = useState("");
   const history = useHistory();
-  const item = localStorage.getItem("user");
+  const item = localStorage.getItem("log");
   const unStringed = JSON.parse(item);
   const userToken = unStringed.usertoken;
 

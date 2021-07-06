@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router";
 
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const item = localStorage.getItem("user");
+  const item = localStorage.getItem("log");
   const unString = JSON.parse(item);
   // const userContext = useContext(UserContext);
   const auth = true
@@ -13,8 +13,8 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={
         (props) =>
-        // unString !== null? <Component {...props} /> : <Redirect to="/login" />
-        auth === true? <Component {...props} /> : <Redirect to="/login" />
+        unString !== null? <Component {...props} /> : <Redirect to="/login" />
+        // auth === true? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );

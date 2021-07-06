@@ -17,7 +17,7 @@ import { PrivateRoute, ProvideAuth } from "./Components/Reusables/Authenticate";
 import NotFound from "./Components/Pages/Error";
 import UserState from "./Context/User/userState";
 import ChangePassword from "./Components/Pages/ChangePassword";
-import CardDetails from "./Components/Pages/CardDetails";
+
 
 // import dotenv from 'dotenv'
 
@@ -34,8 +34,8 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/loading" component={Loading} />
-            <Route path="/card" component={CardDetails} />
             <Route path="/auth" component={Auth} />
+            
             <PrivateRoute exact path="/wallet" component={Wallet} />
             <PrivateRoute path="/wallet/:id" component={Wallet} />
             <PrivateRoute path="/buy-airtime" component={Airtime} />

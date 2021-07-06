@@ -70,9 +70,9 @@ function Login() {
         if (res.data.response === payload.action) {
           setLoading(false);
           setLoginSuccessful(true);
-
+          
           const userData = JSON.stringify(res.data);
-          localStorage.setItem("user", userData);
+          localStorage.setItem("log", userData);
           FetchedUser(res.data);
 
           history.push("/");

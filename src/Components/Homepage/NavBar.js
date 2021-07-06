@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import Button from "../Reusables/Button";
+import Dropdown from "react-bootstrap/Dropdown";
 import { Link, useHistory } from "react-router-dom";
 import { ReactComponent as Hamburger } from "../../Images/Icons/Hamburger.svg";
 import { Link as ScrollLink } from "react-scroll";
@@ -7,10 +8,10 @@ import Close from "../../Images/Icons/back.svg";
 import UserContext from "../../Context/User/userContext";
 import { FaRegUserCircle } from "react-icons/fa";
 
-function Navv({ openSideBar }) {
+function Navv({ openSideBar, setBankDetailModal, setReveal }) {
   const history = useHistory();
   const [toggleSideBar, setToggleSideBar] = useState(false);
-  const userData = localStorage.getItem("user");
+  const userData = localStorage.getItem("log");
   const user = JSON.parse(userData);
   const toggleMenu = () => {
     setToggleSideBar(true);
@@ -18,12 +19,24 @@ function Navv({ openSideBar }) {
   const closeSideBar = () => {
     setToggleSideBar(false);
   };
-  const handleClick = () => {
-    console.log("done");
-    localStorage.removeItem("user");
+  const handleClick = (e) => {
+    
+    e.preventDefault();
+    localStorage.removeItem("log");
     alert("logout successful");
     history.push("/login");
   };
+  const addAccount = (e) => {
+    e.preventDefault();
+    setReveal(true)
+  }
+  const withdraw = (e) => {
+    e.preventDefault();
+  }
+  const checkBankDetails = (e) => {
+    e.preventDefault();
+    setBankDetailModal(true)
+  }
   return (
     <nav>
       <div className="nav-wrapper container bg-transparent">
@@ -50,21 +63,29 @@ function Navv({ openSideBar }) {
         {user !== null ? (
           <div className="right d-flex justify-content-center align-items-center">
             <div className="user  d-flex justify-content-center align-items-center">
-              <i
-                className="user-icon"
-                style={{ color: "rgba(14, 73, 152, 1)", fontSize: "24px" }}
-              >
-                <FaRegUserCircle />
-              </i>
+              <Dropdown>
+                <Dropdown.Toggle variant="white" id="dropdown-basic">
+                  <i className="user-icon" style={{ color: "rgba(14, 73, 152, 1)", fontSize: "24px" }} >
+                    <FaRegUserCircle />
+                  </i>
+                </Dropdown.Toggle>
+
+                 <Dropdown.Menu>
+                  <Dropdown.Item href="" style={{ color: "rgba(14, 73, 152, 1)"}} onClick={addAccount}>Add Account</Dropdown.Item>
+                  <Dropdown.Item href="" style={{ color: "rgba(14, 73, 152, 1)"}} onClick={checkBankDetails}>Check Bank Detail</Dropdown.Item>
+                  <Dropdown.Item href="" style={{ color: "rgba(14, 73, 152, 1)"}} onClick={withdraw}>Withdraw</Dropdown.Item>
+                  <Dropdown.Item href="" style={{ color: "rgba(14, 73, 152, 1)"}} onClick={handleClick}>Logout</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
               <p className="font-weight-bold ml-2">{user.firstname}</p>
             </div>
-            <div className="logout">
+            {/* <div className="logout">
               <Button
                 btn="Logout"
                 btnClass="login-btn lg-btn-screen"
                 handleClick={handleClick}
               />
-            </div>
+            </div> */}
           </div>
         ) : (
           <div className="right">
@@ -82,15 +103,15 @@ function Navv({ openSideBar }) {
 }
 
 export const Sidebar = ({ sideBarClass, closeSideBar }) => {
-  const userData = localStorage.getItem("user");
+  const userData = localStorage.getItem("log");
   const user = JSON.parse(userData);
   const handleClick = () => {
-    console.log("done");
+    
     localStorage.removeItem("user");
     alert("logout successful");
     history.push("/login");
   };
-console.log(user ===  undefined)
+
   const history = useHistory();
   return (
     <div className={sideBarClass}>
@@ -133,7 +154,7 @@ console.log(user ===  undefined)
             <li>
               <Link to="/wallet">My Wallet</Link>
             </li>
-            {user === null  && user === undefined ? (
+            {user === null  || user.length !== 0 ? (
               <li>
                 <Link to="/change-password">Change Password</Link>
               </li>
