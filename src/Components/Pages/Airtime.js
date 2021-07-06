@@ -22,9 +22,9 @@ function Airtime({ id }) {
   });
   const [loadSuccessful, setLoadSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log(data);
+  
   const handleRadioClick = (e) => {
-    console.log(e.target.id);
+   
     setData({ ...data, network: e.target.value, id: e.target.id });
   };
   const handlePhoneChange = (e) => {
@@ -47,7 +47,7 @@ function Airtime({ id }) {
       setLoading(true);
       buyData(formData)
         .then((res) => {
-          console.log(res);
+          
 
           if (res.data.response === data.action) {
             setLoading(false);
@@ -70,7 +70,7 @@ function Airtime({ id }) {
         .catch((err) => {
           setLoading(false);
 
-          console.log(err);
+           
         });
     }
   };

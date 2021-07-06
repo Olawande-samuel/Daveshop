@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Airtime from "./Components/Pages/Airtime";
 import Data from "./Components/Pages/Data";
 import Login from "./Components/Pages/Login";
+import Auth from "./Components/Pages/Auth";
 import SignUp from "./Components/Pages/SignUp";
 import Homepage from "./Components/Homepage/Homepage";
 import Wallet from "./Components/Pages/Wallet";
@@ -34,7 +35,7 @@ function App() {
             <Route path="/sign-up" component={SignUp} />
             <Route path="/loading" component={Loading} />
             <Route path="/card" component={CardDetails} />
-
+            <Route path="/auth" component={Auth} />
             <PrivateRoute exact path="/wallet" component={Wallet} />
             <PrivateRoute path="/wallet/:id" component={Wallet} />
             <PrivateRoute path="/buy-airtime" component={Airtime} />

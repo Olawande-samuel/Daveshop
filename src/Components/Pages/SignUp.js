@@ -6,6 +6,7 @@ import Eye from "../../Images/Icons/Eye.svg";
 import Loading from "../Reusables/Loading";
 import axios from "axios";
 import AlertComp from "../Reusables/AlertComp";
+import { FaUser } from "react-icons/fa";
 
 function SignUp() {
   const history = useHistory();
@@ -28,7 +29,7 @@ function SignUp() {
     cpword: "",
     phone: undefined,
     email: "",
-    action: "01",
+    action: "11",
     apptoken: process.env.REACT_APP_APP_TOKEN,
   });
   const handleChange = (e) => {
@@ -53,15 +54,17 @@ function SignUp() {
 
   const signUpSubmit = (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData();
-    formData.append("name", newUser.name);
+    // formData.append("name", newUser.name);
+    formData.append("firstname", fullName.firstName);
+    formData.append("lastname", fullName.lastName);
     formData.append("pword", newUser.pword);
     formData.append("cpword", newUser.cpword);
     formData.append("phone", newUser.phone);
     formData.append("email", newUser.email);
     formData.append("action", newUser.action);
-    formData.append("apptoken", newUser.apptoken);   
+    formData.append("apptoken", newUser.apptoken);
 
     if (newUser.pword !== newUser.cpword) {
       alert("passwords do not match");
@@ -81,6 +84,7 @@ function SignUp() {
           })
           .then((res) => {
             setIsLoading(false);
+
             setSignupSuccessful(true);
             if (res.data.response === newUser.action) {
               setAlertValue({
@@ -88,8 +92,16 @@ function SignUp() {
                 value: res.data.message,
                 type: "success",
               });
+
               setTimeout(() => {
-                history.push("/login");
+                setAlertValue({
+                  ...alertValue,
+                  value: "Your verification link has been sent to your mail",
+                  type: "success",
+                });
+                setTimeout(() => {
+                  history.push("/login");
+                }, 1500);
               }, 2500);
             } else {
               setAlertValue({
@@ -105,8 +117,7 @@ function SignUp() {
               ...alertValue,
               value: "Network Error",
               type: "danger",
-            })
-            // console.log(err);
+            });
           });
       } else {
         alert("fields cannot be empty");
@@ -122,10 +133,16 @@ function SignUp() {
         <SubNav />
       </div>
       <div className="purchase">
-        <h5 className="text-center mt-3 mb-3" style={{color: "rgba(14, 73, 152, 1)"}} >
+        <h5
+          className="text-center mt-3 mb-3"
+          style={{ color: "rgba(14, 73, 152, 1)" }}
+        >
           Welcome to <strong>Datashopng</strong>{" "}
         </h5>
-        <p className="text-center mb-3" style={{color: "rgba(14, 73, 152, 1)"}}>
+        <p
+          className="text-center mb-3"
+          style={{ color: "rgba(14, 73, 152, 1)" }}
+        >
           Sign up and recharge your line with ease
         </p>
 
@@ -134,24 +151,24 @@ function SignUp() {
             <AlertComp variant={alertValue.type} alertText={alertValue.value} />
           )}
           <div className="firstName">
-            <input
-              type="text"
-              placeholder="First Name"
-              name="firstName"
-              value={fullName.firstName}
-              onChange={handleFirstName}
-              required
-            />
+            <div className="input-group">
+              
+              <input
+                type="text"
+                placeholder="First Name"
+                name="firstName"
+                value={fullName.firstName}
+                onChange={handleFirstName}
+                required
+                className="form-control"
+              />
+            </div>
           </div>
           <div className="lastName">
-            <input
-              type="text"
-              placeholder="Last Name"
-              name="lastName"
-              value={fullName.lastName}
-              onChange={handleLastName}
-              required
-            />
+            <div className="input-group">
+               
+                <input type="text" className="form-control" placeholder="Last Name" name="lastName" value={fullName.lastName} onChange={handleLastName} required />
+                </div>
           </div>
           <div className="email">
             <input

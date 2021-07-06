@@ -35,7 +35,7 @@ function Navv({ openSideBar }) {
           </div>
           <div className="nav-title" style={{marginLeft: "16px", padding: "0",}}>
             <Link to="/">
-            <span style={{ margin: "0", padding: "0", fontSize:"18px"}} className="font-weight-bold">DAVEPAY</span>
+            <span  className="font-weight-bold">DAVEPAY</span>
             </Link>
           </div>
         </div>
@@ -52,11 +52,11 @@ function Navv({ openSideBar }) {
             <div className="user  d-flex justify-content-center align-items-center">
               <i
                 className="user-icon"
-                style={{ color: "#1fc69d", fontSize: "24px" }}
+                style={{ color: "rgba(14, 73, 152, 1)", fontSize: "24px" }}
               >
                 <FaRegUserCircle />
               </i>
-              <p className="font-weight-bold ml-2">{user.fullname}</p>
+              <p className="font-weight-bold ml-2">{user.firstname}</p>
             </div>
             <div className="logout">
               <Button
@@ -72,7 +72,7 @@ function Navv({ openSideBar }) {
               <Button btn="Sign up" btnClass="signup-btn" />
             </Link>
             <Link to="/login">
-              <Button btn="Login" btnClass="login-btn lg-btn-screen" />
+              <Button btn="Login" btnClass=" button .btn-large" />
             </Link>
           </div>
         )}
@@ -133,7 +133,7 @@ console.log(user ===  undefined)
             <li>
               <Link to="/wallet">My Wallet</Link>
             </li>
-            {user === null ? (
+            {user === null  && user === undefined ? (
               <li>
                 <Link to="/change-password">Change Password</Link>
               </li>

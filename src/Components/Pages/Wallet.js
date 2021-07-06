@@ -14,7 +14,7 @@ function Wallet() {
 
 export const MyWallet = () => {
   const [show, setShow] = useState(false);
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   //state for data gotten from server
   const [data, setData] = useState([]);
@@ -34,7 +34,7 @@ export const MyWallet = () => {
     setSearchValue(e.target.value);
   };
   const balanceLoad = {
-    action: "08",
+    action: "99",
     usertoken: userToken,
     apptoken: process.env.REACT_APP_APP_TOKEN,
   };
@@ -43,6 +43,7 @@ export const MyWallet = () => {
     usertoken: userToken,
     apptoken: process.env.REACT_APP_APP_TOKEN,
   };
+  
   //fetch balance and previous transaction from server;
   useEffect(() => {
     let mounted = true;
@@ -50,7 +51,7 @@ export const MyWallet = () => {
     formData.append("usertoken", balanceLoad.usertoken);
     formData.append("action", balanceLoad.action);
     formData.append("apptoken", balanceLoad.apptoken);
-    console.log(formData);
+    
     axios
       .post(process.env.REACT_APP_END_POINT, formData, {
         headers: {
@@ -58,40 +59,42 @@ export const MyWallet = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res)
+        
         if (mounted) {
+          // setLoading(true)
           if (res.data.response === balanceLoad.action) {
-            setBalance(res.data.walletbalance_th);
+            setBalance(res.data.balance_th);
             setLoading(false);
           }
         }
       })
       .catch((err) => alert(err.message));
 
-    //Get previous transactions
-    const HistoryFormData = new FormData();
-    HistoryFormData.append("usertoken", historyLoad.usertoken);
-    HistoryFormData.append("action", historyLoad.action);
-    HistoryFormData.append("apptoken", historyLoad.apptoken);
-    axios
-      .post(process.env.REACT_APP_END_POINT, HistoryFormData, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        if (mounted) {
-          setLoading(false);
-          setData(response.data);
-        }
+  //   //Get previous transactions
+  //   const HistoryFormData = new FormData();
+  //   HistoryFormData.append("usertoken", historyLoad.usertoken);
+  //   HistoryFormData.append("action", historyLoad.action);
+  //   HistoryFormData.append("apptoken", historyLoad.apptoken);
+  //   axios
+  //     .post(process.env.REACT_APP_END_POINT, HistoryFormData, {
+  //       headers: {
+  //         "content-type": "multipart/form-data",
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if (mounted) {
+  //         setLoading(false);
+  //         setData(response.data);
+  //       }
        
-      })
-      .catch((err) => alert(err.message));
+  //     })
+  //     .catch((err) => alert(err.message));
 
     return () => {
       mounted = false;
     };
-  });
+  }, []);
 
 
   return isLoading === true ? (

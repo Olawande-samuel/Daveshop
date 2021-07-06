@@ -64,7 +64,7 @@ function Electricity() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        
         setLoading(false);
       });
 

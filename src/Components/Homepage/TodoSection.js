@@ -29,7 +29,7 @@ function TodoSection() {
           <div className="mini-card-wrapper container">
             {servicesList.map((service)=> (
 
-            <Link to={service.route} className="mini-card" key={service.id}>
+            <Link to={service.route} className="mini-card" key={service.id} style={{background:`${service.bg}`}}>
               <MiniCard
                 miniTitle={service.title}
                 miniLogo={service.logo}

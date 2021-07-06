@@ -61,14 +61,14 @@ function Cable() {
 
     buyData(formData)
       .then((res) => {
-        console.log(res);
+         
         if (mounted) {
           setFetchedResult(res.data.data.sub_services);
           setLoading(false);
         }
       })
       .catch((err) => {
-        console.log(err);
+         
         setLoading(false);
       });
 
@@ -83,7 +83,7 @@ function Cable() {
     }
     setSelected({ ...selected, id: e.target.value });
   };
-  console.log(cableImage);
+ 
   const getCableSubservices = (e) => {
     setCableImage(e.target.id);
     setMiniLoading(true);
@@ -91,16 +91,16 @@ function Cable() {
     formData.append("action", selected.action);
     formData.append("apptoken", selected.apptoken);
     formData.append("id", selected.id);
-    console.log(selected);
+    
 
     buyData(formData)
       .then((res) => {
-        console.log(res);
+        
         setRadio(res.data.data.packages);
         setMiniLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        
         setShowAlert(true);
         setMiniLoading(false);
         setAlertValue({
@@ -124,14 +124,14 @@ function Cable() {
   };
   //selecting the list
   const handleOption = (e) => {
-    console.log(e.target);
+   
     setChosenPackage({
       ...chosenPackage,
       id: e.target.id,
       amount: e.target.value,
     });
   };
-  console.log(chosenPackage);
+  
 
   //paying for subscription
   const handleSubmit = (e) => {
@@ -146,7 +146,7 @@ function Cable() {
     e.preventDefault();
     buyData(formData)
       .then((res) => {
-        console.log(res);
+        
         if (res.data.response === "00") {
           setShowAlert(true);
           setLoading(false);

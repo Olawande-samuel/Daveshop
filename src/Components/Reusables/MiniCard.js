@@ -1,14 +1,14 @@
 import React from "react";
 
-function MiniCard({ miniLogo, miniTitle,minibg }) {
+function MiniCard({ miniLogo, miniTitle}) {
   return (
-    <div className="mini-card-content" style={{background:`${minibg}`}}>
+    <div className="mini-card-content" >
       <div className="mini-card-logo">
         <div className="mini-logo-wrapper">
           <img src={miniLogo} alt="random-icon" />
         </div>
       </div>
-      <p className="text- " style={{fontSize:'18px'}}>{miniTitle}</p>
+      <p>{miniTitle}</p>
     </div>
   );
 }

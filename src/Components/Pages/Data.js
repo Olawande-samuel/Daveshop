@@ -52,9 +52,9 @@ function Data({ choice, id }) {
       amount: e.target.value,
     });
   };
-  console.log(buyAirtimeData);
+ 
   const handleRadioClick = (e) => {
-    console.log(e.target.id);
+    
     setSelected({ ...selected, network: e.target.value, id: e.target.id });
   };
 
@@ -78,7 +78,7 @@ function Data({ choice, id }) {
         }
       })
       .catch((err) => {
-        console.log(err);
+        
         setLoading(false);
         setAlertValue({
           ...alertValue,
@@ -98,18 +98,17 @@ function Data({ choice, id }) {
     formData.append("action", selected.action);
     formData.append("apptoken", selected.apptoken);
     formData.append("id", selected.id);
-    console.log(selected);
+   
 
     buyData(formData)
       .then((res) => {
         if (loaded) {
-          console.log(res);
+          
           setMiniLoading(false);
           setRadio(res.data.data.packages);
         }
       })
       .catch((err) => {
-        console.log(err);
         setAlertValue({
           ...alertValue,
           value: err.message,
@@ -151,7 +150,7 @@ function Data({ choice, id }) {
     e.preventDefault();
     buyData(formData)
       .then((res) => {
-        console.log(res);
+        
         if (res.data.response === "00") {
           setShowAlert(true);
           setLoading(false);

@@ -8,7 +8,9 @@ import Navv from "./NavBar";
 import UserContext from "../../Context/User/userContext";
 
 function Homepage() {
+
   const [user, FetchedUser] = useContext(UserContext);
+  console.log(user)
   useEffect(() => {
     const userData = localStorage.getItem("user");
     if (userData !== null) {

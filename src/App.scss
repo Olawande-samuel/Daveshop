@@ -57,6 +57,11 @@ nav {
   color: $btnColor;
   font-weight: 700;
 
+  a span {
+
+    font-size: clamp(0.8rem, 1vw + 2vw, 1.5rem);
+  }
+
   a {
     text-decoration: none;
     color: $btnColor;
@@ -146,12 +151,19 @@ nav {
 
   background: url(./Images/hero-image.png) no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
+ 
 }
 
-.hero-text {
-  padding: 120px 20px 20px 20px;
-}
+.hero {
+  height: 100vh;
+
+  .hero-text {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}}
 .hero-btn {
   margin-bottom: 80px;
 }
@@ -175,9 +187,9 @@ nav {
   
   h1 {
     color: $btnColor;
-    font-weight: 700;
-    margin-bottom: 15px;
-    font-size: clamp(32px, 1vw + 2vw, 60px);
+    // font-weight: 700;
+    // margin-bottom: 15px;
+    // font-size: clamp(32px, 1vw + 2vw, 100px);
   }
   p {
     // width: 70%;
@@ -220,6 +232,7 @@ nav {
   border: none;
   outline: none;
   padding: 10px 20px;
+  border-radius: 3px;
 }
 .btn-large {
   width: 100%;
@@ -247,6 +260,7 @@ nav {
   margin-left: 5px;
   color: $btnColor;
   font-weight: 600;
+  
 }
 // ***************TODO SECTION**************
 .todo-title {
@@ -264,7 +278,7 @@ nav {
   .mini-card-wrapper {
     display: grid;
     grid-template-columns: repeat(2, 47%);
-    grid-template-rows: repeat(2, 47%);
+    grid-template-rows: repeat(2, 50%);
     grid-gap: 6%;
     padding: 10px 0;
 
@@ -290,6 +304,16 @@ nav {
       flex-direction: column;
       justify-content: space-between;
 
+      .mini-card-logo .mini-logo-wrapper {
+        
+        width: clamp(25px, 2vw + 2vw, 200px);
+        // display: none;
+        img {
+        max-width: 100%;
+      }
+    
+    }
+
       p {
         margin-top: 30px;
         font-size: clamp(0.8rem, 1vw + 2vw, 1.5rem);
@@ -308,6 +332,7 @@ nav {
 
   p {
     color: $btnColor;
+    font-size: clamp(0.8rem, 1vw + 2vw, 16px);;
   }
 }
 .about .img-wrapper {
@@ -511,100 +536,120 @@ footer {
       margin-right: 0;
     }
   }
-  .hamburger {
-    display: none;
+  .sidebar-content-wrapper{
+    width: 25%;
   }
-  .lg-btn-screen {
-    background: $btnColor;
-    font-weight: 600;
-    color: white;
-    border: none;
-    outline: none;
-    padding: 8px 20px;
-    border-radius: 4px;
-  }
-  .sideBar {
-    position: unset;
-    height: unset;
-    width: unset;
-    border: none;
-    background-color: inherit;
-    background-color: none;
-  }
+  // .hamburger {
+  //   display: none;
+  // }
+  // .lg-btn-screen {
+  //   background: $btnColor;
+  //   font-weight: 600;
+  //   color: white;
+  //   border: none;
+  //   outline: none;
+  //   padding: 8px 20px;
+  //   border-radius: 4px;
+  // }
+  // .sideBar {
+  //   position: unset;
+  //   height: unset;
+  //   width: unset;
+  //   border: none;
+  //   background-color: inherit;
+  //   background-color: none;
+  // }
 
-  .sidebar-content-wrapper {
-    height: unset;
-    width: unset;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  // .sidebar-content-wrapper {
+  //   height: unset;
+  //   width: unset;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
 
-    .top {
-      display: none;
+  //   .top {
+  //     display: none;
+  //   }
+
+  //   .mid ul {
+  //     display: flex;
+  //     flex-direction: row;
+  //     justify-content: center;
+  //     align-items: center;
+  //     list-style-type: none;
+  //     margin-bottom: 0;
+  //     li {
+  //       padding: 0 5px;
+  //       border-bottom: none;
+
+  //       a {
+  //         color: black;
+  //         // padding: 5px;
+  //         transition: all 0.3s ease-in-out;
+  //         font-weight: 400;
+  //         cursor: pointer;
+  //         font-size: clamp(10px, 1vw, 14px);
+
+  //         &:hover {
+  //           text-decoration: none;
+  //           color: $btnColor;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   .bottom {
+  //     display: none;
+  //   }
+
+  #hero {
+    // background-size: cover;
+    background: url(./Images/hero-lg.png) no-repeat ;
+    background-position: center !important;
+    background-size: contain;
+    background-position-x: -10%;
+    // background-blend-mode: multiply;
+
+    .hero-header {
+      // display: none;
+      font-size: 80px;
+      font-weight: 700;
     }
-
-    .mid ul {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      list-style-type: none;
-      margin-bottom: 0;
-
-      li {
-        padding: 0 10px;
-        border-bottom: none;
-
-        a {
-          color: black;
-          padding: 5px;
-          transition: all 0.3s ease-in-out;
-          font-weight: 400;
-          cursor: pointer;
-
-          &:hover {
-            text-decoration: none;
-            color: $btnColor;
-          }
-        }
-      }
-    }
-    .bottom {
-      display: none;
+    .hero-detail {
+      font-size: 20px;
     }
   }
-#hero {
-  // background-size: cover;
-  background-blend-mode: multiply;
-}
-  .hero {
-    flex-wrap: nowrap;
-    padding-top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  // .hero {
+  //   flex-wrap: nowrap;
+  //   padding-top: 0;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
 
-    .hero-text {
+  //   .hero-text {
       
-      padding:0px 20px 20px 20px;
-      justify-content: center;
-      align-items: center;
-      .content {
+  //     padding:0px 20px 20px 20px;
+  //     justify-content: center;
+  //     align-items: center;
+  //     .content {
         
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        // align-items: flex-start;
-      }
-      * {
-        margin-bottom: 30px;
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
+  //       display: flex;
+  //       flex-direction: column;
+  //       justify-content: center;
+  //       align-items: center;
+  //       // align-items: flex-start;
+
+  //       p {
+  //         text-align: center;
+  //       }
+  //     }
+  //     * {
+  //       margin-bottom: 30px;
+  //       &:last-child {
+  //         margin-bottom: 0;
+  //       }
+  //     }
+  //   }
+  // }
 
   .todo-section,
   .dash-todo-section {
@@ -700,7 +745,7 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 20px;
+    padding: 15px;
     // height: 300px;
     margin: 20px 0 10px 0;
     border-radius: 8px;
@@ -709,6 +754,9 @@ footer {
       font-size: 18px;
       font-weight: 700;
       margin-top: 10px;
+    } 
+    p {
+      font-size: clamp(10px, 1vw , 16px);
     }
   }
 

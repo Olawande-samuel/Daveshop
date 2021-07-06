@@ -4,7 +4,7 @@ import UserContext from "./userContext";
 
 const UserState = (props) => {
 
-  const [user, FetchedUser] = useState([])
+  const [user, FetchedUser] = useState('')
   // console.log(user)
   return (
     <UserContext.Provider

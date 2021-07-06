@@ -9,6 +9,7 @@ import AlertComp from "../Reusables/AlertComp";
 import UserContext from "../../Context/User/userContext";
 
 
+
 function Login() {
   const history = useHistory();
   const [user, FetchedUser] = useContext(UserContext);
@@ -27,8 +28,8 @@ function Login() {
   const [payload, setUser] = useState({
     email: "",
     pword: "",
-    action: "04",
-    apptoken: "KJB3J4BK3",
+    action: "44",
+    apptoken: process.env.REACT_APP_APP_TOKEN,
   });
 
   //state for checking localstorage for saved info on load
@@ -65,7 +66,7 @@ function Login() {
         },
       })
       .then((res) => {
-        console.log(res);
+        
         if (res.data.response === payload.action) {
           setLoading(false);
           setLoginSuccessful(true);
@@ -85,14 +86,14 @@ function Login() {
           });
           setTimeout(() => {
             setLoginSuccessful(false);
-            console.log(payload, user);
+            
           }, 5000);
           // alert(res.data.message)
         }
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
+        
       });
   };
 
